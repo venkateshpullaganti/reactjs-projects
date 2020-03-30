@@ -19,7 +19,8 @@
     "build": "npm run build:style && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh"
+    "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +38,14 @@
     ]
   },
   "devDependencies": {
+    "react-snap": "^1.23.0",
     "tailwindcss": "^1.2.0"
+  },
+  "reactSnap": {
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
+    "puppeteerExecutablePath": "/opt/google/chrome/google-chrome"
   }
 }
