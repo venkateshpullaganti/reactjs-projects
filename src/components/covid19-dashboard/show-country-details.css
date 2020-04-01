@@ -1,0 +1,47 @@
+
+.country-details-body
+{
+    min-height:100vh;
+}
+
+.country-details-container
+{
+    display:flex;
+    /*padding:10px;*/
+    justify-content:center;
+}
+.country-flag
+{
+    width:350px;
+    height:300px;
+}
+.country-details
+{
+    display:flex;
+    /*justify-content:space-;*/
+}
+.flag-container
+{
+    width:40%;
+}
+.country-info-container
+{
+    width:50%;
+}
+.border-countries-btn-container
+{
+    display: flex;
+    flex-wrap:wrap;
+}
+.loader
+{
+    font-size:50px;
+    margin-top:100px;
+}
+.loader-container
+{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    background-color: white;
+}

@@ -1,0 +1,21 @@
+.navbar-container
+{
+    font-size: 20px;
+    background-color:black;
+    color:white;
+    top:0;
+    height:60px;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.navbar
+{
+    display: flex;
+    align-items:center;
+}
+.back-btn
+{
+    height:20px;
+    border-radius:0px;
+}

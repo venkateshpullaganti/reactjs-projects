@@ -1,0 +1,36 @@
+import React from "react";
+import CountryCard  from "./country-card.js";
+import {withRouter} from "react-router-dom";
+
+
+
+class Countries extends React.Component {
+
+    renderCountries = () => {
+        if (this.props.countries.length) {
+            return (
+                this.props.countries.map((country) =>
+                    <CountryCard theme={this.props.theme} key={country.name} history={this.props} country={country} />)
+            );
+        }
+        
+    }
+
+    render() {
+        return (
+            <ul className={"country-list" + this.props.theme}>
+                {this.renderCountries()}
+            </ul>
+        );
+    }
+
+}
+
+export default withRouter(Countries);
+
+
+
+// else if(this.props.countriesData.length > 0)
+        // {
+        //     return (<h3>Sorry, Can't find {this.props.searchText} in {this.props.selectedRegion==="All"? "All regions ":this.state.selectedRegion+" region " } ):</h3>)
+        // } 

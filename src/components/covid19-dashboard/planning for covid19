@@ -1,0 +1,63 @@
+step 1:
+    1.Covid19Dashboard
+        1. Header
+            1. ChangeTheme 
+        2. FilterBar
+            1. SearchBar
+            2. FilterRegion
+        3.Countries(ul)
+            1. CountryCard
+step 2:
+    1.Covid19Dashboard
+    -jsonFile,CountriesData
+        1. Header 
+        -no props
+            1. Title 
+                -no props
+            2. ChangeTheme
+                -no props
+        2. FilterBar
+        -no props
+            1. SearchBar 
+                -no props
+            2. FilterRegion 
+                - regions
+        3.Countries(ul)
+        -CountiresData
+            1.CountryCard
+                -CountriesData
+step 3:
+    methods :
+        1.Covid19Dashboard
+            -ChangeTheme()
+            -displayCountriesBasedOnText()
+            -displayCountriesBasedOnRegion()
+            -displayCountries()
+            -onChangeSelectedRegion()
+            
+            1.Header
+                1. ChangeTheme
+                    -ChangeTheme()
+            2.FilterBar
+                1.SearchBar
+                    -onChangeSearchText()
+                    -displayCountriesBasedOnText()
+                2.FilterRegion
+                    -onChangeRegion()
+                    -displayCountriesBasedOnRegion()
+                3.Countries
+                    -displayCountries()
+    state variables:
+        1.Countries
+        2.SelectedTheme
+        3.SelectedRegion
+        4.searchText
+
+
+
+
+
+
+Doubts:
+calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
+why we should get countries in componentdid mount y not in constructor.
