@@ -1,6 +1,7 @@
 
 .country-card
 {
+
     margin:30px;
     border-radius: 4px;
     height:360px;
@@ -43,7 +44,7 @@
     box-shadow: 15px 15px 15px lightgrey;
 }
 
-.hvr-grow {
+.hvr-grow, .btn {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -53,7 +54,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active,.btn:hover,.btn:focus,.btn-:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }

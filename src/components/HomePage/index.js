@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../logo.svg";
 
-function App() {
+export default function HomePage() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="h-screen bg-gray-800 flex justify-center items-center flex-col text-white">
+      <header className="">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,10 +18,16 @@ function App() {
         >
           Learn React
         </a>
-        <Link to="/page-1">Page 1</Link>
+
       </header>
-    </div>
+      <ul className=" w-1/6 flex flex-col p-2 items-center">
+        <li><Link to="/page-1">Page 1</Link></li>
+        <li><Link to="/todo-list" >TodoList</Link></li>
+        <li><Link to="/covid19-dashboard">Covid19 Dashboard</Link></li>
+        <li><Link to="/form-components" >Form Components</Link></li>
+      </ul>
+    </div >
   );
 }
 
-export default App;
+export { HomePage };

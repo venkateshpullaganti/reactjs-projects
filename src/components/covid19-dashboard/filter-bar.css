@@ -1,25 +1,23 @@
-*
-{
-    /* border:1px solid green; */
-}
+
 .filter-bar
 {
-    height:80px;
+    height:3%;
+    width:93%;
     display: flex;
-    justify-content: space-between;
-    padding: 30px;
+    justify-content: space-between; 
     align-items: center;
-    margin-bottom: 0px;
- 
+    margin:30px;
+    flex-wrap: wrap; 
 }
 .search-box-container
 {
     padding:5px;
     background-color: white;   
-    box-shadow: 0px 5px 5px #cecccc;
+    box-shadow: 0px 5px 5px #ece6e6;
     border-radius: 3px;
     display:flex;
     align-items:center;
+    margin:10px;
 }
 .search-box
 {   
@@ -36,7 +34,7 @@
 }
 .Dark-search-box-container
 {
-     background-color: #2b3945;
+    background-color: #2b3945;
     box-shadow: 0px 15px 15px #11212e;
     color:white;
 }
@@ -52,10 +50,23 @@
 }
 .dropdown
 {
-    height:40px;
-    width: 80px;
+    height:60px;
+    width: 120px;
+    border-radius: 3px;
+    border: none;
+    
 }
 .dropdown:focus
 {
     outline:none;
+}
+.Light-dropdown
+{
+    box-shadow: 0px 5px 5px #ece6e6;
+}
+.Dark-dropdown
+{
+    background-color: #2b3945;
+    color:white;
+    box-shadow: 0px 15px 15px #11212e;
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import CountryCard  from "./country-card.js";
-import {withRouter} from "react-router-dom";
+import CountryCard from "./country-card.js";
+
 
 
 
@@ -10,15 +10,15 @@ class Countries extends React.Component {
         if (this.props.countries.length) {
             return (
                 this.props.countries.map((country) =>
-                    <CountryCard theme={this.props.theme} key={country.name} history={this.props} country={country} />)
+                    <CountryCard theme={this.props.theme} key={country.name} country={country} />)
             );
         }
-        
+
     }
 
     render() {
         return (
-            <ul className={"country-list" + this.props.theme}>
+            <ul className={`country-list`}>
                 {this.renderCountries()}
             </ul>
         );
@@ -26,7 +26,7 @@ class Countries extends React.Component {
 
 }
 
-export default withRouter(Countries);
+export default Countries;
 
 
 

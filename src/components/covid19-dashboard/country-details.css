@@ -7,7 +7,6 @@
 .country-details-container
 {
     display:flex;
-    /*padding:10px;*/
     justify-content:center;
 }
 .country-flag
@@ -18,7 +17,6 @@
 .country-details
 {
     display:flex;
-    /*justify-content:space-;*/
 }
 .flag-container
 {
@@ -41,7 +39,12 @@
 .loader-container
 {
     display: flex;
+    flex-direction: column;
     justify-content:center;
     align-items:center;
     background-color: white;
+}
+.sub-header
+{
+    padding:20px;
 }

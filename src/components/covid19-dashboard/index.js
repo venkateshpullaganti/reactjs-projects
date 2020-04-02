@@ -1,34 +1,42 @@
 import React from "react";
-import { Header } from "./header.js";
-import { FilterBar } from "./filter-bar.js";
-import  Countries  from "./countries.js";
-import {withRouter} from "react-router-dom";
-// import {FiLoader} from "react-icons/fi";
+import Header from "./header.js";
+import FilterBar from "./filter-bar.js";
+import Countries from "./countries.js";
 import "./index.css";
 
 class Covid19Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            countries: [],
+            countries: null,
             selectedRegion: "All",
-            searchText: ""
+            searchText: null
         };
-        
+        this.getCountries = this.getCountries.bind(this);
+
     }
 
     componentDidMount() {
         this.getCountries();
     }
 
-    getCountries = () => {
-       
-        fetch("https://restcountries.eu/rest/v2/all")
-            .then(response => response.json())
-            .then(data => this.setState({ countries: data }));
+    async getCountries() {
+
+        try {
+            const response = await fetch("https://restcountries.eu/rest/v2/all");
+            if (response.ok) {
+                const json = await response.json();
+                this.setState({ countries: json });
+            }
+            else {
+                throw Error(response.statusText);
+            }
+        } catch (error) {
+            alert(error);
+        }
     }
-    
-    
+
+
     filterCountriesBySelectedRegion = () => {
         let CountriesBySelectedRegion = this.state.countries;
         if (this.state.selectedRegion !== "All") {
@@ -38,10 +46,10 @@ class Covid19Dashboard extends React.Component {
         }
         return CountriesBySelectedRegion;
     }
-    
+
     filterCountriesBySearchText = () => {
-        let countriesBySearchText = [];
-        if (this.state.searchText !== "") {
+        let countriesBySearchText = null;
+        if (this.state.searchText !== null) {
             countriesBySearchText = this.state.countries.filter((country) =>
                 country.name.toLowerCase().includes(this.state.searchText)
             );
@@ -53,7 +61,7 @@ class Covid19Dashboard extends React.Component {
     }
 
     getRegionNames = () => {
-        
+
         let regionNames = [];
         this.state.countries.forEach((country) => {
             if (!regionNames.includes(country.region) && country.region !== "") {
@@ -61,64 +69,73 @@ class Covid19Dashboard extends React.Component {
             }
 
         });
-        return (regionNames.sort());
+        regionNames.sort();
+        regionNames.unshift("All");
+
+        return regionNames;
     }
-    
+
     onChangeSelectedRegion = (region) => {
-        
+
         this.setState({ selectedRegion: region });
     };
-    
+
     onChangeSearchText = (input) => {
-       
+
         if (input !== "")
             this.setState({ searchText: input.toLowerCase() });
         else
             this.setState({ searchText: input });
     }
-    
+
     filterCountriesBySearchTextAndSelectedRegion = (CountriesBySelectedRegion, countriesBySearchText) => {
-       
+
         return countriesBySearchText.filter(country => CountriesBySelectedRegion.includes(country));
     }
 
     displayCountries = () => {
-        
-        let CountriesBySelectedRegion = this.filterCountriesBySelectedRegion();
+
+        let countriesBySelectedRegion = this.filterCountriesBySelectedRegion();
         let countriesBySearchText = this.filterCountriesBySearchText();
-        const showCountries = this.filterCountriesBySearchTextAndSelectedRegion(CountriesBySelectedRegion, countriesBySearchText);
-        return showCountries;  
+        const showCountries = this.filterCountriesBySearchTextAndSelectedRegion(countriesBySelectedRegion, countriesBySearchText);
+        return showCountries;
     }
 
     render() {
-        const disCountries = this.displayCountries();
-       if(this.state.countries.length){
-        return (
-        <div className={`covid19-dashboard ${this.props.theme}`}>
-            <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme}/>
-            <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} theme={this.props.theme} />
-            <Countries history={this.props} countries={this.displayCountries()} searchText={this.state.searchText} theme={this.props.theme} selectedRegion={this.state.selectedRegion} />
-        </div>
-        
-        );
-       }
-       else if(disCountries === 0 && this.state.searchText !== "")
-       {
-           return(<div>
-           <p className="bold">Can't Find {this.state.searchText} in {this.state.selectedRegion} Region</p>
-           </div>);
-       }
-       else
-       {
-           return(<div className="loader-container">
-           <img alt="loading img" src="https://media1.tenor.com/images/713a3272124cc57ba9e9fb7f59e9ab3b/tenor.gif?itemid=14829442"/>
-           </div>);
+        let displayCountries = null;
+        if (this.state.countries !== null) {
+            displayCountries = this.displayCountries();
         }
-    
+        console.log("dc", displayCountries);
+        console.log("st", this.state.searchText);
+
+
+        if (this.state.countries !== null) {
+            return (
+                <div className={`covid19-dashboard ${this.props.theme}`}>
+                    <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
+                    <div className="covid19-dashboard-body">
+                        <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} theme={this.props.theme} />
+                        {
+                            (this.state.countries !== null && this.state.searchText !== null && displayCountries.length === 0) ?
+                                <p className="bold">Can't Find {this.state.searchText} in {this.state.selectedRegion} Region</p>
+                                : <Countries countries={displayCountries} searchText={this.state.searchText} theme={this.props.theme} selectedRegion={this.state.selectedRegion} />
+                        }
+                    </div>
+                </div>
+            );
+        }
+
+
+        else {
+            return (<div className="loader-container">
+                <img alt="loading img" src="https://media1.tenor.com/images/713a3272124cc57ba9e9fb7f59e9ab3b/tenor.gif?itemid=14829442" />
+            </div>);
+        }
+
     }
 }
-export default withRouter(Covid19Dashboard);
-
+export default Covid19Dashboard;
 
 
 
@@ -137,3 +154,24 @@ export default withRouter(Covid19Dashboard);
     //     let { data } = response;
     //     this.setState({ countries: data });
     // }
+      // if (this.state.countries !== null && this.state.searchText !== null && displayCountries.length === 0) {
+        //     return (<div>
+        //         <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
+        //         <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} theme={this.props.theme} />
+        //         <p className="bold">Can't Find {this.state.searchText} in {this.state.selectedRegion} Region</p>
+        //     </div>);
+        // }
+
+        // else if (this.state.countries !== null) {
+
+        //     return (
+        //         <div className={`covid19-dashboard ${this.props.theme}`}>
+        //             <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
+        //             <div className="covid19-dashboard-body">
+        //                 <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} theme={this.props.theme} />
+        //                 <Countries history={this.props} countries={displayCountries} searchText={this.state.searchText} theme={this.props.theme} selectedRegion={this.state.selectedRegion} />
+        //             </div>
+        //         </div>
+
+        //     );
+        // }

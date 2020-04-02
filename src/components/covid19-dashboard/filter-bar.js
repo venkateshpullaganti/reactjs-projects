@@ -12,13 +12,13 @@ class FilterBar extends React.Component {
     }
 
     onChangeSearchText = (event) => {
-
+        this.props.onChangeSearchText(event.target.value.trim());
     }
 
     renderDropdown = () => {
         return (
-            <select onChange={this.onChangeSelectedRegion} className={`${this.props.theme}-search-box-container dropdown`} id="region" value={this.props.selectedRegion} >
-                <option value="All">All</option>
+            <select onChange={this.onChangeSelectedRegion} className={`dropdown ${this.props.theme}-dropdown `} defaultValue={this.props.regions[0]} >
+
                 {this.props.regions.map((region) =>
                     <option key={region} >{region}</option>
                 )}
@@ -31,11 +31,11 @@ class FilterBar extends React.Component {
             <div className="filter-bar">
                 <div className={`search-box-container ${this.props.theme}-search-box-container`}>
                     <GoSearch className="search-box-image" />
-                    <input onChange={this.onChangeSearchText} className={`search-box ${this.props.theme}-search-box`} type="text" placeholder="Search for a country..." />
+                    <input onChange={this.onChangeSearchText} className={`search-box ${this.props.theme}-search-box`} type="text" placeholder="Search for a country..." value={this.props.searchText} />
                 </div>
                 {this.renderDropdown()}
             </div>
         );
     }
 }
-export { FilterBar };
+export default FilterBar;

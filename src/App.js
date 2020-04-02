@@ -1,23 +1,24 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 
 import "./components/todo-list/todo-list.css";
 import { TodoList } from './components/todo-list';
 import { FormComponents } from './components/form-components';
-import { Home } from "./home";
+import { HomePage } from "./components/HomePage";
 import { Greetings } from "./components/form-components/Greetings";
 import { FavouriteDessert } from "./components/form-components/favourite-dessert";
 import { VisitedCities } from "./components/form-components/visited-cities";
 import { YourState } from "./components/form-components/your-state";
 import { DisableOrEnable } from "./components/form-components/disable-enable";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-}
-from "react-router-dom";
 import Covid19Dashboard from "./components/covid19-dashboard";
-import ShowCountryDetails from "./components/covid19-dashboard/show-country-details";
+import ShowCountryDetails from "./components/covid19-dashboard/country-details";
+import Page1 from "./components/Page1";
+import "./App.css"
 
 
 export default class App extends React.Component {
@@ -68,12 +69,15 @@ export default class App extends React.Component {
             <Route exact path="/covid19-dashboard/details/:countryId">
               <ShowCountryDetails theme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />
             </Route>
+            <Route exact path="/page-1">
+              <Page1 />
+            </Route>
             <Route exact path="/">
-              <Home />
+              <HomePage />
             </Route>
           </Switch>
         </div>
-      </Router>
+      </Router >
     );
   }
 }
@@ -94,59 +98,3 @@ export default class App extends React.Component {
 //   }
 
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import HomePage from "./components/HomePage";
-import Page1 from "./components/Page1";
-
-import "./App.css";
-
-const App = () => {
-  return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <Switch>
-        <Route exact path="/page-1">
-          <Page1 />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
-  );
-};
-
-export default App;
-*/
