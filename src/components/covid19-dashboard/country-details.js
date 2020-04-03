@@ -1,9 +1,70 @@
+/**@jsx jsx */
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
 import React from "react";
 import { withRouter } from "react-router-dom";
+
+
 import "./country-details.css";
 import Header from "./header.js";
 import { MdArrowBack } from "react-icons/md";
 // import {FiLoader} from "react-icons/fi";
+
+const Bold = styled.span`
+    font-weight:bold
+`;
+
+const BorderBtn = styled.button(
+    {
+
+    },
+    props => ({
+        color: props.selectedTheme.color,
+        backgroundColor: props.selectedTheme.secondaryBgColor,
+    })
+)
+
+const CountryDetailsDiv = styled.div(
+    {
+        minHeight: "100vh",
+    },
+    props => ({
+        backgroundColor: props.selectedTheme.backgroundColor,
+        color: props.selectedTheme.color,
+    })
+)
+
+const NavigatorDiv = styled.div(
+    {
+        padding: "20px",
+    }
+)
+const StyledBtn = styled.div(
+    {
+        backgroundColor: "white",
+        border: "none",
+        fontSize: "18px",
+        display: "flex",
+        margin: "10px",
+        justifyContent: "baseline",
+        display: "flex",
+        alignItems: "center",
+        borderRadius: "4px"
+    },
+    props => ({
+        backgroundColor: props.selectedTheme.secondaryBgColor,
+        color: props.selectedTheme.color,
+    })
+)
+
+
+
+
+
+
+
+
+
 
 class CountryDetails extends React.Component {
     constructor(props) {
@@ -14,6 +75,7 @@ class CountryDetails extends React.Component {
         };
 
     }
+
 
     navigateToSpecifiedCountry = (country) => {
         const { history } = this.props;
@@ -55,8 +117,8 @@ class CountryDetails extends React.Component {
                     <h3>Border Countries:</h3>
                     <div className="border-countries-btn-container">
                         {borderCountries.map((country) =>
-                            <button type="button" className={`${this.props.theme}-btn btn`} onClick={() => this.navigateToSpecifiedCountry(country)} key={country.alpha3Code}>
-                                {country.name}</button>)
+                            <BorderBtn selectedTheme={this.props.selectedTheme} className={`btn`} onClick={() => this.navigateToSpecifiedCountry(country)} key={country.alpha3Code}>
+                                {country.name}</BorderBtn>)
                         }
                     </div>
                 </div>
@@ -85,36 +147,53 @@ class CountryDetails extends React.Component {
     }
 
     render() {
-        console.log(this.state.country);
 
         if (this.state.country !== null) {
             return (
-                <div className={`country-details-body ${this.props.theme}`}>
-                    <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
-                    <div className="sub-header">
-                        <button className={`${this.props.theme}-btn btn`} type="button" onClick={this.goBack} ><MdArrowBack />Back</button>
-                        <button className={`${this.props.theme}-btn btn`} type="button" onClick={this.goToDashboard} >Dashboard</button>
-                    </div>
-                    <div className="country-details-container">
-                        <div className="flag-container">
-                            <img className="country-flag" alt={this.state.country.name} src={this.state.country.flag} />
+                <CountryDetailsDiv selectedTheme={this.props.selectedTheme}>
+                    <Header selectedTheme={this.props.selectedTheme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
+                    <NavigatorDiv>
+                        <StyledBtn
+                            selectedTheme={this.props.selectedTheme}
+                            className={`btn`} type="button" onClick={this.goBack} ><MdArrowBack />Back</StyledBtn>
+                        <button
+                            css={{
+                                backgroundColor: this.props.selectedTheme.secondaryBgColor,
+                                color: this.props.selectedTheme.color,
+                            }}
+                            className={` btn`} type="button" onClick={this.goToDashboard} >Dashboard</button>
+                    </NavigatorDiv>
+                    <div
+                        css={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}>
+
+                        <div
+                            css={{
+                                width: "40%",
+                            }}>
+                            <img css={{
+                                width: "350px",
+                                height: "300px"
+                            }} alt={this.state.country.name} src={this.state.country.flag} />
                         </div>
 
-                        <div className="country-info-container">
+                        <div css={{ width: "50%" }} >
 
                             <h3>{this.state.country.name}</h3>
-                            <div className="country-details">
+                            <div css={{ display: "flex" }}>
                                 <div>
-                                    <p><span className="bold">Native Name:</span> {this.state.country.nativeName}</p>
-                                    <p><span className="bold">Population:</span> {this.state.country.population}</p>
-                                    <p><span className="bold">Region: </span>{this.state.country.region}</p>
-                                    <p><span className="bold">SubRegion: </span>{this.state.country.subregion}</p>
-                                    <p><span className="bold">Capital: </span>{this.state.country.capital}</p>
+                                    <p><Bold >Native Name:</Bold> {this.state.country.nativeName}</p>
+                                    <p><Bold >Population:</Bold> {this.state.country.population}</p>
+                                    <p><Bold >Region: </Bold>{this.state.country.region}</p>
+                                    <p><Bold >SubRegion: </Bold>{this.state.country.subregion}</p>
+                                    <p><Bold >Capital: </Bold>{this.state.country.capital}</p>
                                 </div>
                                 <div>
-                                    <p><span className="bold">Top Level Domain: </span>{this.state.country.topLevelDomain}</p>
+                                    <p><Bold >Top Level Domain: </Bold>{this.state.country.topLevelDomain}</p>
 
-                                    <p><span className="bold">Languages:</span>
+                                    <p><Bold >Languages:</Bold>
 
                                     </p>
                                 </div>
@@ -123,13 +202,13 @@ class CountryDetails extends React.Component {
 
                         </div>
                     </div>
-                </div>
+                </CountryDetailsDiv >
             );
         }
         else
             return (<div className="loader-container">
                 <img alt="loading img" src="https://media.tenor.com/images/2c124ed4343997f40770a255a4f2e451/tenor.gif" />
-                <p className="bold">Loading...</p>
+                <Bold >Loading...</Bold>
 
             </div>);
     }

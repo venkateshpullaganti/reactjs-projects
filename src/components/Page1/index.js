@@ -1,13 +1,16 @@
+/** @jsx jsx */
+import tw from "tailwind.macro";
+import { css, jsx } from "@emotion/core";
 import React from "react";
 
-/** @jsx jsx */
+
 // import { cx } from "emotion";
 
 
 
 // import { jsx } from "@emotion/core";
 
-import { css, jsx } from "@emotion/core";
+
 
 // import { css, jsx } from "@emotion/core";
 
@@ -15,6 +18,10 @@ import styled from '@emotion/styled'
 
 import logo from "../../logo.svg";
 
+const Pagediv = styled.div`
+
+    ${tw('h-screen bg-gray-800 flex justify-center items-center flex-col')}
+`;
 
 const StyledBtn = styled.button`
     height:50px;
@@ -40,7 +47,8 @@ const ThemedDiv = styled.div(
     {
         height: "100px",
         width: "100px",
-        border: "1px solid pink"
+        border: "1px solid pink",
+        bordeRadius: "3px"
 
     },
     props => ({ color: props.selectedTheme.color, backgroundColor: props.selectedTheme.background }))
@@ -54,7 +62,7 @@ class Page1 extends React.Component {
             selectedTheme: "light"
         }
 
-        const color = "cyan";
+
         this.themeOptions = {
             light: {
                 id: 0,
@@ -78,7 +86,6 @@ class Page1 extends React.Component {
                 background: "lightgrey"
             }
         }
-        let themeNames = null;
 
     }
     changeTheme = (e) => {
@@ -88,7 +95,7 @@ class Page1 extends React.Component {
 
     render() {
         return (
-            <div className="h-screen bg-gray-800 flex justify-center items-center flex-col" >
+            <Pagediv >
                 <img src={logo} className="App-logo" alt="logo" />
                 <p className="text-white">Page 1</p>
 
@@ -110,14 +117,17 @@ class Page1 extends React.Component {
 
 
                 <div css={{
-                    backgroundColor: "green",   /*css props by object styling*/
+                    backgroundColor: this.themeOptions[this.state.selectedTheme].background,   /*css props by object styling*/
+                    color: this.themeOptions[this.state.selectedTheme].color,
                     height: "100px",
                     width: "100px",
                     '&:hover': {
                         color: "white"
                     }
 
-                }}>Css props - object style </div>
+                }}
+                    className="border"
+                >Css props - object style </div>
 
                 <div css={css`
             background-color: yellow; /* css props by string style*/
@@ -146,7 +156,7 @@ class Page1 extends React.Component {
                     </form>
                     <ThemedDiv selectedTheme={this.themeOptions[this.state.selectedTheme]} >ThemedDiv</ThemedDiv>
                 </div>
-            </div >
+            </Pagediv>
 
         );
     }

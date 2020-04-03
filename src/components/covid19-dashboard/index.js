@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import Header from "./header.js";
 import FilterBar from "./filter-bar.js";
@@ -106,20 +108,36 @@ class Covid19Dashboard extends React.Component {
         if (this.state.countries !== null) {
             displayCountries = this.displayCountries();
         }
-        console.log("dc", displayCountries);
-        console.log("st", this.state.searchText);
-
 
         if (this.state.countries !== null) {
             return (
-                <div className={`covid19-dashboard ${this.props.theme}`}>
-                    <Header theme={this.props.theme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
-                    <div className="covid19-dashboard-body">
-                        <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} theme={this.props.theme} />
+                <div
+                    css={{
+                        minHeight: "100vh",
+                        transition: "all .5s",
+                        // border: "1px solid red",
+
+                        // backgroundColor: this.props.selectedTheme.backgroundColor,
+                        // color: this.props.selectedTheme.color,
+                        // boxShadow: this.props.selectedTheme.shadow,
+                    }}>
+                    <Header selectedTheme={this.props.selectedTheme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} />
+                    <div
+                        css={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+
+                            backgroundColor: this.props.selectedTheme.backgroundColor,
+                            color: this.props.selectedTheme.color,
+                            // boxShadow: this.props.selectedTheme.shadow,
+                        }}>
+                        <FilterBar onChangeSearchText={this.onChangeSearchText} onChangeSelectedRegion={this.onChangeSelectedRegion} regions={this.getRegionNames()} selectedTheme={this.props.selectedTheme} />
                         {
                             (this.state.countries !== null && this.state.searchText !== null && displayCountries.length === 0) ?
                                 <p className="bold">Can't Find {this.state.searchText} in {this.state.selectedRegion} Region</p>
-                                : <Countries countries={displayCountries} searchText={this.state.searchText} theme={this.props.theme} selectedRegion={this.state.selectedRegion} />
+                                : <Countries countries={displayCountries} searchText={this.state.searchText} selectedTheme={this.props.selectedTheme} selectedRegion={this.state.selectedRegion} />
                         }
                     </div>
                 </div>

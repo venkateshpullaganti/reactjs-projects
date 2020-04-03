@@ -50,10 +50,7 @@
 }
 .dropdown
 {
-    height:60px;
-    width: 120px;
-    border-radius: 3px;
-    border: none;
+    
     
 }
 .dropdown:focus

@@ -1,26 +1,41 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import "./countrycard.css";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 
 
 class CountryCard extends React.Component {
-    
-    navigateToSpecifiedCountry=()=> {
-        
-        const {history} = this.props;
-        
+
+    navigateToSpecifiedCountry = () => {
+
+        const { history } = this.props;
+
         history.push(
             {
-                pathname : `/covid19-dashboard/details/${this.props.country.alpha3Code}`
+                pathname: `/covid19-dashboard/details/${this.props.country.alpha3Code}`
             });
     }
-    
-    
+
+
     render() {
         return (
 
-            <li onClick={this.navigateToSpecifiedCountry} className={`country-card hvr-grow ${this.props.theme}-card`} key={this.props.country.name}>
+            <li
+                css={{
+                    margin: "30px",
+                    borderRadius: "4px",
+                    height: "360px",
+                    width: "230px",
+
+                    backgroundColor: this.props.selectedTheme.secondaryBgColor,
+                    color: this.props.selectedTheme.color,
+                    boxShadow: this.props.selectedTheme.shadow,
+                    // transition: "all 1s",
+
+                }}
+                onClick={this.navigateToSpecifiedCountry} className={` hvr-grow`} key={this.props.country.name}>
                 <div className="flag-container">
                     <img className="flag" alt="this.props.country.name" src={this.props.country.flag} />
                 </div>
@@ -30,7 +45,7 @@ class CountryCard extends React.Component {
                     <p><span className="bold">Region:</span> {this.props.country.region}</p>
                     <p><span className="bold">Capital:</span> {this.props.country.capital}</p>
                 </div>
-            </li >
+            </li>
         );
 
     }
@@ -38,4 +53,4 @@ class CountryCard extends React.Component {
 
 
 
-export default withRouter(CountryCard );
+export default withRouter(CountryCard);

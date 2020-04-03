@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import CountryCard from "./country-card.js";
 
@@ -10,7 +12,7 @@ class Countries extends React.Component {
         if (this.props.countries.length) {
             return (
                 this.props.countries.map((country) =>
-                    <CountryCard theme={this.props.theme} key={country.name} country={country} />)
+                    <CountryCard selectedTheme={this.props.selectedTheme} key={country.name} country={country} />)
             );
         }
 
@@ -18,7 +20,13 @@ class Countries extends React.Component {
 
     render() {
         return (
-            <ul className={`country-list`}>
+            <ul
+                css={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                }}
+            >
                 {this.renderCountries()}
             </ul>
         );
