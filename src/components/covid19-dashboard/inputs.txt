@@ -1,23 +1,26 @@
 Covid19 Dashboard common Inputs:
 
-1.object destructure
-2.use children prop in route.
-3. using theme as object.
-    const = {selectedTheme : {color}} = this.props;   
-4. See React Instructions on every session
-5. Reduce the state variables.Minimal state variables                               x
-6. Have to use Functional components and Class components operioriately.            
-7. Countries like state variabes should use null at definition.
-8. Warnings and console errors should be resolved.
-9. UI is priority. Margins,paddings. Details are very important
-10. Only one class component per file.
-11. Loader can abstracted as separate component.
-12. export deafult can be used for the exporting the single component
-13. Error Handling 
-        - use appropriate methods accordingly filter-find,
-        - filter may return empty array...
-        - change in data should not break the code 
-        - Component folder structure.
-        - should not send the data in state
-14. no inline styles
+Cleaner Code points :     
+        1.object destructure
+        2.use children prop in route.
+        3. using theme as object.
+            const = {selectedTheme : {color}} = this.props;   
+        4. See React Instructions on every session
+        5. Reduce the state variables.Minimal state variables                               x
+        6. Have to use Functional components and Class components operioriately.            
+        7. Countries like state variabes should use null at declaration.
+        8. Warnings and console errors should be resolved.
+        9. UI is priority. Margins,paddings. Details are very important
+        10. Only one class component per file.
+        11. Loader can abstracted as separate component.
+        12. export deafult can be used for the exporting the single component
+        13. Error Handling 
+                - use appropriate methods accordingly filter-find,
+                - filter may return empty array...
+                - change in data should not break the code 
+                - Component folder structure.
+                - should not send the data in state
+        14. no inline styles
+    
+User Perceptive points: 
     

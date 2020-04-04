@@ -37,6 +37,7 @@ const CountryDetailsDiv = styled.div(
 const NavigatorDiv = styled.div(
     {
         padding: "20px",
+        display: "flex",
     }
 )
 const StyledBtn = styled.div(
@@ -47,9 +48,9 @@ const StyledBtn = styled.div(
         display: "flex",
         margin: "10px",
         justifyContent: "baseline",
-        display: "flex",
         alignItems: "center",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        width: "100px",
     },
     props => ({
         backgroundColor: props.selectedTheme.secondaryBgColor,
@@ -86,23 +87,40 @@ class CountryDetails extends React.Component {
                 pathname: `/covid19-dashboard/details/${country.alpha3Code}`
             });
         this.setState({ country: country });
-
+        this.getData = this.getData.bind(this);
 
     }
 
     componentDidMount() {
+        this.getData();
+
+    }
+    async getData() {
+        try {
+            const response = await fetch("https://restcountries.eu/rest/v2/all");
+            if (response.ok) {
+                const json = await response.json();
+                this.setState({ countries: json });
+            }
+            else {
+                throw Error(response.statusText);
+            }
+        } catch (error) {
+            alert(error);
+        }
+
         this.getCurrentCountry();
     }
 
-
     getCurrentCountry = () => {
-        fetch("https://restcountries.eu/rest/v2/all")
-            .then(response => response.json())
-            .then(data => {
-                const alpha3Code = this.props.match.params.countryId;
-                const currentCountry = data.filter((country) => country.alpha3Code === alpha3Code);
-                this.setState({ countries: data, country: currentCountry[0] });
-            });
+
+        const alpha3Code = this.props.match.params.countryId;
+        if (this.state.countries !== null) {
+            const currentCountry = this.state.countries.find((country) => country.alpha3Code === alpha3Code);
+            this.setState({ country: currentCountry });
+        }
+
+
     }
 
 
@@ -155,7 +173,7 @@ class CountryDetails extends React.Component {
                     <NavigatorDiv>
                         <StyledBtn
                             selectedTheme={this.props.selectedTheme}
-                            className={`btn`} type="button" onClick={this.goBack} ><MdArrowBack />Back</StyledBtn>
+                            className={`btn`} type="button" onClick={this.goBack} > <MdArrowBack /> Back</StyledBtn>
                         <button
                             css={{
                                 backgroundColor: this.props.selectedTheme.secondaryBgColor,

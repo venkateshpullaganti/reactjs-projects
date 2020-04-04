@@ -1,9 +1,8 @@
 /**@jsx jsx */
-import { css } from "emotion";
 import { jsx } from "@emotion/core";
 import React from "react";
 import { GoSearch } from "react-icons/go";
-// import { App } from "../../App";
+
 
 import "./filter-bar.css";
 

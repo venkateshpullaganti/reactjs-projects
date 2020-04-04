@@ -20,6 +20,7 @@ import { DisableOrEnable } from "./components/form-components/disable-enable";
 import Covid19Dashboard from "./components/covid19-dashboard";
 import CountryDetails from "./components/covid19-dashboard/country-details";
 import Page1 from "./components/Page1";
+import EmojiGame from "./components/EmojiGame";
 import "./App.css"
 
 
@@ -27,7 +28,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTheme: "light"
+      selectedTheme: "dark"
     }
 
   }
@@ -35,19 +36,21 @@ export default class App extends React.Component {
     "light": {
       id: 0,
       name: "light",
-      displayName: "DayLight Mode",
-      color: "black",
-      backgroundColor: " #eeefee",       //this color  is for body background
+      displayName: "Light Theme",
+      color: "#2a4365",
+      backgroundColor: " #ebf4ff",       //this color  is for body background
       secondaryBgColor: "white",        //is for the contents on the body like buttons,header etc.,
+      cardColor: "white",
       shadow: "0px 15px 15px lightgrey",
     },
     "dark": {
       id: 1,
       name: "dark",
-      displayName: "Night Mode",
+      displayName: "Dark Theme",
       color: "white",
       backgroundColor: "#1c2833",
       secondaryBgColor: "#2b3945",
+      cardColor: "#2b6cb0",
       shadow: " 0px 5px 10px #3d3c3c",
     },
     "monaki": {
@@ -126,6 +129,7 @@ export default class App extends React.Component {
             <Route exact path="/page-1">
               <Page1 />
             </Route>
+            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={App.themeOptions[this.state.selectedTheme]} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
             <Route exact path="/">
               <HomePage />
             </Route>
