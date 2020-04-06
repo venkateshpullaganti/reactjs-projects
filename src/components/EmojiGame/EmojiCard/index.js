@@ -3,14 +3,14 @@ import React from "react";
 import { EmojiInfo, ImgContainer, Emoji, EmojiName } from "./StyledComponent";
 
 class EmojiCard extends React.Component {
-    onEmojiClick = (e) => {
+    onEmojiClick = (e) => {         //remove this func
         // const { onEmojiClick } = this.props;
         this.props.onEmojiClick(e.currentTarget.id);
     }
-
+    //styled emoji card....
     render() {
 
-        const { emoji, onEmojiClick, selectedTheme, id } = this.props;
+        const { emoji, selectedTheme, id } = this.props;
         return (
             <EmojiInfo id={id} selectedTheme={selectedTheme} onClick={this.onEmojiClick}>
                 <ImgContainer>

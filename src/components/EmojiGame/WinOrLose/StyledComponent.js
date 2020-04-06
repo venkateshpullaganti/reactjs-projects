@@ -16,9 +16,10 @@ const statColor = props =>
     css` color :${props.isWon ? "green" : "red"}`;
 
 const ResultDiv = styled.div`
-    
-    ${tw`flex flex-grow flex-col items-center justify-center p-4    border-solid border-4 border-green-600`}
-`;
+    {
+        flex-grow:1
+    }
+    ${tw`flex  flex-col items-center justify-center p-4 `} `;
 
 const FinalScore = styled.p`${tw`font-bold text-2xl `}`;
 

@@ -29,7 +29,7 @@ class EmojiGame extends React.Component {
 
 
         if (this.state.emojis[index].isClicked) {
-            if (this.state.score === 12)
+            if (this.state.score === 11)   //curent emoji status is false so it will add to 12
                 this.setState({ gameState: "WON" });
             else
                 this.setState({ gameState: "LOSE" })
@@ -57,10 +57,11 @@ class EmojiGame extends React.Component {
         let prevScore = this.state.score;
         prevScore++;
         this.setState({ score: prevScore });
+        //use function for set state
     }
     onPlayAgainClick = () => {
         this.setTopScore();
-        this.resetGame();
+        this.resetGame();  //change all emojis is clicked.
         this.componentDidMount();
     }
 
@@ -72,7 +73,9 @@ class EmojiGame extends React.Component {
     resetGame = () => {
         this.setState({ score: 0, gameState: "PLAYING", emojis: null });
     }
-    evaluateResult = () => {
+
+
+    evaluateResult = () => {    //change name
         const { selectedTheme } = this.props;
         const { gameState, score } = this.state;
         if (gameState === "PLAYING") {
@@ -88,9 +91,10 @@ class EmojiGame extends React.Component {
 
     renderEmojiCards = () => {
         const { selectedTheme } = this.props;
+        const { emojis } = this.state;
         let emojiCards = null;
-        if (this.state.emojis !== null) {
-            emojiCards = this.state.emojis.map((currentEmoji) =>
+        if (emojis !== null) {
+            emojiCards = emojis.map((currentEmoji) =>
                 <EmojiCard onEmojiClick={this.onEmojiClick} selectedTheme={selectedTheme} key={currentEmoji.id} id={currentEmoji.id} emoji={currentEmoji}></EmojiCard>
             );
         }
@@ -111,7 +115,7 @@ class EmojiGame extends React.Component {
         this.setState({ emojis: emojisObj })
     }
     render() {
-        const { selectedTheme } = this.props;
+        const { selectedTheme } = this.props;   //destructure..
 
         return (
             <RootDiv selectedTheme={selectedTheme}>

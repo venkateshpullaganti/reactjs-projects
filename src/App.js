@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 
-import "./components/todo-list/todo-list.css";
 import { TodoList } from './components/todo-list';
 import { FormComponents } from './components/form-components';
 import { HomePage } from "./components/HomePage";
@@ -22,18 +21,19 @@ import CountryDetails from "./components/covid19-dashboard/country-details";
 import Page1 from "./components/Page1";
 import EmojiGame from "./components/EmojiGame";
 import "./App.css"
+import "./components/todo-list/todo-list.css";
 
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTheme: "dark"
+      selectedTheme: App.themeOptions.light
     }
 
   }
   static themeOptions = {
-    "light": {
+    "light": {      //remove string type
       id: 0,
       name: "light",
       displayName: "Light Theme",
@@ -52,6 +52,7 @@ export default class App extends React.Component {
       secondaryBgColor: "#2b3945",
       cardColor: "#2b6cb0",
       shadow: " 0px 5px 10px #3d3c3c",
+
     },
     "monaki": {
       id: 2,
@@ -85,7 +86,7 @@ export default class App extends React.Component {
 
   onChangeSelectedTheme = (inputTheme) => {
 
-    this.setState({ selectedTheme: inputTheme });
+    this.setState({ selectedTheme: App.themeOptions[inputTheme] }); //get the theme
 
   }
   render() {
@@ -97,7 +98,7 @@ export default class App extends React.Component {
               <TodoList />
             </Route>
             <Route exact path="/covid19-dashboard">
-              <Covid19Dashboard selectedTheme={App.themeOptions[this.state.selectedTheme]} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <Covid19Dashboard selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />
             </Route>
             <Route exact path="/form-components">
               <FormComponents />
@@ -124,12 +125,12 @@ export default class App extends React.Component {
             </Route>
 
             <Route exact path="/covid19-dashboard/details/:countryId">
-              <CountryDetails selectedTheme={App.themeOptions[this.state.selectedTheme]} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <CountryDetails selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />
             </Route>
             <Route exact path="/page-1">
               <Page1 />
             </Route>
-            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={App.themeOptions[this.state.selectedTheme]} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
+            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
             <Route exact path="/">
               <HomePage />
             </Route>
