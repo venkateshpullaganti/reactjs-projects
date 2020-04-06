@@ -10,7 +10,7 @@ const dynamicStyle = props =>
     color:${props.selectedTheme.color};
     background:${props.selectedTheme.secondaryBgColor}
     `;
-const border = css` border:2px solid green`
+// const border = css` border:2px solid green`
 
 const NavBarDiv = styled.div`
     ${dynamicStyle}

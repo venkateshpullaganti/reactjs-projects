@@ -1,4 +1,6 @@
 import React from "react";
+
+
 import { Footer, Instruction, Question } from "./StyledComponents.js";
 
 class HowToPlay extends React.Component {

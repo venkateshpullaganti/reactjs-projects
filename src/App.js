@@ -87,7 +87,6 @@ export default class App extends React.Component {
 
 
 
-
   onChangeSelectedTheme = (inputTheme) => {
 
     this.setState({ selectedTheme: App.themeOptions[inputTheme] }); //get the theme

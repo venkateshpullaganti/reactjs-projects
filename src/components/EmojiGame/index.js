@@ -1,4 +1,3 @@
-
 import React from "react";
 
 
@@ -7,7 +6,6 @@ import NavBar from "./NavBar";
 import EmojiCard from "./EmojiCard";
 import HowToPlay from "./HowToPlay";
 import WinOrLose from "./WinOrLose";
-
 
 
 
@@ -20,15 +18,47 @@ class EmojiGame extends React.Component {
             topScore: 0,
             gameState: "PLAYING"
         }
-
+        this.scoreIncrementor = 1;
     }
+
+
+    resetGame = () => {
+        const { emojis } = this.state;
+
+        // const prevEmojis = Object.assign({}, this.state.emojis);
+        // const prevEmojis = [...this.state.emojis];
+        //const prevEmojis = JSON.parse(JSON.stringify(this.state.emojis));
+
+        emojis.map(emoji =>
+            emoji.isClicked = false
+        );
+
+        this.setState({ score: 0, gameState: "PLAYING", emojis: emojis });
+    }
+
+
+    shuffleEmojis = () => {
+        let prevEmojis = [...this.state.emojis];
+
+        for (let i = prevEmojis.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i)
+            const temp = prevEmojis[i]
+            prevEmojis[i] = prevEmojis[j]
+            prevEmojis[j] = temp
+        }
+        this.setState({ emojis: [...prevEmojis] });
+    }
+
+    incrementScore = () => {
+        this.setState(prevState => ({ score: prevState.score + this.scoreIncrementor }))
+    }
+
     onEmojiClick = (emojiId) => {
         const { emojis } = this.state;
 
         const index = emojis.findIndex(currentEmoji =>
             currentEmoji.id === emojiId
         );
-
 
         if (emojis[index].isClicked) {
 
@@ -49,42 +79,16 @@ class EmojiGame extends React.Component {
             }
         }
     }
-    shuffleEmojis = () => {
-        let prevEmojis = [...this.state.emojis];
-
-        for (let i = prevEmojis.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * i)
-            const temp = prevEmojis[i]
-            prevEmojis[i] = prevEmojis[j]
-            prevEmojis[j] = temp
-        }
-        this.setState({ emojis: [...prevEmojis] });
-    }
-    incrementScore = () => {
-        this.setState(prevState => ({ score: prevState.score + 1 }))
-    }
-    onPlayAgainClick = () => {
-        this.setTopScore();
-        this.resetGame();
-    }
-
     setTopScore = () => {
         const { score, topScore } = this.state;
         if (score > topScore)
             this.setState({ topScore: score });
     }
-    resetGame = () => {
-        const { emojis } = this.state;
 
-        // const prevEmojis = Object.assign({}, this.state.emojis);
-        // const prevEmojis = [...this.state.emojis];
-        //const prevEmojis = JSON.parse(JSON.stringify(this.state.emojis));
 
-        emojis.map(emoji =>
-            emoji.isClicked = false
-        );
-
-        this.setState({ score: 0, gameState: "PLAYING", emojis: emojis });
+    onPlayAgainClick = () => {
+        this.setTopScore();
+        this.resetGame();
     }
 
 
