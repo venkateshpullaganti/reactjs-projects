@@ -14,11 +14,9 @@ const dynamicStyle = props =>
 
 const NavBarDiv = styled.div`
     ${dynamicStyle}
-    ${tw`flex items-center flex-wrap`}
-    `
+    ${tw`flex items-center flex-wrap`}  `;
 const Title = styled.div`
-    ${tw`text-2xl w-3/5 sm:w-2/5 sm:text-3xl  p-2`}
-`;
+    ${tw`text-2xl w-3/5 sm:w-2/5 sm:text-3xl  p-2`} `;
 
 const StyledDiv = styled.div`
     ${tw`w-3/5 flex items-center justify-end p-2`}  `;
@@ -31,7 +29,7 @@ const TopScore = styled.p`
     ${tw` font-bold sm:m-2`}   `;
 
 const ThemeButton = styled.button`
-    ${tw` text-lg m-2 border-solid border border-black p-1`}    `;
+    ${tw` text-lg m-2 border-solid border p-1`}    `;
 
 const Num = styled.span`
      ${tw` text-xl`}    `;
