@@ -15,9 +15,9 @@ const dynamicStyle = props =>
     `;
 
 
-const EmojiInfo = styled.div`
+const EmojiCardStyled = styled.div`
     ${dynamicStyle};
-    ${'' /* box-shadow:"0 3px 6px #999"; */}
+    
     ${tw`flex flex-col m-4 items-center h-64 w-64 p-2 border-solid border shadow-custom`}  `;
 
 const ImgContainer = styled.div`
@@ -32,4 +32,4 @@ const EmojiName = styled.p`
     ${tw``}     `;
 
 
-export { EmojiInfo, ImgContainer, Emoji, EmojiName };
+export { EmojiCardStyled, ImgContainer, Emoji, EmojiName };

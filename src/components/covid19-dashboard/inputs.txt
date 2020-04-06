@@ -4,7 +4,7 @@ Cleaner Code points :
         1.object destructure
         2.use children prop in route.
         3. using theme as object.
-            const = {selectedTheme : {color}} = this.props;   
+            const  {selectedTheme : {color}} = this.props;   
         4. See React Instructions on every session
         5. Reduce the state variables.Minimal state variables                               x
         6. Have to use Functional components and Class components operioriately.            

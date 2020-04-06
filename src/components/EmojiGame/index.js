@@ -18,28 +18,34 @@ class EmojiGame extends React.Component {
             topScore: 0,
             gameState: "PLAYING"
         }
-
-
     }
-    onEmojiClick = (clickedEmojiName) => {
+    onEmojiClick = (emojiId) => {
+        const { emojis, score } = this.state;
 
-        const index = this.state.emojis.findIndex(currentEmoji =>
-            currentEmoji.name === clickedEmojiName
-        )
+        const index = emojis.findIndex(currentEmoji =>
+            currentEmoji.id === emojiId
+        );
 
 
-        if (this.state.emojis[index].isClicked) {
-            if (this.state.score === 11)   //curent emoji status is false so it will add to 12
-                this.setState({ gameState: "WON" });
-            else
-                this.setState({ gameState: "LOSE" })
+        if (emojis[index].isClicked) {
+
+            this.setState({ gameState: "LOSE" })
         }
         else {
-            let prevEmojis = [...this.state.emojis];
-            prevEmojis[index].isClicked = true;
             this.incrementScore();
+            // const { score } = this.state;
+
+            let prevEmojis = [...emojis];
+            prevEmojis[index].isClicked = true;
             this.setState({ emojis: [...prevEmojis] });
-            this.shuffleEmojis();
+
+            const clickedEmojis = emojis.filter(emoji => emoji.isClicked);
+
+            if (clickedEmojis.length === emojis.length)
+                this.setState({ gameState: "WON" });
+            else {
+                this.shuffleEmojis();
+            }
         }
     }
     shuffleEmojis = () => {
@@ -54,15 +60,14 @@ class EmojiGame extends React.Component {
         this.setState({ emojis: [...prevEmojis] });
     }
     incrementScore = () => {
-        let prevScore = this.state.score;
-        prevScore++;
-        this.setState({ score: prevScore });
-        //use function for set state
+        this.setState(prevState => ({ score: prevState.score + 1 }))
+
+        //use function for set state --done
     }
     onPlayAgainClick = () => {
         this.setTopScore();
-        this.resetGame();  //change all emojis is clicked.
-        this.componentDidMount();
+        this.resetGame();  //change all emojis is clicked. --done
+
     }
 
     setTopScore = () => {
@@ -71,11 +76,19 @@ class EmojiGame extends React.Component {
             this.setState({ topScore: score });
     }
     resetGame = () => {
-        this.setState({ score: 0, gameState: "PLAYING", emojis: null });
+        const { emojis } = this.state;
+        // const prevEmojis = Object.assign({}, this.state.emojis);
+        // const prevEmojis = [...this.state.emojis];
+
+        emojis.map(emoji =>
+            emoji.isClicked = false
+        );
+
+        this.setState({ score: 0, gameState: "PLAYING", emojis: emojis });
     }
 
 
-    evaluateResult = () => {    //change name
+    renderComponentBasedOnResult = () => {    //change name -- done
         const { selectedTheme } = this.props;
         const { gameState, score } = this.state;
         if (gameState === "PLAYING") {
@@ -105,7 +118,7 @@ class EmojiGame extends React.Component {
         let emojisObj = [];
         for (let i = 0; i < emojiNames.length; i++) {
             let obj = {
-                id: emojiNames[i],
+                id: i + 1,
                 name: emojiNames[i],
                 url: `https://tap.ibhubs.in/react/assignments/assignment-5/preview/images/memoji-${i + 1}.png`,
                 isClicked: false
@@ -115,12 +128,13 @@ class EmojiGame extends React.Component {
         this.setState({ emojis: emojisObj })
     }
     render() {
-        const { selectedTheme } = this.props;   //destructure..
+        const { selectedTheme, onChangeSelectedTheme, } = this.props;
+        const { score, topScore } = this.state; //destructure.. --done
 
         return (
             <RootDiv selectedTheme={selectedTheme}>
-                <NavBar selectedTheme={selectedTheme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} score={this.state.score} topScore={this.state.topScore} />
-                {this.evaluateResult()}
+                <NavBar selectedTheme={selectedTheme} onChangeSelectedTheme={onChangeSelectedTheme} score={score} topScore={topScore} />
+                {this.renderComponentBasedOnResult()}
                 <HowToPlay selectedTheme={selectedTheme}></HowToPlay>
             </RootDiv>
         );

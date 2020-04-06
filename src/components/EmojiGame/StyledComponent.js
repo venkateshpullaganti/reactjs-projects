@@ -15,8 +15,8 @@ const dynamicStyle = props =>
     background:${props.selectedTheme.backgroundColor}; `;
 
 const RootDiv = styled.div`
-${dynamicStyle};
-min-height:95vh;
+    ${dynamicStyle};
+    min-height:100vh;
     ${tw`flex m flex-col flex-grow`} `;
 
 const AppBody = styled.div`

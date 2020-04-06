@@ -42,6 +42,7 @@ export default class App extends React.Component {
       secondaryBgColor: "white",        //is for the contents on the body like buttons,header etc.,
       cardColor: "white",
       shadow: "0px 15px 15px lightgrey",
+
     },
     "dark": {
       id: 1,

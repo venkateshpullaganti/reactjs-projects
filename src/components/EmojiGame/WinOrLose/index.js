@@ -7,7 +7,7 @@ class WinOrLose extends React.Component {
         return (
             <ResultDiv selectedTheme={selectedTheme}>
                 <FinalScore>{score}</FinalScore>
-                <GameResult>{isWon ? "You Won" : "You Lose"}</GameResult>
+                <GameResult isWon={isWon}>{isWon ? "You Won!" : "You Lose!"}</GameResult>
                 <PlayAgainBtn onClick={onPlayAgainClick}>Play Again</PlayAgainBtn>
             </ResultDiv>
         );
