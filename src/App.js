@@ -33,7 +33,7 @@ export default class App extends React.Component {
 
   }
   static themeOptions = {
-    "light": {      //remove string type
+    light: {      //remove string type
       id: 0,
       name: "light",
       displayName: "Light Theme",
@@ -44,7 +44,7 @@ export default class App extends React.Component {
       shadow: "0px 15px 15px lightgrey",
 
     },
-    "dark": {
+    dark: {
       id: 1,
       name: "dark",
       displayName: "Dark Theme",
@@ -55,7 +55,7 @@ export default class App extends React.Component {
       shadow: " 0px 5px 10px #3d3c3c",
 
     },
-    "monaki": {
+    monaki: {
       id: 2,
       name: "monaki",
       displayName: "Monaki Mode",
@@ -64,7 +64,7 @@ export default class App extends React.Component {
       secondaryBgColor: " #939794",
       shadow: " 0px 5px 10px #939794",
     },
-    "green": {
+    green: {
       id: 2,
       name: "green",
       displayName: "green Mode",
@@ -73,9 +73,9 @@ export default class App extends React.Component {
       secondaryBgColor: " #0f4c75",
       shadow: " 0px 5px 10px #1b262c",
     },
-    "dark blue": {
+    darkBlue: {
       id: 3,
-      name: "dark blue",
+      name: "darkBlue",
       displayName: "Dark Blue Mode",
       color: "white",
       backgroundColor: "#053f5e ",
@@ -85,11 +85,16 @@ export default class App extends React.Component {
   }
 
 
+
+
+
   onChangeSelectedTheme = (inputTheme) => {
 
     this.setState({ selectedTheme: App.themeOptions[inputTheme] }); //get the theme
 
   }
+
+
   render() {
     return (
       <Router basename={process.env.PUBLIC_URL}>

@@ -1,6 +1,10 @@
 
 import React from "react";
-import { NavBarDiv, Title, StyledDiv, Score, TopScore, ThemeButton, Num, ScoreContainer, ScoreContainerSmallDivice, NavSubDiv } from "./StyledComponent";
+import {
+    NavBarDiv, Title,
+    StyledDiv, Score, TopScore, ThemeButton,
+    Num, ScoreContainer, ScoreContainerSmallDivice, NavSubDiv
+} from "./StyledComponent";
 
 
 
@@ -27,16 +31,20 @@ class NavBar extends React.Component {
                     <Title>Emoji Game</Title>
 
                     <StyledDiv>
+
                         <ScoreContainer>
                             <Score> Score: <Num>{score}</Num>  </Score>
                             <TopScore>TopScore: <Num>{topScore}</Num></TopScore>
                         </ScoreContainer>
                         <ThemeButton onClick={this.changeTheme}>{displayName === "Light Theme" ? "Dark Theme" : "Light Theme"}</ThemeButton>
+
                     </StyledDiv>
                 </NavSubDiv>
                 <ScoreContainerSmallDivice>
+
                     <Score> Score: <Num>{score}</Num>  </Score>
                     <TopScore>TopScore: <Num>{topScore}</Num></TopScore>
+
                 </ScoreContainerSmallDivice>
             </NavBarDiv>
         );

@@ -10,11 +10,7 @@ const dynamicStyle = props =>
     color:${props.selectedTheme.color};
     background:${props.selectedTheme.secondaryBgColor}
     `;
-
-
-const Border = styled.div`
-    ${tw`border-solid border-4 border-gray-600`}
-`;
+const border = css` border:2px solid green`
 
 const NavBarDiv = styled.div`
     ${dynamicStyle}
@@ -28,14 +24,14 @@ const StyledDiv = styled.div`
     ${tw`w-3/5 flex items-center justify-end p-2`}  `;
 
 const Score = styled.p`
-    ${tw`text-base font-bold sm:m-3`}   `;
+    ${tw` font-bold sm:m-2`}   `;
 
 
 const TopScore = styled.p`
-    ${tw`text-base font-bold sm:m-3`}   `;
+    ${tw` font-bold sm:m-2`}   `;
 
 const ThemeButton = styled.button`
-    ${tw` text-lg m-3 border-solid border border-black p-2`}    `;
+    ${tw` text-lg m-2 border-solid border border-black p-1`}    `;
 
 const Num = styled.span`
      ${tw` text-xl`}    `;

@@ -2,6 +2,14 @@ import React from "react";
 import { Footer, Instruction, Question } from "./StyledComponents.js";
 
 class HowToPlay extends React.Component {
+
+    shouldComponentUpdate(nextProps) {
+        if (this.props.selectedTheme.id !== nextProps.selectedTheme.id) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
         const { selectedTheme } = this.props;
         return (

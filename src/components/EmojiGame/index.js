@@ -1,5 +1,7 @@
 
 import React from "react";
+
+
 import { RootDiv, AppBody } from "./StyledComponent";
 import NavBar from "./NavBar";
 import EmojiCard from "./EmojiCard";
@@ -18,9 +20,10 @@ class EmojiGame extends React.Component {
             topScore: 0,
             gameState: "PLAYING"
         }
+
     }
     onEmojiClick = (emojiId) => {
-        const { emojis, score } = this.state;
+        const { emojis } = this.state;
 
         const index = emojis.findIndex(currentEmoji =>
             currentEmoji.id === emojiId
@@ -33,8 +36,6 @@ class EmojiGame extends React.Component {
         }
         else {
             this.incrementScore();
-            // const { score } = this.state;
-
             let prevEmojis = [...emojis];
             prevEmojis[index].isClicked = true;
             this.setState({ emojis: [...prevEmojis] });
@@ -61,13 +62,10 @@ class EmojiGame extends React.Component {
     }
     incrementScore = () => {
         this.setState(prevState => ({ score: prevState.score + 1 }))
-
-        //use function for set state --done
     }
     onPlayAgainClick = () => {
         this.setTopScore();
-        this.resetGame();  //change all emojis is clicked. --done
-
+        this.resetGame();
     }
 
     setTopScore = () => {
@@ -77,8 +75,10 @@ class EmojiGame extends React.Component {
     }
     resetGame = () => {
         const { emojis } = this.state;
+
         // const prevEmojis = Object.assign({}, this.state.emojis);
         // const prevEmojis = [...this.state.emojis];
+        //const prevEmojis = JSON.parse(JSON.stringify(this.state.emojis));
 
         emojis.map(emoji =>
             emoji.isClicked = false
@@ -88,15 +88,17 @@ class EmojiGame extends React.Component {
     }
 
 
-    renderComponentBasedOnResult = () => {    //change name -- done
+    renderComponentBasedOnResult = () => {
         const { selectedTheme } = this.props;
         const { gameState, score } = this.state;
         if (gameState === "PLAYING") {
             return <AppBody selectedTheme={selectedTheme}>{this.renderEmojiCards()}</AppBody>;
         }
         else {
-            return <WinOrLose onPlayAgainClick={this.onPlayAgainClick} score={score} isWon={gameState === "WON" ? true : false
-            } selectedTheme={selectedTheme} />
+            return <WinOrLose
+                onPlayAgainClick={this.onPlayAgainClick}
+                score={score} isWon={gameState === "WON" ? true : false}
+                selectedTheme={selectedTheme} />
         }
 
     }
@@ -108,34 +110,47 @@ class EmojiGame extends React.Component {
         let emojiCards = null;
         if (emojis !== null) {
             emojiCards = emojis.map((currentEmoji) =>
-                <EmojiCard onEmojiClick={this.onEmojiClick} selectedTheme={selectedTheme} key={currentEmoji.id} id={currentEmoji.id} emoji={currentEmoji}></EmojiCard>
+                <EmojiCard
+                    onEmojiClick={this.onEmojiClick}
+                    selectedTheme={selectedTheme}
+                    key={currentEmoji.id}
+                    id={currentEmoji.id}
+                    emoji={currentEmoji} />
             );
         }
         return emojiCards;
     }
     componentDidMount() {
-        const emojiNames = ["Exploding Head", "Smiling Face with Sweat", " Heart-Eyes", "Smirking Face", "Thinking Face", "Winking Face", "Grinning Face", "Crying Face", "Astonished Face", "Face with Tears of Joy", "Star-Struck", "Winking Face with Tongue"];
-        let emojisObj = [];
-        for (let i = 0; i < emojiNames.length; i++) {
-            let obj = {
-                id: i + 1,
-                name: emojiNames[i],
-                url: `https://tap.ibhubs.in/react/assignments/assignment-5/preview/images/memoji-${i + 1}.png`,
+        const emojiNames = ["Exploding Head",
+            "Smiling Face with Sweat", " Heart-Eyes", "Smirking Face",
+            "Thinking Face", "Winking Face", "Grinning Face", "Crying Face",
+            "Astonished Face", "Face with Tears of Joy", "Star-Struck", "Winking Face with Tongue"];
+
+        let emojisObj = emojiNames.map((emoji, index) => {
+            return {
+                id: index + 1,
+                name: emoji,
+                url: `https://tap.ibhubs.in/react/assignments/assignment-5/preview/images/memoji-${index + 1}.png`,
                 isClicked: false
             }
-            emojisObj.push(obj);
         }
+        );
         this.setState({ emojis: emojisObj })
     }
+
     render() {
         const { selectedTheme, onChangeSelectedTheme, } = this.props;
         const { score, topScore } = this.state; //destructure.. --done
 
         return (
             <RootDiv selectedTheme={selectedTheme}>
-                <NavBar selectedTheme={selectedTheme} onChangeSelectedTheme={onChangeSelectedTheme} score={score} topScore={topScore} />
+                <NavBar selectedTheme={selectedTheme}
+                    onChangeSelectedTheme={onChangeSelectedTheme}
+                    score={score} topScore={topScore} />
+
                 {this.renderComponentBasedOnResult()}
-                <HowToPlay selectedTheme={selectedTheme}></HowToPlay>
+
+                <HowToPlay selectedTheme={selectedTheme} />
             </RootDiv>
         );
     }
