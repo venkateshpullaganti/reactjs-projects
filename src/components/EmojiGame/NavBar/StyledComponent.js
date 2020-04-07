@@ -8,7 +8,7 @@ import { css } from "@emotion/core";
 const dynamicStyle = props =>
     css` 
     color:${props.selectedTheme.color};
-    background:${props.selectedTheme.secondaryBgColor}
+    background:${props.selectedTheme.secondaryBgColor};
     `;
 // const border = css` border:2px solid green`
 
@@ -29,7 +29,10 @@ const TopScore = styled.p`
     ${tw` font-bold sm:m-2`}   `;
 
 const ThemeButton = styled.button`
-    ${tw` text-lg m-2 border-solid border p-1`}    `;
+    ${tw` text-lg m-2 border-solid border p-1`} 
+    &:focus{
+        outline:none
+    }   `;
 
 const Num = styled.span`
      ${tw` text-xl`}    `;

@@ -8,7 +8,7 @@ function EmojiCard(props) {
 
     const { emoji, selectedTheme, id, onEmojiClick } = props;
     return (
-        <EmojiCardStyled id={id} selectedTheme={selectedTheme} onClick={() => onEmojiClick(id)}>
+        <EmojiCardStyled isClicked={emoji.isClicked} id={id} selectedTheme={selectedTheme} onClick={() => onEmojiClick(id)}>
             <ImgContainer>
                 <Emoji alt={emoji.name} src={emoji.url} />
             </ImgContainer>

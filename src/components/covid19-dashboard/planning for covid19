@@ -58,6 +58,5 @@ step 3:
 
 
 
-Doubts:
-calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
-why we should get countries in componentdid mount y not in constructor.
+
+

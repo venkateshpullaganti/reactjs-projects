@@ -21,7 +21,6 @@ class EmojiGame extends React.Component {
         this.scoreIncrementor = 1;
     }
 
-
     resetGame = () => {
         const { emojis } = this.state;
 
@@ -35,7 +34,6 @@ class EmojiGame extends React.Component {
 
         this.setState({ score: 0, gameState: "PLAYING", emojis: emojis });
     }
-
 
     shuffleEmojis = () => {
         let prevEmojis = [...this.state.emojis];
@@ -66,8 +64,10 @@ class EmojiGame extends React.Component {
         }
         else {
             this.incrementScore();
+
             let prevEmojis = [...emojis];
             prevEmojis[index].isClicked = true;
+
             this.setState({ emojis: [...prevEmojis] });
 
             const clickedEmojis = emojis.filter(emoji => emoji.isClicked);
@@ -85,12 +85,10 @@ class EmojiGame extends React.Component {
             this.setState({ topScore: score });
     }
 
-
     onPlayAgainClick = () => {
         this.setTopScore();
         this.resetGame();
     }
-
 
     renderComponentBasedOnResult = () => {
         const { selectedTheme } = this.props;
@@ -106,7 +104,6 @@ class EmojiGame extends React.Component {
         }
 
     }
-
 
     renderEmojiCards = () => {
         const { selectedTheme } = this.props;
@@ -144,7 +141,7 @@ class EmojiGame extends React.Component {
 
     render() {
         const { selectedTheme, onChangeSelectedTheme, } = this.props;
-        const { score, topScore } = this.state; //destructure.. --done
+        const { score, topScore } = this.state;
 
         return (
             <RootDiv selectedTheme={selectedTheme}>
