@@ -8,7 +8,7 @@ class ThemeStore {
     @observable selectedTheme;
 
 
-    themeOptions = {
+    static themeOptions = {
         light: {
             id: 0,
             name: "light",
@@ -61,11 +61,11 @@ class ThemeStore {
     }
 
     constructor() {
-        this.selectedTheme = this.themeOptions["light"];
+        this.selectedTheme = ThemeStore.themeOptions["light"];
     }
 
     changeTheme = (inputTheme) => {
-        this.selectedTheme = this.themeOptions[inputTheme];
+        this.selectedTheme = ThemeStore.themeOptions[inputTheme];
     }
     getCurrentTheme = () => {
         return this.selectedTheme;
@@ -76,4 +76,4 @@ class ThemeStore {
 }
 
 const themeStore = new ThemeStore();
-export default themeStore;
+export { ThemeStore, themeStore };

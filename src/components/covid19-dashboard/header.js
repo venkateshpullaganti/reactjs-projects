@@ -4,14 +4,10 @@ import { jsx } from '@emotion/core';
 import React from "react";
 import { FiMoon } from "react-icons/fi";
 
-import themeStore from "../../stores/ThemeStore";
+import { ThemeStore } from "../../stores/ThemeStore";
 
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log("console", props.selectedTheme)
-    }
 
     changeTheme = (e) => {
         this.props.onChangeSelectedTheme(e.target.value);
@@ -50,8 +46,8 @@ class Header extends React.Component {
                         onChange={this.changeTheme} defaultValue={this.props.selectedTheme.name} >
 
                         {
-                            Object.keys(themeStore.themeOptions).map(theme =>
-                                <option key={theme} value={theme}>{themeStore.themeOptions[theme].displayName}</option>
+                            Object.keys(ThemeStore.themeOptions).map(theme =>
+                                <option key={theme} value={theme}>{ThemeStore.themeOptions[theme].displayName}</option>
                             )
                         }
                     </select>

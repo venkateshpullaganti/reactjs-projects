@@ -25,7 +25,7 @@ import "./App.css"
 import "./components/todo-list/todo-list.css";
 import CounterPage from "./components/CounterPage";
 
-import themeStore from "./stores/ThemeStore";
+import { themeStore } from "./stores/ThemeStore";
 
 @observer
 class App extends React.Component {

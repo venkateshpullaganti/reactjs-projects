@@ -1,0 +1,9 @@
+
+
+
+
+Questions :
+1. Mobx store
+2. @action.bound - use when destructuring if we use this in function, developer tools use, 
+
+
