@@ -1,11 +1,11 @@
-
 import React from "react";
+
+
 import { RootDiv, AppBody } from "./StyledComponent";
 import NavBar from "./NavBar";
 import EmojiCard from "./EmojiCard";
 import HowToPlay from "./HowToPlay";
 import WinOrLose from "./WinOrLose";
-
 
 
 
@@ -18,30 +18,23 @@ class EmojiGame extends React.Component {
             topScore: 0,
             gameState: "PLAYING"
         }
-
-
+        this.scoreIncrementor = 1;
     }
-    onEmojiClick = (clickedEmojiName) => {
 
-        const index = this.state.emojis.findIndex(currentEmoji =>
-            currentEmoji.name === clickedEmojiName
-        )
+    resetGame = () => {
+        const { emojis } = this.state;
 
+        // const prevEmojis = Object.assign({}, this.state.emojis);
+        // const prevEmojis = [...this.state.emojis];
+        //const prevEmojis = JSON.parse(JSON.stringify(this.state.emojis));
 
-        if (this.state.emojis[index].isClicked) {
-            if (this.state.score === 12)
-                this.setState({ gameState: "WON" });
-            else
-                this.setState({ gameState: "LOSE" })
-        }
-        else {
-            let prevEmojis = [...this.state.emojis];
-            prevEmojis[index].isClicked = true;
-            this.incrementScore();
-            this.setState({ emojis: [...prevEmojis] });
-            this.shuffleEmojis();
-        }
+        emojis.map(emoji =>
+            emoji.isClicked = false
+        );
+
+        this.setState({ score: 0, gameState: "PLAYING", emojis: emojis });
     }
+
     shuffleEmojis = () => {
         let prevEmojis = [...this.state.emojis];
 
@@ -53,71 +46,112 @@ class EmojiGame extends React.Component {
         }
         this.setState({ emojis: [...prevEmojis] });
     }
+
     incrementScore = () => {
-        let prevScore = this.state.score;
-        prevScore++;
-        this.setState({ score: prevScore });
-    }
-    onPlayAgainClick = () => {
-        this.setTopScore();
-        this.resetGame();
-        this.componentDidMount();
+        this.setState(prevState => ({ score: prevState.score + this.scoreIncrementor }))
     }
 
+    onEmojiClick = (emojiId) => {
+        const { emojis } = this.state;
+
+        const index = emojis.findIndex(currentEmoji =>
+            currentEmoji.id === emojiId
+        );
+
+        if (emojis[index].isClicked) {
+
+            this.setState({ gameState: "LOSE" })
+        }
+        else {
+            this.incrementScore();
+
+            let prevEmojis = [...emojis];
+            prevEmojis[index].isClicked = true;
+
+            this.setState({ emojis: [...prevEmojis] });
+
+            const clickedEmojis = emojis.filter(emoji => emoji.isClicked);
+
+            if (clickedEmojis.length === emojis.length)
+                this.setState({ gameState: "WON" });
+            else {
+                this.shuffleEmojis();
+            }
+        }
+    }
     setTopScore = () => {
         const { score, topScore } = this.state;
         if (score > topScore)
             this.setState({ topScore: score });
     }
-    resetGame = () => {
-        this.setState({ score: 0, gameState: "PLAYING", emojis: null });
+
+    onPlayAgainClick = () => {
+        this.setTopScore();
+        this.resetGame();
     }
-    evaluateResult = () => {
+
+    renderComponentBasedOnResult = () => {
         const { selectedTheme } = this.props;
         const { gameState, score } = this.state;
         if (gameState === "PLAYING") {
             return <AppBody selectedTheme={selectedTheme}>{this.renderEmojiCards()}</AppBody>;
         }
         else {
-            return <WinOrLose onPlayAgainClick={this.onPlayAgainClick} score={score} isWon={gameState === "WON" ? true : false
-            } selectedTheme={selectedTheme} />
+            return <WinOrLose
+                onPlayAgainClick={this.onPlayAgainClick}
+                score={score} isWon={gameState === "WON" ? true : false}
+                selectedTheme={selectedTheme} />
         }
 
     }
 
-
     renderEmojiCards = () => {
         const { selectedTheme } = this.props;
+        const { emojis } = this.state;
         let emojiCards = null;
-        if (this.state.emojis !== null) {
-            emojiCards = this.state.emojis.map((currentEmoji) =>
-                <EmojiCard onEmojiClick={this.onEmojiClick} selectedTheme={selectedTheme} key={currentEmoji.id} id={currentEmoji.id} emoji={currentEmoji}></EmojiCard>
+        if (emojis !== null) {
+            emojiCards = emojis.map((currentEmoji) =>
+                <EmojiCard
+                    onEmojiClick={this.onEmojiClick}
+                    selectedTheme={selectedTheme}
+                    key={currentEmoji.id}
+                    id={currentEmoji.id}
+                    emoji={currentEmoji} />
             );
         }
         return emojiCards;
     }
     componentDidMount() {
-        const emojiNames = ["Exploding Head", "Smiling Face with Sweat", " Heart-Eyes", "Smirking Face", "Thinking Face", "Winking Face", "Grinning Face", "Crying Face", "Astonished Face", "Face with Tears of Joy", "Star-Struck", "Winking Face with Tongue"];
-        let emojisObj = [];
-        for (let i = 0; i < emojiNames.length; i++) {
-            let obj = {
-                id: emojiNames[i],
-                name: emojiNames[i],
-                url: `https://tap.ibhubs.in/react/assignments/assignment-5/preview/images/memoji-${i + 1}.png`,
+        const emojiNames = ["Exploding Head",
+            "Smiling Face with Sweat", " Heart-Eyes", "Smirking Face",
+            "Thinking Face", "Winking Face", "Grinning Face", "Crying Face",
+            "Astonished Face", "Face with Tears of Joy", "Star-Struck", "Winking Face with Tongue"];
+
+        let emojisObj = emojiNames.map((emoji, index) => {
+            return {
+                id: index + 1,
+                name: emoji,
+                url: `https://tap.ibhubs.in/react/assignments/assignment-5/preview/images/memoji-${index + 1}.png`,
                 isClicked: false
             }
-            emojisObj.push(obj);
         }
+        );
         this.setState({ emojis: emojisObj })
     }
+
     render() {
-        const { selectedTheme } = this.props;
+        const { selectedTheme, onChangeSelectedTheme, } = this.props;
+        const { score, topScore } = this.state;
 
         return (
             <RootDiv selectedTheme={selectedTheme}>
-                <NavBar selectedTheme={selectedTheme} onChangeSelectedTheme={this.props.onChangeSelectedTheme} score={this.state.score} topScore={this.state.topScore} />
-                {this.evaluateResult()}
-                <HowToPlay selectedTheme={selectedTheme}></HowToPlay>
+                <NavBar selectedTheme={selectedTheme}
+                    onChangeSelectedTheme={onChangeSelectedTheme}
+                    score={score} topScore={topScore} />
+
+                {this.renderComponentBasedOnResult()}
+
+                <HowToPlay selectedTheme={selectedTheme} />
             </RootDiv>
         );
     }
