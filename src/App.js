@@ -22,6 +22,7 @@ import Page1 from "./components/Page1";
 import EmojiGame from "./components/EmojiGame";
 import "./App.css"
 import "./components/todo-list/todo-list.css";
+import CounterPage from "./components/CounterPage";
 
 
 export default class App extends React.Component {
@@ -33,7 +34,7 @@ export default class App extends React.Component {
 
   }
   static themeOptions = {
-    light: {      //remove string type
+    light: {      
       id: 0,
       name: "light",
       displayName: "Light Theme",
@@ -98,7 +99,9 @@ export default class App extends React.Component {
     return (
       <Router basename={process.env.PUBLIC_URL}>
         <div>
-          <Switch>~
+          <Switch>
+          <Route exact path="/counter-page" children={<CounterPage/>} />
+          
           <Route exact path="/todo-list">
               <TodoList />
             </Route>

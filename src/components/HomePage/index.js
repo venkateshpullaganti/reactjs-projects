@@ -26,6 +26,7 @@ export default function HomePage() {
         <li><Link to="/covid19-dashboard">Covid19 Dashboard</Link></li>
         <li><Link to="/form-components" >Form Components</Link></li>
         <li><Link to="/emojis-game">Emojis Game</Link></li>
+        <li><Link to="/counter-page">Counter Page</Link></li>
       </ul>
     </div >
   );
