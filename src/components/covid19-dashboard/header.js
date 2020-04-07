@@ -1,12 +1,17 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/core';
 import React from "react";
 import { FiMoon } from "react-icons/fi";
-import App from "../../App.js";
-import "./header.css";
+
+import themeStore from "../../stores/ThemeStore";
+
 
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log("console", props.selectedTheme)
+    }
 
     changeTheme = (e) => {
         this.props.onChangeSelectedTheme(e.target.value);
@@ -42,11 +47,11 @@ class Header extends React.Component {
 
                             border: `2px solid ${this.props.selectedTheme.secondaryBgColor}`
                         }}
-                        onChange={this.changeTheme} defaultValue={this.props.selectedTheme.name}>
+                        onChange={this.changeTheme} defaultValue={this.props.selectedTheme.name} >
 
                         {
-                            Object.keys(App.themeOptions).map(theme =>
-                                <option key={theme} value={theme}>{App.themeOptions[theme].displayName}</option>
+                            Object.keys(themeStore.themeOptions).map(theme =>
+                                <option key={theme} value={theme}>{themeStore.themeOptions[theme].displayName}</option>
                             )
                         }
                     </select>

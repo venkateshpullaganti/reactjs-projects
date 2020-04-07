@@ -6,7 +6,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+// import { observable } from "mobx";
+import { observer } from "mobx-react";
 
 import { TodoList } from './components/todo-list';
 import { FormComponents } from './components/form-components';
@@ -24,74 +25,25 @@ import "./App.css"
 import "./components/todo-list/todo-list.css";
 import CounterPage from "./components/CounterPage";
 
+import themeStore from "./stores/ThemeStore";
 
-export default class App extends React.Component {
+@observer
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedTheme: App.themeOptions.light
-    }
 
-  }
-  static themeOptions = {
-    light: {      
-      id: 0,
-      name: "light",
-      displayName: "Light Theme",
-      color: "#2a4365",
-      backgroundColor: " #ebf4ff",       //this color  is for body background
-      secondaryBgColor: "white",        //is for the contents on the body like buttons,header etc.,
-      cardColor: "white",
-      shadow: "0px 15px 15px lightgrey",
-
-    },
-    dark: {
-      id: 1,
-      name: "dark",
-      displayName: "Dark Theme",
-      color: "white",
-      backgroundColor: "#1c2833",
-      secondaryBgColor: "#2b3945",
-      cardColor: "#2b6cb0",
-      shadow: " 0px 5px 10px #3d3c3c",
-
-    },
-    monaki: {
-      id: 2,
-      name: "monaki",
-      displayName: "Monaki Mode",
-      color: " #60e28b",
-      backgroundColor: "#474747 ",
-      secondaryBgColor: " #939794",
-      shadow: " 0px 5px 10px #939794",
-    },
-    green: {
-      id: 2,
-      name: "green",
-      displayName: "green Mode",
-      color: "white",
-      backgroundColor: "#1b262c",
-      secondaryBgColor: " #0f4c75",
-      shadow: " 0px 5px 10px #1b262c",
-    },
-    darkBlue: {
-      id: 3,
-      name: "darkBlue",
-      displayName: "Dark Blue Mode",
-      color: "white",
-      backgroundColor: "#053f5e ",
-      secondaryBgColor: " #115173",
-      shadow: " 0px 5px 10px #053f5e",
-    },
+    console.log(themeStore.themeOptions)
   }
 
 
+
+  getSelectedTheme = () => {
+    return themeStore.getCurrentTheme();
+  }
 
 
   onChangeSelectedTheme = (inputTheme) => {
-
-    this.setState({ selectedTheme: App.themeOptions[inputTheme] }); //get the theme
-
+    themeStore.changeTheme(inputTheme)
   }
 
 
@@ -100,13 +52,13 @@ export default class App extends React.Component {
       <Router basename={process.env.PUBLIC_URL}>
         <div>
           <Switch>
-          <Route exact path="/counter-page" children={<CounterPage/>} />
-          
-          <Route exact path="/todo-list">
+            <Route exact path="/counter-page" children={<CounterPage />} />
+
+            <Route exact path="/todo-list">
               <TodoList />
             </Route>
             <Route exact path="/covid19-dashboard">
-              <Covid19Dashboard selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <Covid19Dashboard selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />
             </Route>
             <Route exact path="/form-components">
               <FormComponents />
@@ -133,12 +85,12 @@ export default class App extends React.Component {
             </Route>
 
             <Route exact path="/covid19-dashboard/details/:countryId">
-              <CountryDetails selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <CountryDetails selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />
             </Route>
             <Route exact path="/page-1">
               <Page1 />
             </Route>
-            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={this.state.selectedTheme} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
+            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
             <Route exact path="/">
               <HomePage />
             </Route>
@@ -148,6 +100,16 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default App;
+
+
+
+
+
+
+
+
 
 
 

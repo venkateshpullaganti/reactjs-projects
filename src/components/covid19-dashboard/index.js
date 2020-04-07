@@ -14,6 +14,7 @@ class Covid19Dashboard extends React.Component {
             selectedRegion: "All",
             searchText: null
         };
+        console.log("index", props)
         this.getCountries = this.getCountries.bind(this);
 
     }

@@ -1,17 +1,7 @@
-import { observable, action } from 'mobx'
+import React from "react";
 
-class CounterStore {
-   @observable count = 0
 
-   @action.bound
-   incrementCounter() {
-      this.count = this.count + 1
-   }
+class Counter extends React.Component {
 
-   @action.bound
-   decrementCounter() {
-      this.count = this.count - 1
-   }
 }
-
-export default CounterStore
+export default Counter;
