@@ -2,18 +2,23 @@ import React from "react";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 
-@observer class Counter extends React.Component {
-  @observable seconds = 0;
+import counter from "../../stores/CounterStore";
+import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents.js"
 
-
-
-  timerId = setInterval(() => {
-    this.seconds++
-  }, 1000);
-
+@observer
+class Counter extends React.Component {
 
   render() {
-    return (<p>Seconds Passed:{this.seconds}</p>)
+    return (
+      <CounterRoot>
+        <Name>Counter</Name>
+        <BtnContainer>
+          <Btn type="button" onClick={counter.onIncrement}>+</Btn>
+          <Number type="number" onChange={(event) => counter.onChangeNumber(event.target.value)} value={counter.getCount()} />
+          <Btn type="button" onClick={counter.onDecrement}>-</Btn>
+        </BtnContainer>
+      </CounterRoot>
+    );
   }
 
 }
@@ -31,6 +36,19 @@ export default Counter;
 
 
 
+
+//  @observable seconds = 0;
+
+
+
+//   timerId = setInterval(() => {
+//     this.seconds++
+//   }, 1000);
+
+
+//   render() {
+//     return (<p>Seconds Passed:{this.seconds}</p>)
+//   }
 
 
 

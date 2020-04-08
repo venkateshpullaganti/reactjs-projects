@@ -6,8 +6,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-// import { observable } from "mobx";
 import { observer } from "mobx-react";
+import { configure } from "mobx";
 
 import { TodoList } from './components/todo-list';
 import { FormComponents } from './components/form-components';
@@ -24,27 +24,20 @@ import EmojiGame from "./components/EmojiGame";
 import "./App.css"
 import "./components/todo-list/todo-list.css";
 import CounterPage from "./components/CounterPage";
-
 import { themeStore } from "./stores/ThemeStore";
+import TodoListMobx from "./components/todo-list-mobx";
+
+// configure({ enforceActions: "observed" });
 
 @observer
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    console.log(themeStore.themeOptions)
-  }
 
 
 
-  getSelectedTheme = () => {
-    return themeStore.getCurrentTheme();
-  }
+  // getSelectedTheme = () => {
+  //   return themeStore.getCurrentTheme();
+  // }
 
-
-  onChangeSelectedTheme = (inputTheme) => {
-    themeStore.changeTheme(inputTheme)
-  }
 
 
   render() {
@@ -58,7 +51,7 @@ class App extends React.Component {
               <TodoList />
             </Route>
             <Route exact path="/covid19-dashboard">
-              <Covid19Dashboard selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <Covid19Dashboard selectedTheme={themeStore.getCurrentTheme()} onChangeSelectedTheme={themeStore.setCurrentTheme} />
             </Route>
             <Route exact path="/form-components">
               <FormComponents />
@@ -85,15 +78,17 @@ class App extends React.Component {
             </Route>
 
             <Route exact path="/covid19-dashboard/details/:countryId">
-              <CountryDetails selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />
+              <CountryDetails selectedTheme={themeStore.getCurrentTheme()} onChangeSelectedTheme={themeStore.setCurrentTheme} />
             </Route>
             <Route exact path="/page-1">
               <Page1 />
             </Route>
-            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={this.getSelectedTheme()} onChangeSelectedTheme={this.onChangeSelectedTheme} />} />
+            <Route exact path="/emojis-game" children={<EmojiGame selectedTheme={themeStore.getCurrentTheme()} onChangeSelectedTheme={themeStore.setCurrentTheme} />} />
             <Route exact path="/">
               <HomePage />
             </Route>
+
+            <Route exact path="/todo-list-mobx" children={<TodoListMobx />} />
           </Switch>
         </div>
       </Router>

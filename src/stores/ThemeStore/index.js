@@ -1,11 +1,15 @@
-import { observable } from "mobx";
-import { observer } from "mobx-react";
+import { observable, action } from "mobx";
+
 
 
 // @observer
 class ThemeStore {
 
     @observable selectedTheme;
+    constructor() {
+        this.selectedTheme = ThemeStore.themeOptions["light"];
+    }
+
 
 
     static themeOptions = {
@@ -60,11 +64,8 @@ class ThemeStore {
         },
     }
 
-    constructor() {
-        this.selectedTheme = ThemeStore.themeOptions["light"];
-    }
-
-    changeTheme = (inputTheme) => {
+    @action
+    setCurrentTheme = (inputTheme) => {
         this.selectedTheme = ThemeStore.themeOptions[inputTheme];
     }
     getCurrentTheme = () => {
@@ -76,4 +77,6 @@ class ThemeStore {
 }
 
 const themeStore = new ThemeStore();
+
+
 export { ThemeStore, themeStore };

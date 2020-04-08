@@ -4,6 +4,6 @@
 
 Questions :
 1. Mobx store
-2. @action.bound - use when destructuring if we use this in function, developer tools use, 
-
-
+2. @action.bound , @action - use when destructuring if we use this in function, developer tools use(logs), 
+    should update the observable in action in strict mode. 
+3. can't change style directly by observable variables.

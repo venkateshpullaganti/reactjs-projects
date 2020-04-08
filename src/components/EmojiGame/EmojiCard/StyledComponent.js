@@ -14,6 +14,7 @@ const dynamicStyle = props =>
     background:${props.selectedTheme.cardColor} `;
 
 const EmojiCardStyled = styled.div`
+cursor:pointer;
 ${ dynamicStyle};
 ${ '' /* ${bgColor}; */}
 ${ tw`flex flex-col m-4 items-center h-64 w-64 p-2 border-solid border shadow-custom`} `;

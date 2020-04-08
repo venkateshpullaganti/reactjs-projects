@@ -12,8 +12,8 @@ class NavBar extends React.Component {
 
 
     changeTheme = () => {
-        const { onChangeSelectedTheme } = this.props;
-        const { selectedTheme } = this.props;
+        const { onChangeSelectedTheme, selectedTheme } = this.props;
+        console.log("change theme")
         if (selectedTheme.name === "light")
             onChangeSelectedTheme("dark");
         else

@@ -1,7 +1,34 @@
 import React from "react";
+import { observable, action } from "mobx";
 
+// @observer
+class Counter {
+    @observable count = 0;
 
-class Counter extends React.Component {
+    incrementor = 1;
+    decrementor = -1;
+
+    getCount = () => {
+        return this.count;
+    }
+
+    @action.bound
+    onChangeNumber = (input) => {
+        this.count = input;
+    }
+
+    @action.bound
+    onIncrement = () => {
+        this.count = Number(this.count) + this.incrementor;
+        // this.count++;
+    }
+
+    @action.bound
+    onDecrement = () => {
+        this.count = Number(this.count) + this.decrementor;
+        // this.count--;
+    }
 
 }
-export default Counter;
+const counter = new Counter();
+export default counter;
