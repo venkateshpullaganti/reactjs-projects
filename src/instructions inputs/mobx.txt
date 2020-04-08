@@ -1,3 +1,13 @@
+**Mobx**
+    observable
+    observer
+    action.bound
+    computed
+    reaction, autorun
+    inject
+    
+store
+model
 
 
 
@@ -7,3 +17,15 @@ Questions :
 2. @action.bound , @action - use when destructuring if we use this in function, developer tools use(logs), 
     should update the observable in action in strict mode. 
 3. can't change style directly by observable variables.
+4. computed variables are camelCased.
+
+
+
+Points :
+1.  to get js array i console us "toJs" module. toJs(array);
+2.  to third party component we should convert the mobx array to plain js array by using toJS or splice; <= mobx 4
+3. computed, observable variables classes will render
+
+ThemeStore => 
+
+MobxModel 
