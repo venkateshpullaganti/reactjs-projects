@@ -2,6 +2,10 @@ import React from "react";
 
 import themeStore from "../../../stores/TodoList";
 import { observer } from "mobx-react";
+import { autorun, reaction } from "mobx";
+import todoStore from "../../../stores/TodoList";
+
+
 
 @observer
 class TodoFooter extends React.Component {
@@ -25,3 +29,25 @@ class TodoFooter extends React.Component {
     }
 }
 export default TodoFooter;
+
+
+// autorun(() => {
+//     if (themeStore.activeTodoCount === 0) {
+//         console.log("autorun");
+//         alert("congrats you have no todos left..!");
+//     }
+//     else {
+//         console.log("autorun else")
+//     }
+// }
+// )
+
+function compl() {
+    return todoStore.todoLength === 0;
+}
+
+const reaction2 = reaction(
+    () => todoStore.todoLength,
+    () => alert("completed")
+)
+

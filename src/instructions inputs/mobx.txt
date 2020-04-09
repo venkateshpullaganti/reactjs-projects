@@ -28,4 +28,8 @@ Points :
 
 ThemeStore => 
 
-MobxModel 
+MobxModel
+
+
+yarn vs npm commands 
+
