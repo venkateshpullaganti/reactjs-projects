@@ -33,13 +33,11 @@ class TodoListMobxV2 extends React.Component {
     renderTodos = () => {
         const outputList = todoStore.selectedFilteredTodos;
         if (outputList !== null) {
-            return outputList.map((todo) =>
+            return outputList.map((eachTodoModel) =>
                 <Todo
-                    todo={todo}
-                    removeTodo={() => this.removeTodo(todo.id)}
-                    key={todo.id} id={todo.id}
-                    title={todo.title}
-                    isCompleted={todo.isCompleted}
+                    todo={eachTodoModel}
+                    key={eachTodoModel.id}
+                    removeTodo={() => this.removeTodo(eachTodoModel.id)}
                 />)
         }
         return null;

@@ -14,15 +14,12 @@ class Todo extends React.Component {
 
         }
     }
-
-    handleCheck = (todoId) => {
-
+    handleCheck = () => {
         this.props.todo.toggleIsChecked();
-
     }
-
     render() {
-        const { isCompleted, title } = this.props;
+        const { isCompleted, title, id } = this.props.todo;
+        const { removeTodo } = this.props;
         return (
             <li className="todo-item" style={{ display: "flex", height: "50px" }} >
                 <input
@@ -30,12 +27,12 @@ class Todo extends React.Component {
                     onClick={this.handleCheck} defaultChecked={isCompleted} />
 
                 <input disabled={isCompleted ? true : false}
-                    id={this.props.id} onKeyPress={this.updateTodoContent}
+                    id={id} onKeyPress={this.updateTodoContent}
                     className={isCompleted ? "todo-name strike-through" : "todo-name"}
                     type="text" defaultValue={title} />
                 <button
                     className="remove-btn"
-                    type="button" onClick={this.props.removeTodo} >X</button>
+                    type="button" onClick={removeTodo} >X</button>
             </li>
         );
     }
