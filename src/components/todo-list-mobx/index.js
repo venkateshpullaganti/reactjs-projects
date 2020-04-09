@@ -14,7 +14,6 @@ class TodoItem extends React.Component {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
             this.props.updateTodoContentFunc(this.props.id, event.target.value);
         }
-
     }
 
     render() {
@@ -49,7 +48,6 @@ class TodoListMobx extends React.Component {
             this.addTodoItem(event.target.value);
             event.target.value = "";
         }
-
     }
     @action
     addTodoItem = (content) => {
@@ -157,8 +155,6 @@ class TodoListMobx extends React.Component {
     }
 }
 export default TodoListMobx;
-
-
 
 
 

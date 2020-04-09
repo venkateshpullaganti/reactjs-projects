@@ -26,6 +26,7 @@ import "./components/todo-list/todo-list.css";
 import CounterPage from "./components/CounterPage";
 import { themeStore } from "./stores/ThemeStore";
 import TodoListMobx from "./components/todo-list-mobx";
+import TodoListMobxV2 from "./components/todo-list-mobx-v2"
 
 // configure({ enforceActions: "observed" });
 
@@ -89,6 +90,7 @@ class App extends React.Component {
             </Route>
 
             <Route exact path="/todo-list-mobx" children={<TodoListMobx />} />
+            <Route exact path="/todo-list-mobx-v2" children={<TodoListMobxV2 />} />
           </Switch>
         </div>
       </Router>

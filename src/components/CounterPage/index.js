@@ -7,17 +7,23 @@ import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents
 
 @observer
 class Counter extends React.Component {
+  onChangeNumber = (event) => {
+    counter.onChangeNumber(event.target.value);
+  }
 
   render() {
     return (
-      <CounterRoot>
-        <Name>Counter</Name>
-        <BtnContainer>
-          <Btn type="button" onClick={counter.onIncrement}>+</Btn>
-          <Number type="number" onChange={(event) => counter.onChangeNumber(event.target.value)} value={counter.getCount()} />
-          <Btn type="button" onClick={counter.onDecrement}>-</Btn>
-        </BtnContainer>
-      </CounterRoot>
+      <form>
+        <CounterRoot>
+          <Name>Counter</Name>
+          <BtnContainer>
+            <Btn type="button" onClick={counter.onIncrement}>+</Btn>
+            <Number type="number" onChange={this.onChangeNumber} value={counter.getCount()} />
+            <Btn type="button" onClick={counter.onDecrement}>-</Btn>
+          </BtnContainer>
+        </CounterRoot>
+      </form>
+
     );
   }
 

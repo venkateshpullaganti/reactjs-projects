@@ -28,6 +28,7 @@ export default function HomePage() {
         <li><Link to="/emojis-game">Emojis Game</Link></li>
         <li><Link to="/counter-page">Counter Page</Link></li>
         <li><Link to="/todo-list-mobx">TodoList Mobx</Link></li>
+        <li><Link to="/todo-list-mobx-v2">TodoList Mobx V2 (Mobx Model)</Link></li>
       </ul>
     </div>
   );
