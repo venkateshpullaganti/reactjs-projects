@@ -22,6 +22,7 @@ export default function HomePage() {
       </header>
       <ul className=" w-1/6 flex flex-col p-2 items-center">
         <li><Link to="/page-1">Page 1</Link></li>
+        <li><Link to="/events-app" >Events App</Link></li>
         <li><Link to="/todo-list" >TodoList</Link></li>
         <li><Link to="/covid19-dashboard">Covid19 Dashboard</Link></li>
         <li><Link to="/form-components" >Form Components</Link></li>

@@ -71,8 +71,7 @@ class TodoStore {
         () => this.todos.map(todo => todo.title),
         (todonames) => {
             console.log("todo names", todonames)
-        },
-        this.customReaction()
+        }
     )
 }
 const todoStore = new TodoStore();
