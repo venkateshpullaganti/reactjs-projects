@@ -12,7 +12,7 @@ model
 
 
 
-Questions :
+instruction :
 1. Mobx store
 2. @action.bound , @action - use when destructuring if we use this in function, developer tools use(logs), 
     should update the observable in action in strict mode. 
@@ -22,14 +22,22 @@ Questions :
 
 
 Points :
-1.  to get js array i console us "toJs" module. toJs(array);
+1.  to get js array in console us "toJs" module. toJs(array);
 2.  to third party component we should convert the mobx array to plain js array by using toJS or splice; <= mobx 4
 3. computed, observable variables classes will render
-
-ThemeStore => 
+ 
 
 MobxModel
 
-
 yarn vs npm commands 
+
+
+
+Reaction :
+customReaction = reaction(fun1,fun2)
+fun1 - data function
+fun2 - reaction function
+
+only the object changes are noticed by the reaction
+if u want to trigger when  anything  changes then make the mobx object to palin js object by toJS
 

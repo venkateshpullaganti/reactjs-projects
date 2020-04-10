@@ -42,12 +42,12 @@ export default TodoFooter;
 // }
 // )
 
-function compl() {
-    return todoStore.todoLength === 0;
-}
+// function compl() {
+//     return todoStore.todoLength === 0;
+// }
 
-const reaction2 = reaction(
-    () => todoStore.todoLength,
-    () => alert("completed")
-)
+// const reaction1 = reaction(
+//     () => todoStore.todoLength,
+//     (length) => alert("completed")
+// )
 

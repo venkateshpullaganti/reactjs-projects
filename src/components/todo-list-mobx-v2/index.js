@@ -1,10 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, reaction } from "mobx";
 
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
 import todoStore from "../../stores/TodoList"
+import { themeStore } from "../../stores/ThemeStore";
 
 
 @observer
@@ -29,6 +30,8 @@ class TodoListMobxV2 extends React.Component {
     removeTodo = (removeid) => {
         todoStore.removeTodo(removeid);
     }
+
+
 
     renderTodos = () => {
         const outputList = todoStore.selectedFilteredTodos;

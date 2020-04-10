@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, reaction } from "mobx";
 //import { observer } from "mobx-react";
 
 import TodoModel from "../Models/TodoModel";
@@ -44,8 +44,7 @@ class TodoStore {
 
     @action
     clearCompleted = () => {
-        this.todos = this.todos.filter((todo) =>
-            !todo.isCompleted)
+        this.todos = this.todos.filter((todo) => !todo.isCompleted)
     }
 
     @action
@@ -67,6 +66,14 @@ class TodoStore {
         });
         return count;
     }
+
+    customReaction = reaction(
+        () => this.todos.map(todo => todo.title),
+        (todonames) => {
+            console.log("todo names", todonames)
+        },
+        this.customReaction()
+    )
 }
 const todoStore = new TodoStore();
 export default todoStore;
