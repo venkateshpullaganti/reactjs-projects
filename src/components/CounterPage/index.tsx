@@ -3,10 +3,26 @@ import { observable } from "mobx";
 import { observer } from "mobx-react";
 
 import counter from "../../stores/CounterStore";
-import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents.js"
+import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents.js";
+
+
+// type Props = {
+//   initialCount: number
+// }
 
 @observer
-class Counter extends React.Component {
+class CounterPage extends React.Component{
+  // functionCalling
+
+  onIncrement = () => {
+    counter.onIncrement();
+  }
+
+  handleDecrement = () => {
+    if (counter.count !== 0) {
+      counter.onDecrement()
+    }
+  }
   onChangeNumber = (event) => {
     counter.onChangeNumber(event.target.value);
   }
@@ -28,7 +44,7 @@ class Counter extends React.Component {
   }
 
 }
-export default Counter;
+export default CounterPage;
 
 
 
