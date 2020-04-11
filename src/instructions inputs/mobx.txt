@@ -41,3 +41,19 @@ fun2 - reaction function
 only the object changes are noticed by the reaction
 if u want to trigger when  anything  changes then make the mobx object to palin js object by toJS
 
+
+Inject :
+ provider : childrens gets the data from parent without props.
+
+
+
+mobx:
+    1.observer
+    2.observable
+    3.action
+    4.computed
+    5.inject
+    6.reactions,autorun
+    7.provider
+    8.store
+    9.Model
