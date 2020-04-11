@@ -3,7 +3,9 @@ import { observer } from "mobx-react";
 
 import AddEvent from "./AddEvent";
 import EventList from "./EventList";
-import eventStore from "../../stores/EventsStore"
+import eventStore from "../../stores/EventsStore";
+
+
 @observer
 class EventsApp extends React.Component {
 
