@@ -23,16 +23,16 @@ class TodoItem extends React.Component {
         return (
             <li className="todo-item" style={{ display: "flex", height: "50px" }} >
                 <input
-                className="checkbox" type="checkbox"
-                onClick={this.props.handleCheckItem} defaultChecked={this.state.isCompleted} />
-                
+                    className="checkbox" type="checkbox"
+                    onClick={this.props.handleCheckItem} defaultChecked={this.state.isCompleted} />
+
                 <input disabled={this.props.isCompleted ? true : false}
-                id={this.props.id} onKeyPress={this.updateTodoContent} 
-                className={this.props.isCompleted ? "todo-name strike-through" : "todo-name"} 
-                type="text" defaultValue={this.state.content} />
+                    id={this.props.id} onKeyPress={this.updateTodoContent}
+                    className={this.props.isCompleted ? "todo-name strike-through" : "todo-name"}
+                    type="text" defaultValue={this.state.content} />
                 <button
-                className="remove-btn" 
-                type="button" onClick={this.props.removeTodoItem} >X</button>
+                    className="remove-btn"
+                    type="button" onClick={this.props.removeTodoItem} >X</button>
             </li>
         );
     }
@@ -78,7 +78,6 @@ class TodoList extends React.Component {
 
     }
     updateTodoContent = (todoId, newName) => {
-        console.log(todoId, newName);
         let modifiedList = this.state.todoList;
         const index = modifiedList.findIndex((todo) => todo.id === todoId);
         modifiedList[index].content = newName;
@@ -129,17 +128,17 @@ class TodoList extends React.Component {
     render() {
         return (
             <div className="todo-list-container">
-            <div className="root-div">
-                <p className="app-name">todos</p>
-                <div className="searchBar-container">
+                <div className="root-div">
+                    <p className="app-name">todos</p>
+                    <div className="searchBar-container">
 
-                    <span></span>
-                    <input className="add-todo-bar" type="text" onKeyPress={this.isEnterKey}></input>
+                        <span></span>
+                        <input className="add-todo-bar" type="text" onKeyPress={this.isEnterKey}></input>
+                    </div>
+                    <ul className="todo-items-container">{this.renderTodos()}</ul>
+                    {this.renderFooter()}
                 </div>
-                <ul className="todo-items-container">{this.renderTodos()}</ul>
-                {this.renderFooter()}
             </div>
-        </div>
         )
     }
 
@@ -151,4 +150,4 @@ class TodoList extends React.Component {
 //     document.getElementById("root")
 // )
 
-export {TodoList};
+export { TodoList };

@@ -37,7 +37,7 @@ class EmojiGame extends React.Component {
 
     shuffleEmojis = () => {
         let prevEmojis = [...this.state.emojis];
-        console.log("before", prevEmojis);
+
 
         for (let i = prevEmojis.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * i)
@@ -45,7 +45,7 @@ class EmojiGame extends React.Component {
             prevEmojis[i] = prevEmojis[j]
             prevEmojis[j] = temp
         }
-        console.log("after", prevEmojis)
+
         this.setState({ emojis: [...prevEmojis] });
     }
 
@@ -111,7 +111,7 @@ class EmojiGame extends React.Component {
         const { selectedTheme } = this.props;
         const { emojis } = this.state;
         let emojiCards = null;
-        console.log("emojiS", emojis);
+
         if (emojis !== null) {
             emojiCards = emojis.map((currentEmoji) =>
                 <EmojiCard

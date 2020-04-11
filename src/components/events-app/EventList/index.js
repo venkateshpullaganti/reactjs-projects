@@ -13,10 +13,11 @@ class EventList extends React.Component {
     renderEvents = () => {
         const events = eventStore.getEvents;
         console.log("render events", events);
-        return events.map(currentEvent => <Event event={currentEvent} onRemoveEvent={this.onRemoveEvent} />)
+        return events.map(currentEvent => <Event key={currentEvent.id} event={currentEvent} onRemoveEvent={this.onRemoveEvent} />)
 
     }
     render() {
+        console.log("event list");
         return (
             <div>
                 {this.renderEvents()}

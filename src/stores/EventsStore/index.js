@@ -6,12 +6,11 @@ class EventsStore {
     @observable events
     constructor(props) {
         this.events = [];
-        console.log("events", props)
     }
     @action.bound
     onAddEvent(name, location) {
         let eventObj = {
-            id: new Date().getTime(),
+            id: new Date().getTime().toString(),
             name: name,
             location: location
         }
