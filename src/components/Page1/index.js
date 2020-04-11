@@ -85,7 +85,7 @@ class A extends React.Component {
 }
 
 
-@inject("temp")
+// @inject("temp")
 class B extends React.Component {
 
 
@@ -121,7 +121,7 @@ class Page1 extends React.Component {
             <DivStyled>
 
                 <Provider temp={"Venky"}>
-                    <A temp={"from parent"} />
+                    <A />
                 </Provider>
 
             </DivStyled>
