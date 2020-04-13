@@ -13,9 +13,9 @@ type EventProps = {
 
 @observer
 class Event extends React.Component<EventProps> {
-    @observable isEditEvent;
-    @observable name
-    @observable location
+    @observable isEditEvent: boolean;
+    @observable name: string;
+    @observable location: string;
 
     constructor(props) {
         super(props);

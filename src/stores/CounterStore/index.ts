@@ -12,7 +12,7 @@ class Counter {
     }
 
     @action.bound
-    onChangeNumber = (input) => {
+    onChangeNumber = (input: number) => {
         this.count = input;
     }
 

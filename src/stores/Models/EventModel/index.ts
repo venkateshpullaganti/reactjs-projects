@@ -2,9 +2,9 @@ import { observable, action } from "mobx";
 
 
 class EventModel {
-    @observable name
-    @observable location
-    id
+    @observable name: string
+    @observable location: string
+    id: string
     constructor(event) {
         this.id = event.id;
         this.name = event.name;

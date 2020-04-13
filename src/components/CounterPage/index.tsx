@@ -13,16 +13,16 @@ import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents
 class CounterPage extends React.Component {
   // functionCalling
 
-  onIncrement = () => {
+  onIncrement = (): void => {
     counter.onIncrement();
   }
 
-  handleDecrement = () => {
+  handleDecrement = (): void => {
     if (counter.count !== 0) {
       counter.onDecrement()
     }
   }
-  onChangeNumber = (event) => {
+  onChangeNumber = (event): void => {     //in hold :React.FormEvent<EventTarget>
     counter.onChangeNumber(event.target.value);
   }
 
@@ -38,7 +38,6 @@ class CounterPage extends React.Component {
           </BtnContainer>
         </CounterRoot>
       </form>
-
     );
   }
 

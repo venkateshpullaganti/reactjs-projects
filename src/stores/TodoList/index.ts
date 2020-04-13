@@ -3,21 +3,25 @@ import { observable, action, computed, reaction } from "mobx";
 
 import TodoModel from "../Models/TodoModel";
 
-
+type todoModelType = {
+    id: string,
+    title: string,
+    isCompleted: boolean
+}
 
 class TodoStore {
-    @observable todos;
-    @observable selectedFilter;
+    @observable todos: Array<todoModelType>;
+    @observable selectedFilter: string;
 
     constructor() {
         this.todos = [];
-        this.selectedFilter = "All"
+        this.selectedFilter = "All";
     }
 
     @action.bound
-    addTodo(title) {
+    addTodo(title: string) {
         let todoObj = {
-            id: new Date().getTime(),
+            id: new Date().getTime().toString(),
             title: title,
             isCompleted: false
         }
@@ -26,7 +30,7 @@ class TodoStore {
     }
 
     @action.bound
-    removeTodo(removeid) {
+    removeTodo(removeid: string) {
         this.todos = this.todos.filter((todo) =>
             todo.id !== removeid);
     }
@@ -48,17 +52,17 @@ class TodoStore {
     }
 
     @action
-    setCurrentFilter = (filter) => {
+    setCurrentFilter = (filter: string) => {
         this.selectedFilter = filter;
     }
 
     @computed
-    get todoLength() {
+    get todoLength(): number {
         return this.todos.length;
     }
 
     @computed
-    get activeTodoCount() {
+    get activeTodoCount(): number {
         let count = 0;
         this.todos.forEach(todo => {
             if (!todo.isCompleted)

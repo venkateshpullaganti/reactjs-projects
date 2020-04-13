@@ -1,15 +1,22 @@
 import { observable, action } from "mobx";
 // import { observer } from "mobx-react";
 
+type TodoModelProps = {
+    id: string,
+    title: string,
+    isCompleted: boolean
+}
+
+
 class TodoModel {
 
-    id
-    @observable title
-    @observable isCompleted
-    constructor(props) {
+    id: string;
+    @observable title: string;
+    isCompleted: boolean;
+    constructor(props: TodoModelProps) {
         this.id = props.id;
         this.title = props.title;
-        this.isCompleted = false;
+        this.isCompleted = props.isCompleted;
     }
     @action.bound
     updateTodoTitle(title) {
