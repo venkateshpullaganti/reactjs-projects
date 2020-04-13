@@ -1,11 +1,11 @@
 import { observable, action } from "mobx";
 
-// @observer
-class Counter {
-    @observable count = 0;
 
-    incrementor = 1;
-    decrementor = -1;
+class Counter {
+    @observable count: number = 0;
+
+    incrementor: number = 1;
+    decrementor: number = -1;
 
     getCount = () => {
         return this.count;
