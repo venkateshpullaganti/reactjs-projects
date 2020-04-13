@@ -1,9 +1,9 @@
 import React from "react";
-
-import themeStore from "../../../stores/TodoList";
 import { observer } from "mobx-react";
 import { autorun, reaction } from "mobx";
-import todoStore from "../../../stores/TodoList";
+
+
+import themeStore from "../../../stores/TodoList";
 
 
 

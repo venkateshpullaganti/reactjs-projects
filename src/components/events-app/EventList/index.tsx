@@ -1,8 +1,9 @@
 import React from "react";
+import { observer } from "mobx-react";
 
 import eventStore from "../../../stores/EventsStore";
 import Event from "../Event";
-import { observer } from "mobx-react";
+
 
 @observer
 class EventList extends React.Component {

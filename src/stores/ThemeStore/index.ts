@@ -1,7 +1,4 @@
 import { observable, action } from "mobx";
-
-
-
 // @observer
 class ThemeStore {
 

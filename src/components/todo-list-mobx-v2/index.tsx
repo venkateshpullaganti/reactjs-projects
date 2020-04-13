@@ -2,10 +2,10 @@ import React from "react";
 import { observer } from "mobx-react";
 import { observable, action, computed, reaction } from "mobx";
 
+import { themeStore } from "../../stores/ThemeStore";
+import todoStore from "../../stores/TodoList";
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
-import todoStore from "../../stores/TodoList"
-import { themeStore } from "../../stores/ThemeStore";
 
 
 @observer
