@@ -54,6 +54,10 @@ import { Provider, inject, observer } from "mobx-react";
 //     },
 //     props => ({ color: props.selectedTheme.color, backgroundColor: props.selectedTheme.background }))
 
+type Props = {
+    name: string,
+    temp: string
+}
 
 const DivStyled = styled.div`
     padding:50px;
@@ -61,56 +65,56 @@ const DivStyled = styled.div`
 `
 
 
-@inject("temp")
-@observer
-class A extends React.Component {
+// @inject("temp")
+// @observer
+// class A extends React.Component<Props> {
 
-    @observable name = "";
+//     @observable name = "";
 
-    onChange = (event) => {
-        this.name = event.target.value;
-    }
+//     onChange = (event) => {
+//         this.name = event.target.value;
+//     }
 
-    render() {
-        console.log("A", this.props.temp);
-        return (
-            <DivStyled>
-                <input style={{ background: "green" }} defaultValue={this.name} onChange={this.onChange} />
-                <B name={this.name} />
-            </DivStyled>
-        )
-    }
-}
+//     render() {
+//         console.log("A", this.props.temp);
+//         return (
+//             <DivStyled>
+//                 <input style={{ background: "green" }} defaultValue={this.name} onChange={this.onChange} />
+//                 <B name={this.name} />
+//             </DivStyled>
+//         )
+//     }
+// }
 
+
+// // @inject("temp")
+// class B extends React.Component<Props> {
+
+
+//     render() {
+//         console.log("B", this.props.temp, this.props.name);
+//         return (
+//             <DivStyled>
+
+//                 <C />
+
+//              </DivStyled>
+//         )
+//     }
+// }
 
 // @inject("temp")
-class B extends React.Component {
+// class C extends React.Component<Props> {
 
 
-    render() {
-        console.log("B", this.props.temp, this.props.name);
-        return (
-            <DivStyled>
+//     render() {
+//         console.log("C", this.props.temp);
+//         return (
+//             <p>THis is C comp.</p>
 
-                <C />
-
-            </DivStyled>
-        )
-    }
-}
-
-@inject("temp")
-class C extends React.Component {
-
-
-    render() {
-        console.log("C", this.props.temp);
-        return (
-            <p>THis is C comp.</p>
-
-        )
-    }
-}
+//         )
+//     }
+// }
 
 
 class Page1 extends React.Component {
@@ -119,7 +123,8 @@ class Page1 extends React.Component {
             <DivStyled>
 
                 <Provider temp={"Venky"}>
-                    <A />
+                    {/* <A /> */}
+                    <div>Page 1</div>
                 </Provider>
 
             </DivStyled>

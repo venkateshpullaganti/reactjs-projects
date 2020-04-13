@@ -4,6 +4,9 @@ import { observer } from "mobx-react";
 import eventStore from "../../../stores/EventsStore";
 import Event from "../Event";
 
+// type EventListProps = {
+//     onRemoveEvent: Function
+// }
 
 @observer
 class EventList extends React.Component {

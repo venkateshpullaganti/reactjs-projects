@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import eventStore from "../../stores/EventsStore";
 import AddEvent from "./AddEvent";
 import EventList from "./EventList";
-import eventStore from "../../stores/EventsStore";
 
 
 @observer
