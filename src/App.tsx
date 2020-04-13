@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import { observer } from "mobx-react";
-import { configure } from "mobx";
+// import { configure } from "mobx";
 
 import { TodoList } from './components/todo-list';
 import { FormComponents } from './components/form-components';

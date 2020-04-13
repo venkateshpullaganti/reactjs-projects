@@ -4,9 +4,9 @@ import tw from "tailwind.macro";
 import { css, jsx } from "@emotion/core";
 import "./tailwind.js";
 
-const Border = css`
-    border:"1px solid green"
-`;
+// const Border = css`
+//     border:"1px solid green"
+// `;
 
 const dynamicStyle = props =>
     css` 

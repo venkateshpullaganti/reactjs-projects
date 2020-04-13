@@ -1,5 +1,6 @@
 
 import React from "react";
+
 import { RootDiv, AppBody } from "./StyledComponent";
 import NavBar from "./NavBar";
 import EmojiCard from "./EmojiCard";

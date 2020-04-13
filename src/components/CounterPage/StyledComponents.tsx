@@ -1,7 +1,6 @@
 /**jsx jsx */
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
-import { css } from "@emotion/core";
 
 const CounterRoot = styled.div`
     ${tw`h-screen flex flex-col justify-center items-center`}`;

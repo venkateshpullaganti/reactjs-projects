@@ -1,26 +1,25 @@
 import React from "react";
+
 import "./index.css"
 
-class NavBar extends React.Component{
+class NavBar extends React.Component {
     // constructor(props)
     // {
     //     super(props);
     // }
-    goBack = ()=>
-    {
+    goBack = () => {
         window.history.back();
     }
-    render()
-    {
-        return(
+    render() {
+        return (
             <div className="navbar-container">
-            <div className="navbar">
-            
-            <button className="back-btn" onClick={this.goBack}>back</button>
-            <h3>{this.props.title}</h3>
-            </div>
+                <div className="navbar">
+
+                    <button className="back-btn" onClick={this.goBack}>back</button>
+                    <h3>{this.props.title}</h3>
+                </div>
             </div>
         );
     }
 }
-export {NavBar};
+export { NavBar };

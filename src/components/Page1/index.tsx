@@ -1,8 +1,6 @@
 /** @jsx jsx */
-import tw from "tailwind.macro";
-import { css, jsx } from "@emotion/core";
 import React from "react";
-import { reactions, autorun, observable, computed, observe } from "mobx";
+import { observable } from "mobx";
 
 
 

@@ -1,7 +1,5 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { autorun, reaction } from "mobx";
-
 
 import themeStore from "../../../stores/TodoList";
 

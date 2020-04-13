@@ -1,5 +1,4 @@
 import React from "react";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 
 import counter from "../../stores/CounterStore";
@@ -11,7 +10,7 @@ import { Btn, CounterRoot, Name, BtnContainer, Number } from "./StyledComponents
 // }
 
 @observer
-class CounterPage extends React.Component{
+class CounterPage extends React.Component {
   // functionCalling
 
   onIncrement = () => {

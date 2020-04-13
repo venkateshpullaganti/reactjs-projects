@@ -1,45 +1,42 @@
 import React from 'react';
+
+import { NavBar } from '../navbar'
 import "./index.css"
-import {NavBar} from '../navbar'
+
 
 class Greetings extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {
-            userInputText : "",
-            displayName : ""
+            userInputText: "",
+            displayName: ""
         }
-        
+
     }
-    handleUserInput = (event) =>
-    {
-        this.setState({userInputText:event.target.value})
+    handleUserInput = (event) => {
+        this.setState({ userInputText: event.target.value })
     }
-    handleSubmit = (event) =>
-    {
+    handleSubmit = (event) => {
         this.setState({
-            displayName : this.state.userInputText,
-            userInputText : ""
+            displayName: this.state.userInputText,
+            userInputText: ""
         })
         event.preventDefault();
     }
-    displayMessage = ()=>
-    {
-        if(this.state.displayName.trim() !=="" )
+    displayMessage = () => {
+        if (this.state.displayName.trim() !== "")
             return <p className="display-name">Hello {this.state.displayName}, have a nice day!</p>
         return null
     }
-    
-    render()
-    {
-        return(<div>
-            <NavBar title="Greetings"/>
+
+    render() {
+        return (<div>
+            <NavBar title="Greetings" />
             <div className="greetings-container">
                 <form className="greetings-form">
-                    
-                        <input className="name-field" type="text" onChange ={this.handleUserInput} value={this.state.userInputText} placeholder="Enter the name"/>
-                        <button className="submit-btn" type="submit" onClick={this.handleSubmit}>Greet</button>
+
+                    <input className="name-field" type="text" onChange={this.handleUserInput} value={this.state.userInputText} placeholder="Enter the name" />
+                    <button className="submit-btn" type="submit" onClick={this.handleSubmit}>Greet</button>
                 </form>
                 {this.displayMessage()}
             </div>
@@ -47,4 +44,4 @@ class Greetings extends React.Component {
         );
     }
 }
-export {Greetings}
+export { Greetings }
