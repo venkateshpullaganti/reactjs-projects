@@ -1,0 +1,19 @@
+git checkout master --to revert back
+
+
+removing TypeScript:
+    first save and commit to the git.
+    1. git checkout -b "typescript"
+    2. git push origin typescript  --- to revert back to typescript code : git checkout typescript
+    3. git checkout master
+    4. git pull upstream remove-typescript
+    5. sh ts_to_js.sh => 
+        find src -name "*.tsx" -exec sh -c 'mv "$0" "${0%.tsx}.js"'{}\;
+        find src -name "*.ts" -exec sh -c 'mv "$0" "${0%.tsx}.js"'{}\;
+
+        npm i customize-cra react-app-rewired --save-dev
+        npm i
+    6. in package.json
+        replace react-scripts
+        with in dev-dependencies 
+            react-app-rewired
