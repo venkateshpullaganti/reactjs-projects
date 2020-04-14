@@ -19,11 +19,12 @@ class TodoModel {
         this.isCompleted = props.isCompleted;
     }
     @action.bound
-    updateTodoTitle(title) {
+    updateTodoTitle(title: string): void {
         this.title = title;
     }
     @action.bound
-    toggleIsChecked() {
+    toggleIsChecked(): void {
+        console.log(this.isCompleted);
         this.isCompleted = !this.isCompleted;
     }
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { observable, action, computed, reaction } from "mobx";
+// import { observable, action, computed, reaction } from "mobx";
 
-import { themeStore } from "../../stores/ThemeStore";
+// import { ThemeStore } from "../../stores/ThemeStore";
 import todoStore from "../../stores/TodoList";
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
@@ -12,7 +12,7 @@ import TodoFooter from "./TodoFooter";
 class TodoListMobxV2 extends React.Component {
 
 
-    addTodoItem = (title) => {
+    addTodoItem = (title: string): void => {
 
         todoStore.addTodo(title);
     }
@@ -23,11 +23,9 @@ class TodoListMobxV2 extends React.Component {
             this.addTodoItem(event.target.value);
             event.target.value = "";
         }
-
-
     }
 
-    removeTodo = (removeid) => {
+    removeTodo = (removeid: string) => {
         todoStore.removeTodo(removeid);
     }
 

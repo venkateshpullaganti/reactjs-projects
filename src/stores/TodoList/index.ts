@@ -10,7 +10,7 @@ type todoModelType = {
 }
 
 class TodoStore {
-    @observable todos: Array<todoModelType>;
+    @observable todos: Array<TodoModel>;
     @observable selectedFilter: string;
 
     constructor() {
@@ -19,7 +19,7 @@ class TodoStore {
     }
 
     @action.bound
-    addTodo(title: string) {
+    addTodo(title: string): void {
         let todoObj = {
             id: new Date().getTime().toString(),
             title: title,
@@ -30,13 +30,13 @@ class TodoStore {
     }
 
     @action.bound
-    removeTodo(removeid: string) {
+    removeTodo(removeid: string): void {
         this.todos = this.todos.filter((todo) =>
             todo.id !== removeid);
     }
 
     @computed
-    get selectedFilteredTodos() {
+    get selectedFilteredTodos(): Array<TodoModel> {
 
         if (this.selectedFilter === 'All')
             return this.todos;
@@ -47,12 +47,12 @@ class TodoStore {
     }
 
     @action
-    clearCompleted = () => {
+    clearCompleted = (): void => {
         this.todos = this.todos.filter((todo) => !todo.isCompleted)
     }
 
     @action
-    setCurrentFilter = (filter: string) => {
+    setCurrentFilter = (filter: string): void => {
         this.selectedFilter = filter;
     }
 
@@ -73,8 +73,7 @@ class TodoStore {
 
     customReaction = reaction(
         () => this.todos.map(todo => todo.title),
-        (todonames) => {
-        }
+        (todonames) => { }
     )
 }
 const todoStore = new TodoStore();

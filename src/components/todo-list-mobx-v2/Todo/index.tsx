@@ -1,11 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react";
 
+import TodoModel from "../../../stores/Models/TodoModel";
 
+type TodoProps = {
+    todo: TodoModel,
+    removeTodo: () => void
+}
 
 
 @observer
-class Todo extends React.Component {
+class Todo extends React.Component<TodoProps> {
 
 
     updateTodoContent = (event) => {
@@ -26,7 +31,7 @@ class Todo extends React.Component {
                     className="checkbox" type="checkbox"
                     onClick={this.handleCheck} defaultChecked={isCompleted} />
 
-                <input disabled={isCompleted ? true : false}
+                <input disabled={isCompleted}
                     id={id} onKeyPress={this.updateTodoContent}
                     className={isCompleted ? "todo-name strike-through" : "todo-name"}
                     type="text" defaultValue={title} />

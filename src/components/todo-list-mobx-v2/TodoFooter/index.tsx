@@ -18,10 +18,10 @@ class TodoFooter extends React.Component {
         return (
             <div className="extra-functions" >
                 <p>Remaining Todos: {themeStore.activeTodoCount}</p>
-                <button className="all-btn" type="buton" onClick={(e) => this.onChangeCurrentFilter("All", e)}>All</button>
-                <button className="active-btn" type="button" onClick={(e) => this.onChangeCurrentFilter("Active", e)}>Active</button>
-                <button className="completed-btn" type="button" onClick={(e) => this.onChangeCurrentFilter("Completed", e)}>Completed</button>
-                <button className="cleat-completed-btn" type="button" onClick={this.clearCompleted}>Clear Completed</button>
+                <button className="all-btn" onClick={() => this.onChangeCurrentFilter("All")}>All</button>
+                <button className="active-btn" onClick={() => this.onChangeCurrentFilter("Active")}>Active</button>
+                <button className="completed-btn" onClick={() => this.onChangeCurrentFilter("Completed")}>Completed</button>
+                <button className="cleat-completed-btn" onClick={this.clearCompleted}>Clear Completed</button>
             </div>
         );
     }

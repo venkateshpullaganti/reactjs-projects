@@ -53,7 +53,7 @@ function addFunctionalityToNewItem(newItem) {
     let removeBtn = newItem.querySelector("button");
 
 
-    checkbox.addEventListener('change', function() {
+    checkbox.addEventListener('change', function () {
         if (checkbox.checked) {
             name.style.textDecoration = 'line-through';
             name.style.color = "lightgrey";
@@ -100,13 +100,13 @@ function addFunctionalityToNewItem(newItem) {
 
 
 
-showAllBtn.addEventListener("click", function() {
+showAllBtn.addEventListener("click", function () {
     todoList.filter(todo => {
         todo.style.display = "flex";
     });
 });
 
-showActiveBtn.addEventListener("click", function() {
+showActiveBtn.addEventListener("click", function () {
     for (let i in isCompleted) {
         if (isCompleted[i]) {
             todoList[i].style.display = "none";
@@ -117,7 +117,7 @@ showActiveBtn.addEventListener("click", function() {
     }
 });
 
-showCompletedBtn.addEventListener("click", function() {
+showCompletedBtn.addEventListener("click", function () {
     for (let i in isCompleted) {
         if (isCompleted[i]) {
             todoList[i].style.display = "flex";
@@ -128,7 +128,7 @@ showCompletedBtn.addEventListener("click", function() {
     }
 });
 
-clearCompletedBtn.addEventListener("click", function() {
+clearCompletedBtn.addEventListener("click", function () {
     console.log(todoList, isCompleted);
 
     let Obj = todoList.map((item, index) => {

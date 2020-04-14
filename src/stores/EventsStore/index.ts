@@ -12,7 +12,7 @@ type eventModel = {
 
 class EventsStore {
 
-    @observable events: Array<eventModel>
+    @observable events: Array<EventModel>
     constructor() {
         this.events = [];
     }

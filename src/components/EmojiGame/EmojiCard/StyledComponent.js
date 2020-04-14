@@ -1,7 +1,7 @@
 /**jsx jsx */
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import "./tailwind.js";
 
 // const Border = css`

@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import eventStore from "../../../stores/EventsStore";
 import Event from "../Event";
 
+
 // type EventListProps = {
 //     onRemoveEvent: Function
 // }
@@ -11,17 +12,16 @@ import Event from "../Event";
 @observer
 class EventList extends React.Component {
 
-    onRemoveEvent = (id) => {
-        console.log(id);
+    onRemoveEvent = (id: string): void => {
+        eventStore.deleteEvent(id);
+
     }
     renderEvents = () => {
         const events = eventStore.getEvents;
-        console.log("render events", events);
         return events.map(currentEvent => <Event key={currentEvent.id} event={currentEvent} onRemoveEvent={this.onRemoveEvent} />)
 
     }
     render() {
-        console.log("event list");
         return (
             <div>
                 {this.renderEvents()}

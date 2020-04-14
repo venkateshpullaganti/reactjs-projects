@@ -8,7 +8,7 @@ import EventModel from "../../../stores/Models/EventModel";
 
 type EventProps = {
     event: EventModel,
-    onRemoveEvent: Function
+    onRemoveEvent: (id: string) => void,
 }
 
 @observer
@@ -17,7 +17,7 @@ class Event extends React.Component<EventProps> {
     @observable name: string;
     @observable location: string;
 
-    constructor(props) {
+    constructor(props: EventProps) {
         super(props);
         const { name, location } = this.props.event;
         this.isEditEvent = false;
@@ -27,17 +27,21 @@ class Event extends React.Component<EventProps> {
     onDeleteEvent = (event) => {
         eventStore.deleteEvent(event.target.id)
     }
+
     onEdit = () => {
         this.isEditEvent = true;
     }
+
     onChangeEventName = (event) => {
         this.name = event.target.value;
     }
+
     onChangeEventLocation = (event) => {
         this.location = event.target.value;
     }
     onUpdateEvent = () => {
-        this.props.event.onUpdateEventDetails(this.name, this.location);
+        const { onUpdateEventDetails } = this.props.event;
+        onUpdateEventDetails(this.name, this.location);
         this.isEditEvent = false;
     }
     renderEvent = () => {
@@ -63,8 +67,6 @@ class Event extends React.Component<EventProps> {
             )
         }
     }
-
-
     render() {
 
         return (

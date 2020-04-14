@@ -6,9 +6,10 @@ import eventStore from "../../../stores/EventsStore"
 
 @observer
 class AddEvent extends React.Component {
-    @observable name
-    @observable location
-    constructor(props) {
+    @observable name: string;
+    @observable location: string;
+
+    constructor(props: any) {
         super(props);
         this.name = "";
         this.location = "";

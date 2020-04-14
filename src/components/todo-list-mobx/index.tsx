@@ -2,16 +2,25 @@ import React from "react"
 import { observer } from "mobx-react";
 import { observable, action, computed } from "mobx";
 
+type TodoItemProps = {
+    id: string
+    content: string
+    isCompleted: boolean
+    updateTodoContent: (todoId: string, newName: string) => void
+    handleCheckItem: () => void
+    removeTodoItem: () => void
+
+}
 
 @observer
-class TodoItem extends React.Component {
+class TodoItem extends React.Component<TodoItemProps> {
 
-    @observable isCompleted = this.props.isCompleted;
-    @observable content = this.props.content;
+    @observable isCompleted: boolean = this.props.isCompleted;
+    @observable content: string = this.props.content;
 
     updateTodoContent = (event) => {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
-            this.props.updateTodoContentFunc(this.props.id, event.target.value);
+            this.props.updateTodoContent(this.props.id, event.target.value);
         }
     }
 
@@ -34,12 +43,17 @@ class TodoItem extends React.Component {
     }
 }
 
+type todoObj = {
+    id: string,
+    content: string,
+    isCompleted: boolean
+}
 
 @observer
 class TodoListMobx extends React.Component {
 
-    @observable todos = [];
-    @observable currentState = "All";
+    @observable todos: Array<todoObj> = [];
+    @observable currentState: string = "All";
 
 
     isEnterKey = (event) => {
@@ -49,27 +63,27 @@ class TodoListMobx extends React.Component {
         }
     }
     @action
-    addTodoItem = (content) => {
-        let todo = {
-            id: new Date().getTime(),
+    addTodoItem = (content: string) => {
+        let todo: todoObj = {
+            id: new Date().getTime().toString(),
             content,
             isCompleted: false
         }
         this.todos.push(todo);
     }
     @action
-    removeTodo = (removeid) => {
+    removeTodo = (removeid: string) => {
         this.todos = this.todos.filter((todo) =>
             todo.id !== removeid);
 
     }
     @action
-    handleCheck = (todoId) => {
+    handleCheck = (todoId: string) => {
         const index = this.todos.findIndex((todo) => todo.id === todoId);
         this.todos[index].isCompleted = !this.todos[index].isCompleted;
     }
     @action
-    updateTodoContent = (todoId, newName) => {
+    updateTodoContent = (todoId: string, newName: string): void => {
         const index = this.todos.findIndex((todo) => todo.id === todoId);
         this.todos[index].content = newName;
 
@@ -78,7 +92,7 @@ class TodoListMobx extends React.Component {
         const outputList = this.selectedFilteredTodos;
         return outputList.map((todo) =>
             <TodoItem
-                updateTodoContentFunc={this.updateTodoContent}
+                updateTodoContent={this.updateTodoContent}
                 handleCheckItem={() => this.handleCheck(todo.id)}
                 removeTodoItem={() => this.removeTodo(todo.id)}
                 key={todo.id} id={todo.id} content={todo.content}
@@ -87,7 +101,7 @@ class TodoListMobx extends React.Component {
     }
 
     @computed
-    get selectedFilteredTodos() {
+    get selectedFilteredTodos(): Array<todoObj> {
 
         if (this.currentState === 'All')
             return this.todos;
@@ -98,11 +112,11 @@ class TodoListMobx extends React.Component {
     }
 
     @computed
-    get todoLength() {
+    get todoLength(): number {
         return this.todos.length;
     }
     @computed
-    get activeTodoCount() {
+    get activeTodoCount(): number {
         let count = 0;
         this.todos.forEach(todo => {
             if (!todo.isCompleted)
@@ -115,9 +129,9 @@ class TodoListMobx extends React.Component {
             return (
                 <div className="extra-functions">
                     <p>{this.activeTodoCount}</p>
-                    <button className="all-btn" type="buton" onClick={(e) => this.renderCurrentState("All", e)}>All</button>
-                    <button className="active-btn" type="button" onClick={(e) => this.renderCurrentState("Active", e)}>Active</button>
-                    <button className="completed-btn" type="button" onClick={(e) => this.renderCurrentState("Completed", e)}>Completed</button>
+                    <button className="all-btn" onClick={() => this.renderCurrentState("All")}>All</button>
+                    <button className="active-btn" type="button" onClick={() => this.renderCurrentState("Active")}>Active</button>
+                    <button className="completed-btn" type="button" onClick={() => this.renderCurrentState("Completed")}>Completed</button>
                     <button className="cleat-completed-btn" type="button" onClick={this.clearCompleted}>Clear Completed</button>
                 </div>
             );
@@ -125,7 +139,7 @@ class TodoListMobx extends React.Component {
     }
 
     @action
-    clearCompleted = () => {
+    clearCompleted = (): void => {
         let updatedTodoList = this.todos;
         updatedTodoList = updatedTodoList.filter((todo) =>
             !todo.isCompleted)
@@ -133,7 +147,7 @@ class TodoListMobx extends React.Component {
     }
 
     @action
-    renderCurrentState = (state) => {
+    renderCurrentState = (state: string) => {
         this.currentState = state;
     }
     render() {
