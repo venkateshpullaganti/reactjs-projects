@@ -1,8 +1,20 @@
 import { observable, action } from "mobx";
+
 // @observer
+export type ThemeType = {
+    id: number,
+    name: string,
+    displayName: string,
+    color: string,
+    backgroundColor: string,
+    secondaryBgColor: string,
+    cardColor: string,
+    shadow: string,
+}
+
 class ThemeStore {
 
-    @observable selectedTheme;
+    @observable selectedTheme: ThemeType;
     constructor() {
         this.selectedTheme = ThemeStore.themeOptions["light"];
     }

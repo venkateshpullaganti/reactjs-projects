@@ -7,31 +7,36 @@ export const data = [
     {
         "gridSize": 4,
         "hiddenCellCount": 4,
-        "gridWidth": 400
+        "gridWidth": 320
     },
     {
         "gridSize": 5,
         "hiddenCellCount": 5,
-        "gridWidth": 500
+        "gridWidth": 340
     },
     {
         "gridSize": 6,
         "hiddenCellCount": 6,
-        "gridWidth": 600
+        "gridWidth": 350
     },
     {
         "gridSize": 7,
         "hiddenCellCount": 7,
-        "gridWidth": 700
+        "gridWidth": 380
     },
     {
         "gridSize": 8,
         "hiddenCellCount": 8,
-        "gridWidth": 800
+        "gridWidth": 400
     },
     {
         "gridSize": 9,
         "hiddenCellCount": 9,
-        "gridWidth": 900
+        "gridWidth": 420
+    },
+    {
+        "gridSize": 10,
+        "hiddenCellCount": 10,
+        "gridWidth": 440
     }
 ]

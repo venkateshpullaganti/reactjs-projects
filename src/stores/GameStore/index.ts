@@ -4,6 +4,7 @@ import CellModel from "../Models/GridMemoryGame"
 import { data } from "./GameData";
 
 
+
 class GameStore {
 
     static initialLevelCells: number = 3;
@@ -24,6 +25,7 @@ class GameStore {
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
         this.cells = [];
+        this.setGridCells();
     }
 
     onCellClick = (clickedCellId: string) => {
@@ -58,7 +60,7 @@ class GameStore {
             this.cells.push(cell);
         }
 
-        let shuffledCells = this.cells;
+        let shuffledCells = [...this.cells];
         for (let i = shuffledCells.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * i)
             const temp = shuffledCells[i]
@@ -66,6 +68,8 @@ class GameStore {
             shuffledCells[j] = temp
         }
         this.currentLevelGridCells = shuffledCells.slice(0, this.level + GameStore.initialLevelCells);
+        this.currentLevelGridCells.map(eachCell => eachCell.isHidden = true);
+
     }
     resetSelectedCellsCount = () => {
         this.selectedCellsCount = 0;
