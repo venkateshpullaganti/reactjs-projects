@@ -48,7 +48,7 @@ class App extends React.Component {
       <Router basename={process.env.PUBLIC_URL}>
         <div>
           <Switch>
-            <Route exact path="/grid-memory-game" children={<GridMemoryGame />} />
+            <Route exact path="/grid-memory-game" children={<GridMemoryGame selectedTheme={themeStore.getCurrentTheme()} onChangeSelectedTheme={themeStore.setCurrentTheme} />} />
             <Route exact path="/counter-page" children={<CounterPage />} />
 
             <Route exact path="/todo-list">

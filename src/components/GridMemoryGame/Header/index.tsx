@@ -4,6 +4,7 @@ import { observer, inject } from "mobx-react";
 
 import { HeaderStyled, TopScore, Level, ThemeButton } from "./StyledComponents";
 
+
 type ThemeType = {
     id: number,
     name: string,
@@ -16,31 +17,38 @@ type ThemeType = {
 }
 
 interface HeaderProps {
-    onChangeTheme: Function,
+    onChangeTheme: (inputTheme: string) => void,
     TopLevel: number,
+
+}
+interface InjectedProps extends HeaderProps {
     level: number,
     selectedTheme: ThemeType
 }
 
 
-// @inject("level")
+@inject("level", "selectedTheme")
 @observer
 class Header extends React.Component<HeaderProps> {
-    constructor(props) {
-        super(props);
-        console.log("theme", props);
+
+
+    get injected() {
+        return this.props as InjectedProps;
     }
 
     onChangeTheme = (event) => {
-        const { onChangeTheme, selectedTheme } = this.props;
-        const updatedTheme = event.target.value === "light" ? "dark" : "light";
+        const { onChangeTheme } = this.props;
+        const { selectedTheme } = this.injected;
+        const updatedTheme = selectedTheme.name === "light" ? "dark" : "light";
+        console.log(updatedTheme);
         onChangeTheme(updatedTheme);
 
     }
     render() {
-        const { TopLevel, level, selectedTheme } = this.props;
+        const { TopLevel } = this.props;
+        const { selectedTheme, level } = this.injected;
         return (
-            <HeaderStyled>
+            <HeaderStyled selectedTheme={selectedTheme}>
                 <TopScore>
                     Top Level: {TopLevel}</TopScore>
                 <Level>Level: {level}</Level>

@@ -16,7 +16,8 @@ class ThemeStore {
 
     @observable selectedTheme: ThemeType;
     constructor() {
-        this.selectedTheme = ThemeStore.themeOptions["light"];
+        this.selectedTheme = ThemeStore.themeOptions["dark"];
+
     }
 
 
@@ -74,7 +75,7 @@ class ThemeStore {
     }
 
     @action
-    setCurrentTheme = (inputTheme) => {
+    setCurrentTheme = (inputTheme: string) => {
         this.selectedTheme = ThemeStore.themeOptions[inputTheme];
     }
     getCurrentTheme = () => {
