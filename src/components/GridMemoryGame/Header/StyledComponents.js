@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 import { css } from "@emotion/core";
-//declare propstypes here
+//declare propstypes here for every element
 
 const HeaderStyled = styled.div`
 ${tw`w-full p-2 flex flex-wrap`}`;
