@@ -17,7 +17,6 @@ class Covid19Dashboard extends React.Component {
             searchText: null
         };
         this.getCountries = this.getCountries.bind(this);
-
     }
 
     componentDidMount() {
@@ -25,7 +24,6 @@ class Covid19Dashboard extends React.Component {
     }
 
     async getCountries() {
-
         try {
             const response = await fetch("https://restcountries.eu/rest/v2/all");
             if (response.ok) {

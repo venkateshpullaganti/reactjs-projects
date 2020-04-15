@@ -16,7 +16,7 @@ import { jsx } from "@emotion/core";
 import styled from '@emotion/styled'
 
 // import logo from "../../logo.svg";
-import { Provider, inject, observer } from "mobx-react";
+import { Provider } from "mobx-react";
 
 // const Pagediv = styled.div`
 

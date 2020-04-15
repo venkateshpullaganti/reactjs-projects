@@ -35,14 +35,12 @@ class TodoItem extends React.Component {
     }
 }
 
-
-
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             todoList: [],
-            currentState: "All"
+            currentState: "All`"
         };
     }
     isEnterKey = (event) => {

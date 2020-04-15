@@ -9,7 +9,7 @@ export default function HomePage() {
       <header className="">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hello..!
         </p>
         <a
           className="App-link"
@@ -17,11 +17,12 @@ export default function HomePage() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Build Your Own Apps:
         </a>
 
       </header>
       <ul className=" w-1/6 flex flex-col p-2 items-center">
+        <li><Link to="/grid-memory-game">Grid Memory Game</Link></li>
         <li><Link to="/page-1">Page 1</Link></li>
         <li><Link to="/events-app" >Events App</Link></li>
         <li><Link to="/todo-list" >TodoList</Link></li>

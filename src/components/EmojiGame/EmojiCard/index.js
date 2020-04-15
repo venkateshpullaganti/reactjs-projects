@@ -10,7 +10,7 @@ class EmojiCard extends React.Component {
 
     render() {
 
-        const { emoji, onEmojiClick, selectedTheme, id } = this.props;
+        const { emoji, selectedTheme, id } = this.props;
         return (
             <EmojiInfo id={id} selectedTheme={selectedTheme} onClick={this.onEmojiClick}>
                 <ImgContainer>

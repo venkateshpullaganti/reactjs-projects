@@ -1,4 +1,4 @@
-import { observable, action, computed, reaction } from "mobx";
+import { observable, action, computed } from "mobx";
 
 
 import TodoModel from "../Models/TodoModel";
@@ -71,10 +71,10 @@ class TodoStore {
         return count;
     }
 
-    customReaction = reaction(
-        () => this.todos.map(todo => todo.title),
-        (todonames) => { }
-    )
+    // customReaction = reaction(
+    //     () => this.todos.map(todo => todo.title),
+    //     (todonames) => { }
+    // )
 }
 const todoStore = new TodoStore();
 export default todoStore;

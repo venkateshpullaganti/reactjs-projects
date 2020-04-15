@@ -12,9 +12,9 @@ const dynamicStyle = props =>
     `;
 
 
-const Border = styled.div`
-    ${tw`border-solid border-4 border-gray-600`}
-`;
+// const Border = styled.div`
+//     ${tw`border-solid border-4 border-gray-600`}
+// `;
 
 const NavBarDiv = styled.div`
     ${dynamicStyle}

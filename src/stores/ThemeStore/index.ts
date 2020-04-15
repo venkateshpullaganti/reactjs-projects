@@ -46,7 +46,7 @@ class ThemeStore {
             name: "green",
             displayName: "green Mode",
             color: "white",
-            backgroundColor: "#1b262c",
+            backgroundColor: "darkgreen",
             secondaryBgColor: " #0f4c75",
             shadow: " 0px 5px 10px #1b262c",
         },
@@ -68,9 +68,6 @@ class ThemeStore {
     getCurrentTheme = () => {
         return this.selectedTheme;
     }
-
-
-
 }
 
 const themeStore = new ThemeStore();

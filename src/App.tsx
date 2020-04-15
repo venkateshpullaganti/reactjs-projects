@@ -28,6 +28,7 @@ import { themeStore } from "./stores/ThemeStore";
 import TodoListMobx from "./components/todo-list-mobx";
 import TodoListMobxV2 from "./components/todo-list-mobx-v2";
 import EventsApp from "./components/events-app";
+import GridMemoryGame from "./components/GridMemoryGame";
 
 // configure({ enforceActions: "observed" });
 
@@ -47,6 +48,7 @@ class App extends React.Component {
       <Router basename={process.env.PUBLIC_URL}>
         <div>
           <Switch>
+            <Route exact path="/grid-memory-game" children={<GridMemoryGame />} />
             <Route exact path="/counter-page" children={<CounterPage />} />
 
             <Route exact path="/todo-list">
