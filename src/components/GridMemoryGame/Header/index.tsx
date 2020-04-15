@@ -26,6 +26,10 @@ interface HeaderProps {
 // @inject("level")
 @observer
 class Header extends React.Component<HeaderProps> {
+    constructor(props) {
+        super(props);
+        console.log("theme", props);
+    }
 
     onChangeTheme = (event) => {
         const { onChangeTheme, selectedTheme } = this.props;
@@ -37,7 +41,8 @@ class Header extends React.Component<HeaderProps> {
         const { TopLevel, level, selectedTheme } = this.props;
         return (
             <HeaderStyled>
-                <TopScore>Top Level: {TopLevel}</TopScore>
+                <TopScore>
+                    Top Level: {TopLevel}</TopScore>
                 <Level>Level: {level}</Level>
                 <ThemeButton onClick={this.onChangeTheme}>Mode:{selectedTheme.name}</ThemeButton>
             </HeaderStyled>);
