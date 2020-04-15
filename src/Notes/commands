@@ -1,5 +1,7 @@
 git checkout master --to revert back
 
+to add upstream : git remote add upstream https://bitbucket.org/rahulsccl/tap-react-training-reference.git
+
 
 removing TypeScript:
     first save and commit to the git.

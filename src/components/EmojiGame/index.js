@@ -83,7 +83,6 @@ class EmojiGame extends React.Component {
             return <WinOrLose onPlayAgainClick={this.onPlayAgainClick} score={score} isWon={gameState === "WON" ? true : false
             } selectedTheme={selectedTheme} />
         }
-
     }
 
 

@@ -16,6 +16,7 @@ class GridMemoryGame extends React.Component {
     constructor(props) {
         super(props);
         this.selectedTheme = themeStore.getCurrentTheme();
+        console.log("index", this.selectedTheme)
     }
     getSelectedTheme = () => {
         this.selectedTheme = themeStore.getCurrentTheme();
