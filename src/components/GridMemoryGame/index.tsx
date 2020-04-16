@@ -59,7 +59,8 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
                         isGameCompleted={gameStore.isGameCompleted}
                         level={gameStore.level} cells={gameStore.currentLevelGridCells}
                         onCellClick={gameStore.onCellClick}
-                        onClickPlayAgain={this.onClickPlayAgain} />
+                        onClickPlayAgain={this.onClickPlayAgain}
+                        resetGame={gameStore.resetGame} />
                     {/* </Provider> */}
                 </GameGrid>
             </GridMemoryGameStyled>

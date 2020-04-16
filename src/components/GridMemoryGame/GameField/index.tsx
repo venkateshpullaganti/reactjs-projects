@@ -11,15 +11,20 @@ interface GameFieldProps {
     cells: Array<CellModel>,
     onCellClick: (id: string) => void,
     isGameCompleted: boolean,
-    onClickPlayAgain: () => void
+    onClickPlayAgain: () => void,
+    resetGame: () => void
 }
 
 
 @observer
 class GameField extends React.Component<GameFieldProps> {
 
+    timerId;
+
     renderCells = () => {
         const { level, cells, onCellClick } = this.props;
+
+
         return cells.map(eachCell => <Cell
             width={data[level].gridWidth / data[level].gridSize}
             key={Math.random()}
@@ -46,9 +51,11 @@ class GameField extends React.Component<GameFieldProps> {
                     {this.renderCells()}
                 </GameFieldStyled>
             )
-
     }
     render() {
+        const { resetGame, level } = this.props;
+        clearInterval(this.timerId);
+        this.timerId = setInterval(() => { resetGame(); }, ((level + 3) * 2) * 1000)
 
         return (
             <div>

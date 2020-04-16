@@ -8,12 +8,13 @@ type PropsType = {
 }
 
 
-const CellStyled = styled.div`
+const CellStyled = styled.button`
 width: ${ (props: PropsType) => props.width - 4 + 'px'};
 height:${ (props: PropsType) => props.width - 4 + 'px'};
 background:${(props: PropsType) => props.background};
 margin:2px;
 transition: backgroundColor 2s;
+outline:none;
 `;
 
 

@@ -32,7 +32,6 @@ class Cell extends React.Component<CellProps>{
         const { level } = this.props;
         setTimeout(() => {
             this.shouldShowHiddenCells = !this.shouldShowHiddenCells;
-            // this.setTimeoutForCurrentLevel()
         }, ((level + 3) * 1000));
     }
     // changeHiddenCells = () => {
@@ -68,7 +67,8 @@ class Cell extends React.Component<CellProps>{
             <CellStyled
                 onClick={this.onCellClick}
                 background={this.setCellBgColor()}
-                width={width} />
+                width={width}
+                disabled={this.shouldShowHiddenCells} />
         );
     }
 }
