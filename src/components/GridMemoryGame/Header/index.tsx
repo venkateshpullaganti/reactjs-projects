@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 
 
 import { HeaderStyled, TopScore, Level, ThemeButton, DivStyled } from "./StyledComponents";
+import gameStore from "../../../stores/GameStore";
 
 
 export type ThemeType = {
@@ -20,7 +21,8 @@ interface HeaderProps {
     onChangeTheme: (inputTheme: string) => void,
     TopLevel: number,
     selectedTheme: ThemeType,
-    level: number
+    level: number,
+
 
 }
 // interface InjectedProps extends HeaderProps {
@@ -37,6 +39,9 @@ class Header extends React.Component<HeaderProps> {
     // get injected() {
     //     return this.props as InjectedProps;
     // }
+    goToNextLevel = () => {
+        gameStore.goToNextLevelAndUpdateCells();
+    }
 
     onChangeTheme = (event) => {
         const { onChangeTheme, selectedTheme } = this.props;
@@ -51,11 +56,11 @@ class Header extends React.Component<HeaderProps> {
         // const { level } = this.injected;
         return (
             <HeaderStyled >
-                <TopScore >
+                <TopScore onClick={this.goToNextLevel}>
                     Top Level: {TopLevel}</TopScore>
                 <DivStyled>
                     <Level >Level: {level}</Level>
-                    <ThemeButton onClick={this.onChangeTheme}>Mode: {selectedTheme.displayName}</ThemeButton>
+                    <ThemeButton border={selectedTheme.color} onClick={this.onChangeTheme}>Mode: {selectedTheme.displayName}</ThemeButton>
                 </DivStyled>
             </HeaderStyled>);
     }

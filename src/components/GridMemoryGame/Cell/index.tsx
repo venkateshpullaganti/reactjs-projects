@@ -25,7 +25,6 @@ class Cell extends React.Component<CellProps>{
     }
     componentDidMount() {
         this.timerForInitialDisplay();
-
     }
 
     timerForInitialDisplay = () => {
@@ -60,10 +59,7 @@ class Cell extends React.Component<CellProps>{
 
     render() {
         const { width } = this.props;
-
-
         return (
-
             <CellStyled
                 onClick={this.onCellClick}
                 background={this.setCellBgColor()}

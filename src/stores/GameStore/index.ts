@@ -3,7 +3,11 @@ import { observable } from "mobx";
 import CellModel from "../Models/GridMemoryGame"
 import { data } from "./GameData";
 
-
+type levelDataType = {
+    gridSize: number,
+    hiddenCellCount: number,
+    gridWidth: number
+}
 
 class GameStore {
 
@@ -14,14 +18,14 @@ class GameStore {
     @observable currentLevelGridCells: Array<CellModel>;
     @observable selectedCellsCount: number;
     @observable isGameCompleted: boolean;
-    gameData: Array<Object>
+    levelsData: Array<levelDataType>
     topLevel: number;
 
 
     constructor() {
         this.level = 0;
         this.topLevel = 0;
-        this.gameData = data;
+        this.levelsData = data;
         this.selectedCellsCount = 0;
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
@@ -48,7 +52,7 @@ class GameStore {
 
 
         if (this.selectedCellsCount === (this.level + 3)) {
-            if (this.level === this.gameData.length - 1) {
+            if (this.level === this.levelsData.length - 1) {
                 this.isGameCompleted = true;
             }
             else
@@ -90,8 +94,12 @@ class GameStore {
 
     goToNextLevelAndUpdateCells = () => {
         this.level++;
-        this.setGridCells();
-        this.resetSelectedCellsCount();
+        if (this.level === this.levelsData.length - 1)
+            this.isGameCompleted = true;
+        else {
+            this.setGridCells();
+            this.resetSelectedCellsCount();
+        }
 
     }
     goToInitialLevelAndUpdateCells = () => {
