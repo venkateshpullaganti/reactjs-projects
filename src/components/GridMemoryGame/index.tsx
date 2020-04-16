@@ -3,10 +3,21 @@ import { observable } from "mobx";
 import { Provider, observer } from "mobx-react";
 
 import gameStore from "../../stores/GameStore";
-import { ThemeType } from "../../stores/ThemeStore";
 import Header from "./Header";
 import GameField from "./GameField";
-import { GridMemoryGameStyled } from "./StyledComponents";
+import { GridMemoryGameStyled, GameGrid } from "./StyledComponents";
+
+
+export type ThemeType = {
+    id: number,
+    name: string,
+    displayName: string,
+    color: string,
+    backgroundColor: string,
+    secondaryBgColor: string,
+    cardColor: string,
+    shadow: string,
+}
 
 interface GridMemoryGameProps {
     selectedTheme: ThemeType,
@@ -20,6 +31,9 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
     // constructor(props) {
     //     super(props);
     // }
+    onClickPlayAgain = (): void => {
+        gameStore.onPlayAgainClick();
+    }
 
     onChangeTheme = (selectedTheme: string) => {
         const { onChangeSelectedTheme } = this.props;
@@ -27,17 +41,27 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
     }
 
     render() {
-        console.log(gameStore.cells);
         const { selectedTheme } = this.props;
+
         return (
-            <GridMemoryGameStyled>
-                <Provider level={gameStore.level} selectedTheme={selectedTheme}>
+            <GridMemoryGameStyled selectedTheme={selectedTheme}>
+                <GameGrid>
 
-                    <Header TopLevel={gameStore.topLevel} onChangeTheme={this.onChangeTheme} />
-                    <GameField />
+                    {/* <Provider level={gameStore.level} > */}
 
+                    <Header selectedTheme={selectedTheme}
+                        TopLevel={gameStore.topLevel}
+                        onChangeTheme={this.onChangeTheme}
+                        level={gameStore.level}
+                    />
 
-                </Provider>
+                    <GameField
+                        isGameCompleted={gameStore.isGameCompleted}
+                        level={gameStore.level} cells={gameStore.currentLevelGridCells}
+                        onCellClick={gameStore.onCellClick}
+                        onClickPlayAgain={this.onClickPlayAgain} />
+                    {/* </Provider> */}
+                </GameGrid>
             </GridMemoryGameStyled>
         )
     }

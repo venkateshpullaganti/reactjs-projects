@@ -15,6 +15,7 @@ const dynamicStyle = props =>
     background:${props.selectedTheme.backgroundColor}; `;
 
 const RootDiv = styled.div`
+
 ${dynamicStyle}
     ${tw`flex flex-col flex-grow`} `;
 

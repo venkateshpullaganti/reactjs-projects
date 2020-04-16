@@ -9,13 +9,14 @@ class GameStore {
 
     static initialLevelCells: number = 3;
 
+    clickedCellsIds: Array<string>
     @observable level: number;
     @observable currentLevelGridCells: Array<CellModel>;
     @observable selectedCellsCount: number;
     @observable isGameCompleted: boolean;
     gameData: Array<Object>
     topLevel: number;
-    cells: Array<CellModel>;
+
 
     constructor() {
         this.level = 0;
@@ -24,25 +25,31 @@ class GameStore {
         this.selectedCellsCount = 0;
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
-        this.cells = [];
         this.setGridCells();
+        this.clickedCellsIds = [];
     }
 
     onCellClick = (clickedCellId: string) => {
-        const status = this.currentLevelGridCells.findIndex(cell =>
+        const index = this.currentLevelGridCells.findIndex(cell =>
             cell.id === clickedCellId
         );
-        if (status === -1) {
 
-            this.resetGame();
+
+        if (this.currentLevelGridCells[index].isHidden) {
+            if (this.clickedCellsIds.findIndex(eachId => eachId === clickedCellId) === -1) {
+                this.selectedCellsCount++;
+                this.clickedCellsIds.push(clickedCellId);
+            }
         }
-        else
-            this.selectedCellsCount++;
+        else {
+            setTimeout(() => { this.resetGame(); }, 50); // to display red color for 100ms
+        }
 
-        if (this.selectedCellsCount === this.level) {
-            if (this.level === this.gameData.length) {
+
+
+        if (this.selectedCellsCount === (this.level + 3)) {
+            if (this.level === this.gameData.length - 1) {
                 this.isGameCompleted = true;
-                console.log("reached top level");
             }
             else
                 this.goToNextLevelAndUpdateCells();
@@ -50,25 +57,28 @@ class GameStore {
     }
 
     setGridCells = () => {
-        this.cells = [];
+        this.currentLevelGridCells = []; //emptying the array
+
         for (let i = 0; i < Math.pow(this.level + GameStore.initialLevelCells, 2); i++) {
             const cellObj = {
                 id: Math.random().toString(),
                 isHidden: false
             }
             const cell = new CellModel(cellObj);
-            this.cells.push(cell);
+
+            if (i < (this.level + 3))
+                cell.isHidden = true;
+
+            this.currentLevelGridCells.push(cell);
         }
 
-        let shuffledCells = [...this.cells];
-        for (let i = shuffledCells.length - 1; i > 0; i--) {
+        for (let i = this.currentLevelGridCells.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * i)
-            const temp = shuffledCells[i]
-            shuffledCells[i] = shuffledCells[j]
-            shuffledCells[j] = temp
+            const temp = this.currentLevelGridCells[i]
+            this.currentLevelGridCells[i] = this.currentLevelGridCells[j]
+            this.currentLevelGridCells[j] = temp;
         }
-        this.currentLevelGridCells = shuffledCells.slice(0, this.level + GameStore.initialLevelCells);
-        this.currentLevelGridCells.map(eachCell => eachCell.isHidden = true);
+
 
     }
     resetSelectedCellsCount = () => {
@@ -85,26 +95,27 @@ class GameStore {
 
     }
     goToInitialLevelAndUpdateCells = () => {
-        this.setTopLevel();
+        this.setTopLevel(this.level);
         this.level = 0;
         this.setGridCells();
         this.resetSelectedCellsCount();
     }
-    setTopLevel = () => {
-        if (this.level > this.topLevel)
-            this.topLevel = this.level;
+    setTopLevel = (currentLevel: number) => {
+        if (currentLevel > this.topLevel)
+            this.topLevel = currentLevel;
     }
 
     onPlayAgainClick = () => {
-        this.setTopLevel();
+        this.setTopLevel(this.level);
         this.resetGame();
     }
     resetGame = () => {
-        this.setTopLevel();
+        this.setTopLevel(this.level)
         this.level = 0;
         this.selectedCellsCount = 0;
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
+        this.setGridCells();
     }
 }
 

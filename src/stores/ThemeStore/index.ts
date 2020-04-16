@@ -26,9 +26,9 @@ class ThemeStore {
         light: {
             id: 0,
             name: "light",
-            displayName: "Light Theme",
+            displayName: "Light",
             color: "#2a4365",
-            backgroundColor: " #ebf4ff",       //this color  is for body background
+            backgroundColor: "#ebf4ff",       //this color  is for body background //
             secondaryBgColor: "white",        //is for the contents on the body like buttons,header etc.,
             cardColor: "white",
             shadow: "0px 15px 15px lightgrey",
@@ -37,7 +37,7 @@ class ThemeStore {
         dark: {
             id: 1,
             name: "dark",
-            displayName: "Dark Theme",
+            displayName: "Dark",
             color: "white",
             backgroundColor: "#1c2833",
             secondaryBgColor: "#2b3945",

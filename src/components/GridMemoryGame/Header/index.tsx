@@ -2,10 +2,10 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 
 
-import { HeaderStyled, TopScore, Level, ThemeButton } from "./StyledComponents";
+import { HeaderStyled, TopScore, Level, ThemeButton, DivStyled } from "./StyledComponents";
 
 
-type ThemeType = {
+export type ThemeType = {
     id: number,
     name: string,
     displayName: string,
@@ -19,40 +19,44 @@ type ThemeType = {
 interface HeaderProps {
     onChangeTheme: (inputTheme: string) => void,
     TopLevel: number,
+    selectedTheme: ThemeType,
+    level: number
 
 }
-interface InjectedProps extends HeaderProps {
-    level: number,
-    selectedTheme: ThemeType
-}
+// interface InjectedProps extends HeaderProps {
+//     level: number,
+
+// }
 
 
-@inject("level", "selectedTheme")
+// @inject("level")
 @observer
 class Header extends React.Component<HeaderProps> {
 
 
-    get injected() {
-        return this.props as InjectedProps;
-    }
+    // get injected() {
+    //     return this.props as InjectedProps;
+    // }
 
     onChangeTheme = (event) => {
-        const { onChangeTheme } = this.props;
-        const { selectedTheme } = this.injected;
+        const { onChangeTheme, selectedTheme } = this.props;
+
         const updatedTheme = selectedTheme.name === "light" ? "dark" : "light";
         console.log(updatedTheme);
         onChangeTheme(updatedTheme);
 
     }
     render() {
-        const { TopLevel } = this.props;
-        const { selectedTheme, level } = this.injected;
+        const { TopLevel, selectedTheme, level } = this.props;
+        // const { level } = this.injected;
         return (
-            <HeaderStyled selectedTheme={selectedTheme}>
-                <TopScore>
+            <HeaderStyled >
+                <TopScore >
                     Top Level: {TopLevel}</TopScore>
-                <Level>Level: {level}</Level>
-                <ThemeButton onClick={this.onChangeTheme}>Mode:{selectedTheme.name}</ThemeButton>
+                <DivStyled>
+                    <Level >Level: {level}</Level>
+                    <ThemeButton onClick={this.onChangeTheme}>Mode: {selectedTheme.displayName}</ThemeButton>
+                </DivStyled>
             </HeaderStyled>);
     }
 }
