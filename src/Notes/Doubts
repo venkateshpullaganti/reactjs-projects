@@ -1,3 +1,2 @@
 
 1. showing error of same key eventhough id is generated randomly in gamestore currentlevelcells;
-2. if we call a get function will it calculate everytime we call it/ stores and returns value.

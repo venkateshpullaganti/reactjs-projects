@@ -18,8 +18,8 @@ class ThemeStore {
 
     @observable selectedTheme: ThemeType;
     constructor() {
-        this.selectedTheme = ThemeStore.themeOptions["dark"];
-
+        const savedTheme = localStorage.getItem("selectedTheme");
+        this.selectedTheme = savedTheme !== null ? ThemeStore.themeOptions[savedTheme] : ThemeStore.themeOptions["dark"];
     }
 
 
@@ -87,6 +87,7 @@ class ThemeStore {
     @action
     setCurrentTheme = (inputTheme: string) => {
         this.selectedTheme = ThemeStore.themeOptions[inputTheme];
+        localStorage.setItem("selectedTheme", this.selectedTheme.name);
     }
     getCurrentTheme = () => {
         return this.selectedTheme;

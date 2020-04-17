@@ -19,8 +19,9 @@ class GameStore {
     initialHiddenCells: number = 3;
 
     constructor() {
+        const savedTopLevel = localStorage.getItem("topLevel");
         this.level = 0;
-        this.topLevel = 0;
+        this.topLevel = savedTopLevel !== null ? Number(savedTopLevel) : 0;
         this.levelsData = data;
         this.selectedCellsCount = 0;
         this.isGameCompleted = false;
@@ -92,12 +93,14 @@ class GameStore {
     goToInitialLevelAndUpdateCells = () => {
         this.setTopLevel(this.level);
         this.level = 0;
+        localStorage.setItem("currentLevel", this.level.toString());
         this.setGridCells();
         this.resetSelectedCellsCount();
     }
     setTopLevel = (currentLevel: number) => {
         if (currentLevel > this.topLevel)
             this.topLevel = currentLevel;
+        localStorage.setItem("topLevel", this.topLevel.toString());
     }
 
     onPlayAgainClick = () => {

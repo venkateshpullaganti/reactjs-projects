@@ -11,7 +11,6 @@ type BackgroundProps = {
     height: number,
     background: string,
     toggleShow: string
-
 }
 
 const CellStyled = styled.div`
@@ -23,7 +22,7 @@ background:${(props: PropsType) => props.background};
 
 animation: 1s ease-in ${keyframes`{
     0% {
-        filter: brightness(0.5);
+        filter: brightness(0.7);
     }
     100%
     {
