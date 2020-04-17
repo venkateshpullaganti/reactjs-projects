@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
-// import { css } from "@emotion/core";
+
 
 // import ThemeType from "./index";
 //declare propstypes here for every element

@@ -1,12 +1,10 @@
 import React from "react";
-// import { observable } from "mobx";
 import { observer } from "mobx-react";
 
 import gameStore from "../../stores/GameStore";
 import Header from "./Header";
 import GameField from "./GameField";
 import { GridMemoryGameStyled, Level, Message, PlayAgainBtn, GameCompletedComp, GridBody } from "./StyledComponents";
-
 
 export type ThemeType = {
     id: number,
@@ -17,6 +15,8 @@ export type ThemeType = {
     secondaryBgColor: string,
     cardColor: string,
     shadow: string,
+    hiddenCell: string,
+    cell: string
 }
 
 interface GridMemoryGameProps {
@@ -28,10 +28,6 @@ interface GridMemoryGameProps {
 @observer
 class GridMemoryGame extends React.Component<GridMemoryGameProps> {
 
-    // constructor(props) {
-    //     super(props);
-    // }
-
     onClickPlayAgain = (): void => {
         gameStore.onPlayAgainClick();
     }
@@ -41,52 +37,49 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
         onChangeSelectedTheme(selectedTheme);
     }
     renderBasedOnGameStatus = () => {
-        const level = gameStore.level;
-        const currentLevelGridCells = gameStore.currentLevelGridCells;
-        const resetGame = gameStore.resetGame;
+        const { currentLevelGridCells, resetGame, level } = gameStore;
         const width = gameStore.levelsData[level].gridWidth;
+        const { selectedTheme } = this.props;
 
         if (gameStore.isGameCompleted) {
-            return (<GameCompletedComp>
-                <Level>{level}</Level>
-                <Message>Congratulations..! You have completed all the Levels.</Message>
-                <PlayAgainBtn onClick={this.onClickPlayAgain}>Play Again</PlayAgainBtn>
-            </GameCompletedComp>)
+            return (
+                <GameCompletedComp>
+                    <Level>{level}</Level>
+                    <Message>Congratulations..! You have completed all the Levels.</Message>
+                    <PlayAgainBtn onClick={this.onClickPlayAgain}>Play Again</PlayAgainBtn>
+                </GameCompletedComp>)
         }
         else {
             return (<GameField
                 level={level} cells={currentLevelGridCells}
                 onCellClick={gameStore.onCellClick}
                 resetGame={resetGame}
-                width={width} />
+                width={width}
+                selectedTheme={selectedTheme}
+            />
             )
         }
     }
 
     render() {
         const { selectedTheme } = this.props;
-        const isGameCompleted = gameStore.isGameCompleted;
-        const level = gameStore.level;
-        const width = gameStore.levelsData[level].gridWidth;
+        const { isGameCompleted, level, topLevel } = gameStore;
+        const width = gameStore.levelsData[level].gridWidth.toString();
+        const halfScreenSize = "50%";
 
         return (
             <GridMemoryGameStyled selectedTheme={selectedTheme}>
-                <GridBody width={isGameCompleted ? 50 : width}>
-                    {/* <Provider level={gameStore.level} > */}
+                <GridBody width={isGameCompleted ? halfScreenSize : width}>
 
                     <Header selectedTheme={selectedTheme}
-                        TopLevel={gameStore.topLevel}
+                        TopLevel={topLevel}
                         onChangeTheme={this.onChangeTheme}
-                        level={gameStore.level}
+                        level={level}
                     />
                     {this.renderBasedOnGameStatus()}
-
-                    {/* </Provider> */}
                 </GridBody>
             </GridMemoryGameStyled>
         )
     }
 }
 export default GridMemoryGame;
-
-// selectedTheme={selectedTheme}

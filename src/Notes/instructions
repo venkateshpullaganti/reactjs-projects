@@ -1,0 +1,17 @@
+Instructions to follow while doing Javascript projects:
+
+    All function names and variable names should be in camel case (Ex: firstName)
+    All ids should be camel case
+    All CSS class names should be hyphenated(Ex: form-input)
+    Keep meaningful names (Ex: Don't use a,b,c,ab,bc,x,y,z...etc)
+    Do less DOM operations as they impact performance
+    CSS classes are generally better for performance than inline styles.
+    Use let if the variable changes, Use const if the variable won't change, Don't use var
+    Save constants on the top of the javascript file(Ex: Regular expressions)
+    An id attribute should be unique and should be given to single element in the entire HTML
+
+
+
+https://tap.ibhubs.in/react/react-instructions/
+
+https://tap.ibhubs.in/react/js-instructions/

@@ -1,7 +1,7 @@
-import { observable } from "mobx";
+import { observable, computed } from "mobx";
 
 import CellModel from "../Models/GridMemoryGame"
-import { data } from "./GameData";
+import data from "./GameData.json";
 
 type levelDataType = {
     gridSize: number,
@@ -10,17 +10,13 @@ type levelDataType = {
 }
 
 class GameStore {
-
-    static initialLevelCells: number = 3;
-
-    clickedCellsIds: Array<string>
     @observable level: number;
     @observable currentLevelGridCells: Array<CellModel>;
     @observable selectedCellsCount: number;
     @observable isGameCompleted: boolean;
     levelsData: Array<levelDataType>
     topLevel: number;
-
+    initialHiddenCells: number = 3;
 
     constructor() {
         this.level = 0;
@@ -30,28 +26,24 @@ class GameStore {
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
         this.setGridCells();
-        this.clickedCellsIds = [];
+    }
+
+    @computed
+    get currentLevelHiddentCells() {
+        return (this.level + this.initialHiddenCells);
     }
 
     onCellClick = (clickedCellId: string) => {
         const index = this.currentLevelGridCells.findIndex(cell =>
             cell.id === clickedCellId
         );
-
-
         if (this.currentLevelGridCells[index].isHidden) {
-            if (this.clickedCellsIds.findIndex(eachId => eachId === clickedCellId) === -1) {
-                this.selectedCellsCount++;
-                this.clickedCellsIds.push(clickedCellId);
-            }
+            this.selectedCellsCount++;
         }
         else {
-            setTimeout(() => { this.resetGame(); }, 50); // to display red color for 100ms
+            this.resetGame();
         }
-
-
-
-        if (this.selectedCellsCount === (this.level + 3)) {
+        if (this.selectedCellsCount === this.currentLevelHiddentCells) {
             if (this.level === this.levelsData.length - 1) {
                 this.isGameCompleted = true;
             }
@@ -61,18 +53,16 @@ class GameStore {
     }
 
     setGridCells = () => {
-        this.currentLevelGridCells = []; //emptying the array
-
-        for (let i = 0; i < Math.pow(this.level + GameStore.initialLevelCells, 2); i++) {
+        this.currentLevelGridCells = [];        //emptying the array
+        for (let i = 0; i < Math.pow(this.currentLevelHiddentCells, 2); i++) {
             const cellObj = {
                 id: Math.random().toString(),
                 isHidden: false
             }
             const cell = new CellModel(cellObj);
 
-            if (i < (this.level + 3))
+            if (i < (this.level + this.initialHiddenCells))
                 cell.isHidden = true;
-
             this.currentLevelGridCells.push(cell);
         }
 
@@ -82,8 +72,6 @@ class GameStore {
             this.currentLevelGridCells[i] = this.currentLevelGridCells[j]
             this.currentLevelGridCells[j] = temp;
         }
-
-
     }
     resetSelectedCellsCount = () => {
         this.selectedCellsCount = 0;
@@ -100,7 +88,6 @@ class GameStore {
             this.setGridCells();
             this.resetSelectedCellsCount();
         }
-
     }
     goToInitialLevelAndUpdateCells = () => {
         this.setTopLevel(this.level);

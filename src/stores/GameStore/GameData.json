@@ -1,4 +1,4 @@
-export const data = [
+[
     {
         "gridSize": 3,
         "hiddenCellCount": 3,

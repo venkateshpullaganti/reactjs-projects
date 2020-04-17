@@ -8,8 +8,9 @@ type gridProps = {
 }
 
 type gridBodyProps = {
-    width: number
+    width: string
 }
+const halfScreenSize = "50%";
 
 const GridMemoryGameStyled = styled.div`
 background:${(props: gridProps) => props.selectedTheme.backgroundColor};
@@ -17,7 +18,7 @@ color:${(props: gridProps) => props.selectedTheme.color};
 ${tw`h-screen  flex flex-col items-center justify-center`}`;
 
 const GridBody = styled.div`
-width : ${(props: gridBodyProps) => props.width === 50 ? "50%" : props.width + 'px'};
+width : ${(props: gridBodyProps) => props.width === halfScreenSize ? halfScreenSize : props.width + 'px'};
 ${tw`justify-center items-center`}
 `;
 

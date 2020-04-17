@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 
 
 import { HeaderStyled, TopScore, Level, ThemeButton, DivStyled } from "./StyledComponents";
@@ -25,9 +25,9 @@ interface HeaderProps {
 
 
 }
+
 // interface InjectedProps extends HeaderProps {
 //     level: number,
-
 // }
 
 
@@ -39,6 +39,14 @@ class Header extends React.Component<HeaderProps> {
     // get injected() {
     //     return this.props as InjectedProps;
     // }
+    lightTheme: string;
+    darkTheme: string;
+    constructor(props) {
+        super(props);
+        this.lightTheme = "light";
+        this.darkTheme = "dark";
+    }
+
     goToNextLevel = () => {
         gameStore.goToNextLevelAndUpdateCells();
     }
@@ -46,8 +54,7 @@ class Header extends React.Component<HeaderProps> {
     onChangeTheme = (event) => {
         const { onChangeTheme, selectedTheme } = this.props;
 
-        const updatedTheme = selectedTheme.name === "light" ? "dark" : "light";
-        console.log(updatedTheme);
+        const updatedTheme = selectedTheme.name === this.lightTheme ? this.darkTheme : this.lightTheme;
         onChangeTheme(updatedTheme);
 
     }

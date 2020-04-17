@@ -10,6 +10,8 @@ export type ThemeType = {
     secondaryBgColor: string,
     cardColor: string,
     shadow: string,
+    hiddenCell: string,
+    cell: string
 }
 
 class ThemeStore {
@@ -32,7 +34,8 @@ class ThemeStore {
             secondaryBgColor: "white",        //is for the contents on the body like buttons,header etc.,
             cardColor: "white",
             shadow: "0px 15px 15px lightgrey",
-
+            hiddenCell: "#24946A",
+            cell: "#4A596E"
         },
         dark: {
             id: 1,
@@ -43,7 +46,8 @@ class ThemeStore {
             secondaryBgColor: "#2b3945",
             cardColor: "#2b6cb0",
             shadow: " 0px 5px 10px #3d3c3c",
-
+            hiddenCell: "#319DC1",
+            cell: "#2a4365"
         },
         monaki: {
             id: 2,
@@ -53,6 +57,8 @@ class ThemeStore {
             backgroundColor: "#474747 ",
             secondaryBgColor: " #939794",
             shadow: " 0px 5px 10px #939794",
+            hiddenCell: "#24946A",
+            cell: "lightgrey"
         },
         green: {
             id: 2,
@@ -62,6 +68,8 @@ class ThemeStore {
             backgroundColor: "darkgreen",
             secondaryBgColor: " #0f4c75",
             shadow: " 0px 5px 10px #1b262c",
+            hiddenCell: "#24946A",
+            cell: "lightgrey"
         },
         darkBlue: {
             id: 3,
@@ -71,6 +79,8 @@ class ThemeStore {
             backgroundColor: "#053f5e ",
             secondaryBgColor: " #115173",
             shadow: " 0px 5px 10px #053f5e",
+            hiddenCell: "#24946A",
+            cell: "lightgrey"
         },
     }
 
