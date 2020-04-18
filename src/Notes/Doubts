@@ -1,2 +1,3 @@
-
-1. showing error of same key eventhough id is generated randomly in gamestore currentlevelcells;
+1. React router is calling the costrutor twice. calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
+2. why spread operator is not assigning to new object.                           -- have to read.
+3. showing error of same key eventhough id is generated randomly in gamestore currentlevelcells - math.random() should not be used

@@ -26,13 +26,14 @@ User Perceptive points:
 
 
 
-
-
-Doubts:
-React router is calling the costrutor twice. calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
-why spread operator is not assigning to new object.                           -- have to read.
     
 Grid Memory Game :
 1. learn unknown things before going to start
 2. Plan precisely
-3. 
+3. CRUD - create Read Update Delete
+4. object destructure everywhere
+5. calling function for the getting variabes multiple times
+6. syntax deducing
+7. No commented code
+8. Everything should be variables
+9. should not evaluate individual calculations in store, compute them in the same component

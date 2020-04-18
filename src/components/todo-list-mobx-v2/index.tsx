@@ -6,83 +6,126 @@ import { observer } from "mobx-react";
 import todoStore from "../../stores/TodoList";
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
-
+import { NetworkFailed, Msg, Retry } from "./styledComponent";
+import { observable } from "mobx";
 
 @observer
 class TodoListMobxV2 extends React.Component {
+    @observable isLoading: boolean;
+    @observable networkStatus: string;
+    @observable todos;
 
-
-    addTodoItem = (title: string): void => {
-
-        todoStore.addTodo(title);
+    constructor(props) {
+        super(props);
+        this.isLoading = true;
+        this.networkStatus = "success";
     }
-    isEnterKey = (event) => {
+    addTodoItem = (title: string): void => {
+        todoStore.addTodo(title);
+    };
 
+    componentDidMount() {
+        this.getTodoList();
+    }
+    async getTodoList() {
+        // this.networkStatus = "success";
+        try {
+            const url = "https://todo-list-5.getsandbox.com/todos";
+            const response = await fetch(url);
+            if (response.ok) {
+                this.todos = await response.json();
+                this.isLoading = false;
+                this.updateTodosInStore();
+            } else {
+                throw response;
+            }
+        } catch (error) {
+            this.networkStatus = error;
+        }
+    }
+    updateTodosInStore = () => {
+        todoStore.updateTodoList(this.todos);
+    };
+    isEnterKey = (event) => {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
             todoStore.setCurrentFilter("All");
             this.addTodoItem(event.target.value);
             event.target.value = "";
         }
-    }
+    };
 
     removeTodo = (removeid: string) => {
         todoStore.removeTodo(removeid);
-    }
-
-
+    };
 
     renderTodos = () => {
         const outputList = todoStore.selectedFilteredTodos;
         if (outputList !== null) {
-            return outputList.map((eachTodoModel) =>
+            return outputList.map((eachTodoModel) => (
                 <Todo
                     todo={eachTodoModel}
-                    key={eachTodoModel.id}
+                    key={Math.random()}
                     removeTodo={() => this.removeTodo(eachTodoModel.id)}
-                />)
+                />
+            ));
         }
         return null;
-    }
+    };
 
     renderFooter = () => {
-        if (todoStore.todoLength > 0)
-            return <TodoFooter />
+        if (todoStore.todoLength > 0) return <TodoFooter />;
         return null;
-    }
+    };
+    renderOnNetworkStatus = () => {
+        if (this.networkStatus !== "success") {
+            return (
+                <NetworkFailed>
+                    <Msg>Network Error</Msg>
+                    <Retry>Retry</Retry>
+                </NetworkFailed>
+            );
+        } else if (this.isLoading) {
+            return <div>Loading...</div>;
+        } else
+            return (
+                <div className="root-div">
+                    <p className="app-name">todos</p>
+                    <div className="searchBar-container">
+                        <span></span>
+                        <input
+                            className="add-todo-bar"
+                            type="text"
+                            onKeyPress={this.isEnterKey}
+                        ></input>
+                    </div>
+                    <ul className="todo-items-container">
+                        {this.renderTodos()}
+                    </ul>
+                    {this.renderFooter()}
+                </div>
+            );
+    };
 
     render() {
         return (
             <div className="todo-list-container">
-                <div className="root-div">
-                    <p className="app-name">todos</p>
-                    <div className="searchBar-container">
-
-                        <span></span>
-                        <input className="add-todo-bar" type="text" onKeyPress={this.isEnterKey}></input>
-                    </div>
-                    <ul className="todo-items-container">{this.renderTodos()}</ul>
-                    {this.renderFooter()}
-                </div>
+                {this.renderOnNetworkStatus()}
             </div>
-        )
+        );
     }
 }
 
 export default TodoListMobxV2;
 
-
-
 // import React from "react";
 // import { observer } from "mobx-react";
 // import { observable, action, computed } from "mobx";
-
 
 // @observer
 // class TodoApp extends React.Component {
 
 //     @observable todos = [];
 //     @observable selectedFilter = "All";
-
 
 //     isEnterKey = (event) => {
 //         if (event.charCode === 13 && event.target.value !== "") {
@@ -159,7 +202,6 @@ export default TodoListMobxV2;
 //         else
 //             outputList = todoStore.todos.filter((todo) => todo.isCompleted)
 
-
 //         return outputList.map((todo) =>
 //             <TodoItem
 //                 onUpdateTodoTitle={this.onUpdateTodoTitle}
@@ -169,6 +211,5 @@ export default TodoListMobxV2;
 //                 isCompleted={todo.isCompleted}
 //             />)
 //     }
-
 
 // }

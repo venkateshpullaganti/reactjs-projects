@@ -3,8 +3,8 @@ import { observer } from "mobx-react";
 import { observable } from "mobx";
 
 type timerCompType = {
-    level: number
-}
+    level: number;
+};
 
 @observer
 class TimerComponent extends React.Component<timerCompType> {
@@ -17,14 +17,11 @@ class TimerComponent extends React.Component<timerCompType> {
     }
     updateRemainingTime = () => {
         this.remainingTime = (this.props.level + this.initialHiddenCells) * 2;
-    }
-    timerID = setInterval(
-        () => {
-            this.remainingTime--;
-            if (this.remainingTime === -1) this.updateRemainingTime();
-        },
-        1000
-    );
+    };
+    timerID = setInterval(() => {
+        this.remainingTime--;
+        if (this.remainingTime === -1) this.updateRemainingTime();
+    }, 1000);
     componentWillMount() {
         this.updateRemainingTime();
     }
@@ -34,9 +31,7 @@ class TimerComponent extends React.Component<timerCompType> {
     }
 
     render() {
-        return (
-            <div>Remaining Time: {this.remainingTime + 'sec'}</div>
-        );
+        return <div>Remaining Time: {this.remainingTime + "sec"}</div>;
     }
 }
 export default TimerComponent;

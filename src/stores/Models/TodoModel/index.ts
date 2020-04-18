@@ -1,15 +1,12 @@
 import { observable, action } from "mobx";
 
-
 type TodoModelProps = {
-    id: string,
-    title: string,
-    isCompleted: boolean
-}
-
+    id: string;
+    title: string;
+    isCompleted: boolean;
+};
 
 class TodoModel {
-
     id: string;
     @observable title: string;
     isCompleted: boolean;
@@ -24,9 +21,7 @@ class TodoModel {
     }
     @action.bound
     toggleIsChecked(): void {
-        console.log(this.isCompleted);
         this.isCompleted = !this.isCompleted;
     }
-
 }
 export default TodoModel;
