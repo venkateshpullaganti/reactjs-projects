@@ -2,7 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 
-
 import CellModel from "../../../stores/Models/GridMemoryGame";
 import { ThemeType } from "../index";
 import { CellStyled, Background } from "./StyledComponent";
@@ -25,6 +24,7 @@ class Cell extends React.Component<CellProps> {
     this.shouldShowHiddenCells = true;
     this.isClickedOnCell = false;
   }
+
   componentDidMount() {
     this.timerForInitialDisplay();
   }
