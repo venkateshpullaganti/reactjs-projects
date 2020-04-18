@@ -32,3 +32,7 @@ Doubts:
 React router is calling the costrutor twice. calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
 why spread operator is not assigning to new object.                           -- have to read.
     
+Grid Memory Game :
+1. learn unknown things before going to start
+2. Plan precisely
+3. 

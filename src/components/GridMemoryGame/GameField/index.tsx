@@ -6,7 +6,7 @@ import CellModel from "../../../stores/Models/GridMemoryGame";
 import Cell from "../Cell";
 import { ThemeType } from "../index";
 import { GameFieldStyled } from "./StyledComponents";
-import { observable, action } from "mobx";
+import { observable } from "mobx";
 
 interface GameFieldProps {
   level: number;

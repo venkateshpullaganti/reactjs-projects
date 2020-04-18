@@ -79,7 +79,7 @@ class Header extends React.Component<HeaderProps> {
                 <TopScore onClick={this.goToNextLevel}>
                     Top Level: {TopLevel}</TopScore>
                 <Lives>Lives: {displayLives.join(" ")}</Lives>
-                <TimerComponent level={level} />
+                {/* <TimerComponent level={level} />  there is a bug in the level timer so holded it.*/}
                 <DivStyled>
                     <Level >Level: {level}</Level>
                     <ThemeButton border={selectedTheme.color} onClick={this.onChangeTheme}>Mode: {selectedTheme.displayName}</ThemeButton>
