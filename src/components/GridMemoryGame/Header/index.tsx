@@ -1,9 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { observable } from "mobx";
 
 
-import { HeaderStyled, TopScore, Level, ThemeButton, DivStyled } from "./StyledComponents";
+import { HeaderStyled, TopScore, Level, ThemeButton, DivStyled, Lives } from "./StyledComponents";
 import gameStore from "../../../stores/GameStore";
+import TimerComponent from "../Timer";
 
 
 export type ThemeType = {
@@ -22,8 +24,8 @@ interface HeaderProps {
     TopLevel: number,
     selectedTheme: ThemeType,
     level: number,
-
-
+    lives: Array<string>,
+    totalLives: number
 }
 
 // interface InjectedProps extends HeaderProps {
@@ -32,6 +34,10 @@ interface HeaderProps {
 
 
 // @inject("level")
+
+
+
+
 @observer
 class Header extends React.Component<HeaderProps> {
 
@@ -39,6 +45,8 @@ class Header extends React.Component<HeaderProps> {
     // get injected() {
     //     return this.props as InjectedProps;
     // }
+    @observable remainingSeconds;
+    lostLife = "💔";
     lightTheme: string;
     darkTheme: string;
     constructor(props) {
@@ -47,24 +55,31 @@ class Header extends React.Component<HeaderProps> {
         this.darkTheme = "dark";
     }
 
+
     goToNextLevel = () => {
         gameStore.goToNextLevelAndUpdateCells();
     }
 
     onChangeTheme = (event) => {
         const { onChangeTheme, selectedTheme } = this.props;
-
         const updatedTheme = selectedTheme.name === this.lightTheme ? this.darkTheme : this.lightTheme;
         onChangeTheme(updatedTheme);
 
     }
     render() {
-        const { TopLevel, selectedTheme, level } = this.props;
-        // const { level } = this.injected;
+        const { TopLevel, selectedTheme, level, lives, totalLives } = this.props;
+        const displayLives = [...lives];
+        if (lives.length < totalLives) {
+            for (let i = 0; i < (totalLives - lives.length); i++) {
+                displayLives.push(this.lostLife);
+            }
+        }
         return (
             <HeaderStyled >
                 <TopScore onClick={this.goToNextLevel}>
                     Top Level: {TopLevel}</TopScore>
+                <Lives>Lives: {displayLives.join(" ")}</Lives>
+                <TimerComponent level={level} />
                 <DivStyled>
                     <Level >Level: {level}</Level>
                     <ThemeButton border={selectedTheme.color} onClick={this.onChangeTheme}>Mode: {selectedTheme.displayName}</ThemeButton>

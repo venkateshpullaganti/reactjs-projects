@@ -6,6 +6,7 @@ import CellModel from "../../../stores/Models/GridMemoryGame";
 import Cell from "../Cell";
 import { ThemeType } from "../index";
 import { GameFieldStyled } from "./StyledComponents";
+import { observable, action } from "mobx";
 
 interface GameFieldProps {
   level: number;
@@ -14,17 +15,23 @@ interface GameFieldProps {
   resetGame: () => void;
   width: number;
   selectedTheme: ThemeType
+
 }
 
 @observer
 class GameField extends React.Component<GameFieldProps> {
   timerId;
   initialHiddenCells: number = 3;
+  @observable remainingTime: number = 0;
 
 
 
   componentWillUnmount() {
     clearInterval(this.timerId);
+  }
+
+  remainingseconds = () => {
+    return this.remainingTime;
   }
 
   renderCells = () => {
@@ -42,15 +49,23 @@ class GameField extends React.Component<GameFieldProps> {
     ));
   };
 
+
+
   render() {
 
     const { resetGame, level, width } = this.props;
-    clearInterval(this.timerId);
+
     const currentLevelTimeout = (level + this.initialHiddenCells) * 2 * 1000;
+    this.remainingTime = currentLevelTimeout;
+    clearInterval(this.timerId);
+
 
     this.timerId = setInterval(() => {
       resetGame();
     }, currentLevelTimeout);
+
+
+
 
     return (
       <GameFieldStyled width={width}>{this.renderCells()}</GameFieldStyled>

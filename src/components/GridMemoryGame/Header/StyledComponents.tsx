@@ -27,6 +27,7 @@ ${tw`text-xl p-1 my-2`}
 :focus{
     outline:none;
 }`;
+const Lives = styled.div`${tw`w-full text-center`}`;
 
 
-export { HeaderStyled, TopScore, Level, ThemeButton, DivStyled };
+export { HeaderStyled, TopScore, Level, ThemeButton, DivStyled, Lives };

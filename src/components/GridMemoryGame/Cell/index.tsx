@@ -12,7 +12,7 @@ type CellProps = {
   cell: CellModel;
   level: number;
   selectedTheme: ThemeType
-};
+}
 
 @observer
 class Cell extends React.Component<CellProps> {
@@ -37,7 +37,6 @@ class Cell extends React.Component<CellProps> {
       this.shouldShowHiddenCells = false;
     }, displayTime);
   };
-
 
   onCellClick = () => {
     const { onCellClick } = this.props;

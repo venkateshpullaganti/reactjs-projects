@@ -1,5 +1,6 @@
 import { observable, computed } from "mobx";
 
+
 import CellModel from "../Models/GridMemoryGame"
 import data from "./GameData.json";
 
@@ -17,6 +18,9 @@ class GameStore {
     levelsData: Array<levelDataType>
     topLevel: number;
     initialHiddenCells: number = 3;
+    life: string = "💚";
+    totalLives: number = 3;
+    @observable lives: Array<string> = [];
 
     constructor() {
         const savedTopLevel = localStorage.getItem("topLevel");
@@ -27,6 +31,14 @@ class GameStore {
         this.isGameCompleted = false;
         this.currentLevelGridCells = [];
         this.setGridCells();
+        this.initialiseLives();
+    }
+    initialiseLives = () => {
+        this.lives = [];
+        for (let i = 0; i < this.totalLives; i++) {
+            this.lives.push(this.life);
+        }
+        console.log(this.lives);
     }
 
     @computed
@@ -91,11 +103,19 @@ class GameStore {
         }
     }
     goToInitialLevelAndUpdateCells = () => {
-        this.setTopLevel(this.level);
-        this.level = 0;
-        localStorage.setItem("currentLevel", this.level.toString());
+        if (this.lives.length > 0) {
+            this.lives.pop();
+
+        }
+
+        else {
+            this.setTopLevel(this.level);
+            this.level = 0;
+            localStorage.setItem("currentLevel", this.level.toString());
+            this.resetSelectedCellsCount();
+            this.initialiseLives();
+        }
         this.setGridCells();
-        this.resetSelectedCellsCount();
     }
     setTopLevel = (currentLevel: number) => {
         if (currentLevel > this.topLevel)
@@ -108,12 +128,21 @@ class GameStore {
         this.resetGame();
     }
     resetGame = () => {
-        this.setTopLevel(this.level)
-        this.level = 0;
-        this.selectedCellsCount = 0;
-        this.isGameCompleted = false;
-        this.currentLevelGridCells = [];
+        if (this.lives.length > 0) {
+            this.lives.pop();
+        }
+
+        else {
+            this.setTopLevel(this.level)
+            this.level = 0;
+            this.selectedCellsCount = 0;
+            this.isGameCompleted = false;
+            this.currentLevelGridCells = [];
+
+            this.initialiseLives();
+        }
         this.setGridCells();
+
     }
 }
 

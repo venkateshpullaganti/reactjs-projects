@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import uuidv from 'uuid/v4';
 
 import gameStore from "../../stores/GameStore";
 import Header from "./Header";
@@ -51,6 +52,7 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
         }
         else {
             return (<GameField
+                key={uuidv()}
                 level={level} cells={currentLevelGridCells}
                 onCellClick={gameStore.onCellClick}
                 resetGame={resetGame}
@@ -63,7 +65,7 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
 
     render() {
         const { selectedTheme } = this.props;
-        const { isGameCompleted, level, topLevel } = gameStore;
+        const { isGameCompleted, level, topLevel, lives, totalLives } = gameStore;
         const width = gameStore.levelsData[level].gridWidth.toString();
         const halfScreenSize = "50%";
 
@@ -75,6 +77,8 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
                         TopLevel={topLevel}
                         onChangeTheme={this.onChangeTheme}
                         level={level}
+                        lives={lives}
+                        totalLives={totalLives}
                     />
                     {this.renderBasedOnGameStatus()}
                 </GridBody>

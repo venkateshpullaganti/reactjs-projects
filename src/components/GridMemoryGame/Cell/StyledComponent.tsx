@@ -13,6 +13,7 @@ type BackgroundProps = {
     toggleShow: string
 }
 
+
 const CellStyled = styled.div`
 width: ${ (props: PropsType) => props.width - 8 + 'px'};    //decreasing the cell size for the margin
 height:${ (props: PropsType) => props.width - 8 + 'px'};
@@ -34,18 +35,8 @@ const Background = styled.div`
 background:${(props: BackgroundProps) => props.background};
 height:${(props: BackgroundProps) => props.toggleShow === 'show' ? "100%" : "0px"};
 width:${(props: BackgroundProps) => props.toggleShow === 'show' ? "100%" : "0px"};
-transition:all ease-in 0.5s;
+transition :all cubic-bezier(0.25, 1, 0.5, 1) 1s; 
 
-animation: .5s ease ${keyframes`{
-    0% {
-       height:0%;
-       width:0%;
-    }
-    100%
-    {
-       height:100%;
-       width:100%;
-    }`}
 `;
 
 
