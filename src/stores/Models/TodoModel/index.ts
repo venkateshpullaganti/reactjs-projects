@@ -10,6 +10,7 @@ class TodoModel {
     id: string;
     @observable title: string;
     isCompleted: boolean;
+
     constructor(props: TodoModelProps) {
         this.id = props.id;
         this.title = props.title;

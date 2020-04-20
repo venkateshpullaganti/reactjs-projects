@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import uuidv from 'uuid/v4';
+import uuidv from "uuid/v4";
 
 import CellModel from "../../../stores/Models/GridMemoryGame";
 import Cell from "../Cell";
@@ -9,67 +9,59 @@ import { GameFieldStyled } from "./StyledComponents";
 import { observable } from "mobx";
 
 interface GameFieldProps {
-  level: number;
-  cells: Array<CellModel>;
-  onCellClick: (id: string) => void;
-  resetGame: () => void;
-  width: number;
-  selectedTheme: ThemeType
-
+    level: number;
+    cells: Array<CellModel>;
+    onCellClick: (isHidden: boolean) => void;
+    resetGame: () => void;
+    width: number;
+    selectedTheme: ThemeType;
 }
 
 @observer
 class GameField extends React.Component<GameFieldProps> {
-  timerId;
-  initialHiddenCells: number = 3;
-  @observable remainingTime: number = 0;
+    timerId;
+    initialHiddenCells: number = 3;
+    @observable remainingTime: number = 0;
 
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
 
+    remainingseconds = () => {
+        return this.remainingTime;
+    };
 
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
+    renderCells = () => {
+        const { level, cells, onCellClick, width, selectedTheme } = this.props;
 
-  remainingseconds = () => {
-    return this.remainingTime;
-  }
+        return cells.map((eachCell) => (
+            <Cell
+                width={width / (level + this.initialHiddenCells)}
+                key={uuidv()}
+                cell={eachCell}
+                onCellClick={onCellClick}
+                level={level}
+                selectedTheme={selectedTheme}
+            />
+        ));
+    };
 
-  renderCells = () => {
-    const { level, cells, onCellClick, width, selectedTheme } = this.props;
+    render() {
+        const { resetGame, level, width } = this.props;
 
-    return cells.map((eachCell) => (
-      <Cell
-        width={width / (level + this.initialHiddenCells)}
-        key={uuidv()}
-        cell={eachCell}
-        onCellClick={onCellClick}
-        level={level}
-        selectedTheme={selectedTheme}
-      />
-    ));
-  };
+        const currentLevelTimeout = (level + this.initialHiddenCells) * 2000;
+        this.remainingTime = currentLevelTimeout;
+        clearInterval(this.timerId);
 
+        this.timerId = setInterval(() => {
+            resetGame();
+        }, currentLevelTimeout);
 
-
-  render() {
-
-    const { resetGame, level, width } = this.props;
-
-    const currentLevelTimeout = (level + this.initialHiddenCells) * 2 * 1000;
-    this.remainingTime = currentLevelTimeout;
-    clearInterval(this.timerId);
-
-
-    this.timerId = setInterval(() => {
-      resetGame();
-    }, currentLevelTimeout);
-
-
-
-
-    return (
-      <GameFieldStyled width={width}>{this.renderCells()}</GameFieldStyled>
-    );
-  }
+        return (
+            <GameFieldStyled width={width}>
+                {this.renderCells()}
+            </GameFieldStyled>
+        );
+    }
 }
 export default GameField;

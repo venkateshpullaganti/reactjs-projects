@@ -6,19 +6,20 @@ import { observer } from "mobx-react";
 import todoStore from "../../stores/TodoList";
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
-import { NetworkFailed, Msg, Retry } from "./styledComponent";
-import { observable } from "mobx";
+import { NetworkFailed, Msg, Retry, NoData } from "./styledComponent";
+import { observable, action } from "mobx";
 
 @observer
 class TodoListMobxV2 extends React.Component {
     @observable isLoading: boolean;
-    @observable networkStatus: string;
+    @observable hasNetworkError: boolean;
     @observable todos;
+    // statusText: string = "Network Error";
 
     constructor(props) {
         super(props);
         this.isLoading = true;
-        this.networkStatus = "success";
+        this.hasNetworkError = false;
     }
     addTodoItem = (title: string): void => {
         todoStore.addTodo(title);
@@ -27,24 +28,28 @@ class TodoListMobxV2 extends React.Component {
     componentDidMount() {
         this.getTodoList();
     }
+    @action.bound
     async getTodoList() {
-        // this.networkStatus = "success";
         try {
-            const url = "https://todo-list-5.getsandbox.com/todos";
+            const url = "https://jsonplaceholder.typicode.com/users";
             const response = await fetch(url);
             if (response.ok) {
                 this.todos = await response.json();
                 this.isLoading = false;
+                this.hasNetworkError = false;
                 this.updateTodosInStore();
             } else {
-                throw response;
+                this.hasNetworkError = true;
+                throw response.statusText;
             }
         } catch (error) {
-            this.networkStatus = error;
+            console.log(error);
+            // this.statusText = error.toString();
         }
     }
+
     updateTodosInStore = () => {
-        todoStore.updateTodoList(this.todos);
+        // todoStore.updateTodoList(this.todos);
     };
     isEnterKey = (event) => {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
@@ -77,15 +82,40 @@ class TodoListMobxV2 extends React.Component {
         return null;
     };
     renderOnNetworkStatus = () => {
-        if (this.networkStatus !== "success") {
+        if (this.hasNetworkError) {
             return (
                 <NetworkFailed>
                     <Msg>Network Error</Msg>
-                    <Retry>Retry</Retry>
+                    <Retry onClick={this.getTodoList}>Retry</Retry>
                 </NetworkFailed>
             );
         } else if (this.isLoading) {
-            return <div>Loading...</div>;
+            return (
+                <div>
+                    <img
+                        alt="loading"
+                        src="https://i.ya-webdesign.com/images/gif-loading-png-9.gif"
+                    />
+                    <Msg>Loading...</Msg>
+                </div>
+            );
+        } else if (todoStore.todoLength === 0) {
+            return (
+                <div className="root-div">
+                    <p className="app-name">todos</p>
+                    <div className="searchBar-container">
+                        <span></span>
+                        <input
+                            className="add-todo-bar"
+                            type="text"
+                            onKeyPress={this.isEnterKey}
+                        ></input>
+                    </div>
+
+                    <NoData>No Data.</NoData>
+                    {this.renderFooter()}
+                </div>
+            );
         } else
             return (
                 <div className="root-div">

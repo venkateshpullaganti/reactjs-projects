@@ -8,7 +8,7 @@ import { CellStyled, Background } from "./StyledComponent";
 
 type CellProps = {
     width: number;
-    onCellClick: (id: string) => void;
+    onCellClick: (isHidden: boolean) => void;
     cell: CellModel;
     level: number;
     selectedTheme: ThemeType;
@@ -40,19 +40,21 @@ class Cell extends React.Component<CellProps> {
 
     onCellClick = () => {
         const { onCellClick } = this.props;
-        const { id } = this.props.cell;
+        const { isHidden } = this.props.cell;
         if (!this.isClickedOnCell) {
             this.isClickedOnCell = true;
-            onCellClick(id);
+            console.log(isHidden);
+            setTimeout(() => onCellClick(isHidden), 200);
         }
     };
+
     getCellBgColor = () => {
         const { isHidden } = this.props.cell;
         const { selectedTheme } = this.props;
         if ((this.shouldShowHiddenCells || this.isClickedOnCell) && isHidden)
             return selectedTheme.hiddenCell;
         else if (this.isClickedOnCell && !isHidden) {
-            return selectedTheme.cell;
+            return "red";
         }
         return selectedTheme.cell;
     };
@@ -85,6 +87,3 @@ class Cell extends React.Component<CellProps> {
     }
 }
 export default Cell;
-
-//
-// disabled={this.shouldShowHiddenCells}

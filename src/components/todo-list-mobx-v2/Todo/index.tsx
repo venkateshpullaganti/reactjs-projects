@@ -21,7 +21,6 @@ class Todo extends React.Component<TodoProps> {
     render() {
         const { isCompleted, title, id } = this.props.todo;
         const { removeTodo } = this.props;
-        console.log();
         return (
             <li
                 className="todo-item"
