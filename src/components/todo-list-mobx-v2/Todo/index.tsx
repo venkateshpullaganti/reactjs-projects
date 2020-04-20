@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import TodoModel from "../../../stores/Models/TodoModel";
+import { action, observable } from "mobx";
 
 type TodoProps = {
     todo: TodoModel;
@@ -10,20 +11,29 @@ type TodoProps = {
 
 @observer
 class Todo extends React.Component<TodoProps> {
+    @observable isCompleted: boolean = this.props.todo.isCompleted;
+
     updateTodoContent = (event) => {
+        const { updateTodoTitle } = this.props.todo;
         if (event.charCode === 13 && event.target.value.trim() !== "") {
-            this.props.todo.updateTodoTitle(event.target.value);
+            updateTodoTitle(event.target.value);
+            event.target.blur();
         }
     };
+    @action
     handleCheck = () => {
-        this.props.todo.toggleIsChecked();
+        const { toggleIsChecked } = this.props.todo;
+        this.isCompleted = !this.isCompleted;
+        toggleIsChecked();
     };
     render() {
-        const { isCompleted, title, id } = this.props.todo;
+        const { title, id } = this.props.todo;
         const { removeTodo } = this.props;
+        const { isCompleted } = this;
         return (
             <li
-                className="todo-item"
+                className="todo-item
+                +"
                 style={{ display: "flex", height: "50px" }}
             >
                 <input

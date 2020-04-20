@@ -22,7 +22,7 @@ class TodoStore {
             const todoObj = {
                 id: todo.id,
                 title: todo.title,
-                isCompleted: todo.isCompleted,
+                isCompleted: todo.completed,
             };
             return new TodoModel(todoObj);
         });

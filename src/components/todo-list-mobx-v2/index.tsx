@@ -1,20 +1,25 @@
 import React from "react";
 import { observer } from "mobx-react";
-// import { observable, action, computed, reaction } from "mobx";
+import { observable, action } from "mobx";
 
-// import { ThemeStore } from "../../stores/ThemeStore";
 import todoStore from "../../stores/TodoList";
+
 import Todo from "./Todo";
 import TodoFooter from "./TodoFooter";
-import { NetworkFailed, Msg, Retry, NoData } from "./styledComponent";
-import { observable, action } from "mobx";
+import {
+    NetworkFailed,
+    Msg,
+    Retry,
+    NoData,
+    LoadingComp,
+} from "./styledComponent";
 
 @observer
 class TodoListMobxV2 extends React.Component {
     @observable isLoading: boolean;
     @observable hasNetworkError: boolean;
     @observable todos;
-    // statusText: string = "Network Error";
+    statusText!: string;
 
     constructor(props) {
         super(props);
@@ -31,7 +36,7 @@ class TodoListMobxV2 extends React.Component {
     @action.bound
     async getTodoList() {
         try {
-            const url = "https://jsonplaceholder.typicode.com/users";
+            const url = "https://jsonplaceholder.typicode.com/todos";
             const response = await fetch(url);
             if (response.ok) {
                 this.todos = await response.json();
@@ -39,17 +44,20 @@ class TodoListMobxV2 extends React.Component {
                 this.hasNetworkError = false;
                 this.updateTodosInStore();
             } else {
-                this.hasNetworkError = true;
-                throw response.statusText;
+                throw response;
             }
         } catch (error) {
             console.log(error);
-            // this.statusText = error.toString();
+            this.statusText =
+                error.status.toString() !== ""
+                    ? error.status.toString()
+                    : "Can't connect";
+            this.hasNetworkError = true;
         }
     }
 
     updateTodosInStore = () => {
-        // todoStore.updateTodoList(this.todos);
+        todoStore.updateTodoList(this.todos);
     };
     isEnterKey = (event) => {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
@@ -82,22 +90,24 @@ class TodoListMobxV2 extends React.Component {
         return null;
     };
     renderOnNetworkStatus = () => {
-        if (this.hasNetworkError) {
+        const { hasNetworkError, statusText } = this;
+        if (hasNetworkError) {
             return (
                 <NetworkFailed>
                     <Msg>Network Error</Msg>
+                    <Msg>status: {statusText}</Msg>
                     <Retry onClick={this.getTodoList}>Retry</Retry>
                 </NetworkFailed>
             );
         } else if (this.isLoading) {
             return (
-                <div>
+                <LoadingComp>
                     <img
                         alt="loading"
-                        src="https://i.ya-webdesign.com/images/gif-loading-png-9.gif"
+                        src={require("../../common/assets/dots_loading.svg")}
                     />
                     <Msg>Loading...</Msg>
-                </div>
+                </LoadingComp>
             );
         } else if (todoStore.todoLength === 0) {
             return (

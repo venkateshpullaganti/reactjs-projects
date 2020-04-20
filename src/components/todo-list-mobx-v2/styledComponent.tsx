@@ -13,5 +13,8 @@ const Retry = styled.button`
 const NoData = styled.div`
     ${tw`text-xl text-center`}
 `;
+const LoadingComp = styled.div`
+    ${tw`flex flex-col h-screen items-center justify-center`}
+`;
 
-export { NetworkFailed, Msg, Retry, NoData };
+export { NetworkFailed, Msg, Retry, NoData, LoadingComp };
