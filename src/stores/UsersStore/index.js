@@ -4,8 +4,6 @@ import { API_INITIAL } from "@ib/api-constants";
 
 import { bindPromiseWithOnSuccess } from "@ib/mobx-promise";
 
-import UserService from "../../services/UserService";
-
 class UsersStore {
     @observable getUsersAPIStatus;
     @observable getUsersAPIError;
@@ -33,6 +31,7 @@ class UsersStore {
     @action.bound
     getUsersAPI() {
         const usersPromise = this.userService.getUsersAPI(); //Method => 4
+
         // const api = create({
         //     baseURL: "https://jsonplaceholder.typicode.com/",
         // });
@@ -64,6 +63,4 @@ class UsersStore {
         this.init();
     }
 }
-const userService = new UserService();
-const userStore = new UsersStore(userService);
-export default userStore;
+export default UsersStore;

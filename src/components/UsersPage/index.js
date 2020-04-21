@@ -2,8 +2,10 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import LoadingWrapperWithFailure from "../common/LoadingWrapperWithFailure";
-import userStore from "../../stores/UsersStore";
+import stores from "../../stores";
 import NoDataView from "../common/NoDataView";
+
+const userStore = stores.userStore;
 
 @observer
 class UsersPage extends React.Component {
