@@ -1,5 +1,7 @@
 import React from "react";
 
+import { usersStore } from "../../stores/UsersStore";
+
 class TodoItem extends React.Component {
     constructor(props) {
         super(props);
@@ -8,6 +10,7 @@ class TodoItem extends React.Component {
             content: props.content,
         };
     }
+
     updateTodoContent = (event) => {
         if (event.charCode === 13 && event.target.value.trim() !== "") {
             this.props.updateTodoContentFunc(this.props.id, event.target.value);

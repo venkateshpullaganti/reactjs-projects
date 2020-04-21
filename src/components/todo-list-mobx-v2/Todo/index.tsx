@@ -11,7 +11,12 @@ type TodoProps = {
 
 @observer
 class Todo extends React.Component<TodoProps> {
-    @observable isCompleted: boolean = this.props.todo.isCompleted;
+    @observable isCompleted: boolean;
+
+    constructor(props) {
+        super(props);
+        this.isCompleted = props.todo.isCompleted;
+    }
 
     updateTodoContent = (event) => {
         const { updateTodoTitle } = this.props.todo;

@@ -3,31 +3,47 @@ import { observer } from "mobx-react";
 
 import themeStore from "../../../stores/TodoList";
 
-
-
 @observer
 class TodoFooter extends React.Component {
-
     onChangeCurrentFilter = (filter) => {
         themeStore.setCurrentFilter(filter);
-    }
+    };
     clearCompleted = () => {
         themeStore.clearCompleted();
-    }
+    };
     render() {
         return (
-            <div className="extra-functions" >
+            <div className="extra-functions">
                 <p>Remaining Todos: {themeStore.activeTodoCount}</p>
-                <button className="all-btn" onClick={() => this.onChangeCurrentFilter("All")}>All</button>
-                <button className="active-btn" onClick={() => this.onChangeCurrentFilter("Active")}>Active</button>
-                <button className="completed-btn" onClick={() => this.onChangeCurrentFilter("Completed")}>Completed</button>
-                <button className="cleat-completed-btn" onClick={this.clearCompleted}>Clear Completed</button>
+                <button
+                    className="all-btn "
+                    onClick={() => this.onChangeCurrentFilter("All")}
+                >
+                    All
+                </button>
+                <button
+                    className="active-btn"
+                    onClick={() => this.onChangeCurrentFilter("Active")}
+                >
+                    Active
+                </button>
+                <button
+                    className="completed-btn"
+                    onClick={() => this.onChangeCurrentFilter("Completed")}
+                >
+                    Completed
+                </button>
+                <button
+                    className="cleat-completed-btn"
+                    onClick={this.clearCompleted}
+                >
+                    Clear Completed
+                </button>
             </div>
         );
     }
 }
 export default TodoFooter;
-
 
 // autorun(() => {
 //     if (themeStore.activeTodoCount === 0) {
@@ -48,4 +64,3 @@ export default TodoFooter;
 //     () => todoStore.todoLength,
 //     (length) => alert("completed")
 // )
-

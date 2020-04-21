@@ -23,11 +23,9 @@ export default function HomePage() {
                     <Link to="/grid-memory-game">Grid Memory Game</Link>
                 </li>
                 <li>
-                    <Link to="/page-1">Page 1</Link>
+                    <Link to="/users">Users Page</Link>
                 </li>
-                <li>
-                    <Link to="/api-example">Api Example</Link>
-                </li>
+
                 <li>
                     <Link to="/events-app">Events App</Link>
                 </li>
@@ -51,8 +49,11 @@ export default function HomePage() {
                 </li>
                 <li>
                     <Link to="/todo-list-mobx-v2">
-                        TodoList Mobx V2 (Mobx Model)
+                        TodoList Mobx V2 (Model)
                     </Link>
+                </li>
+                <li>
+                    <Link to="/page-1">Page 1</Link>
                 </li>
             </ul>
         </div>
