@@ -1,23 +1,23 @@
 import React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
 import LoadingWrapperWithFailure from "../common/LoadingWrapperWithFailure";
-import stores from "../../stores";
 import NoDataView from "../common/NoDataView";
 
-const userStore = stores.userStore;
-
+@inject("userStore")
 @observer
 class UsersPage extends React.Component {
     componentDidMount() {
         this.doNetworkCalls();
     }
-
+    getUserStore() {
+        return this.props.userStore;
+    }
     doNetworkCalls = () => {
-        userStore.getUsersAPI();
+        this.getUserStore().getUsersAPI();
     };
     renderSuccessUi = () => {
-        const { users } = userStore;
+        const { users } = this.getUserStore();
 
         if (users.length === 0) return <NoDataView />;
         else
@@ -33,7 +33,7 @@ class UsersPage extends React.Component {
             ));
     };
     render() {
-        const { getUsersAPIStatus, getUsersAPIError } = userStore;
+        const { getUsersAPIStatus, getUsersAPIError } = this.getUserStore();
         return (
             <LoadingWrapperWithFailure
                 apiStatus={getUsersAPIStatus}

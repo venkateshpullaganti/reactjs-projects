@@ -2,7 +2,8 @@
 import { jsx } from "@emotion/core";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { observer } from "mobx-react";
+import { observer, Provider } from "mobx-react";
+
 // import { configure } from "mobx";
 
 import { TodoList } from "./components/todo-list";
@@ -26,6 +27,7 @@ import TodoListMobxV2 from "./components/todo-list-mobx-v2";
 import EventsApp from "./components/events-app";
 import GridMemoryGame from "./components/GridMemoryGame";
 import UsersPage from "./components/UsersPage";
+import stores from "./stores";
 
 // configure({ enforceActions: "observed" });
 
@@ -37,139 +39,144 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router basename={process.env.PUBLIC_URL}>
-                <div>
-                    <Switch>
-                        <Route exact path="/users" component={UsersPage} />
+            <Provider {...stores}>
+                <Router basename={process.env.PUBLIC_URL}>
+                    <div>
+                        <Switch>
+                            <Route exact path="/users" component={UsersPage} />
 
-                        <Route
-                            exact
-                            path="/grid-memory-game"
-                            children={
-                                <GridMemoryGame
+                            <Route
+                                exact
+                                path="/grid-memory-game"
+                                children={
+                                    <GridMemoryGame
+                                        selectedTheme={themeStore.getCurrentTheme()}
+                                        onChangeSelectedTheme={
+                                            themeStore.setCurrentTheme
+                                        }
+                                    />
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/counter-page"
+                                children={<CounterPage />}
+                            />
+
+                            <Route exact path="/todo-list">
+                                <TodoList />
+                            </Route>
+                            <Route exact path="/covid19-dashboard">
+                                <Covid19Dashboard
                                     selectedTheme={themeStore.getCurrentTheme()}
                                     onChangeSelectedTheme={
                                         themeStore.setCurrentTheme
                                     }
                                 />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/counter-page"
-                            children={<CounterPage />}
-                        />
+                            </Route>
+                            <Route exact path="/form-components">
+                                <FormComponents />
+                            </Route>
 
-                        <Route exact path="/todo-list">
-                            <TodoList />
-                        </Route>
-                        <Route exact path="/covid19-dashboard">
-                            <Covid19Dashboard
-                                selectedTheme={themeStore.getCurrentTheme()}
-                                onChangeSelectedTheme={
-                                    themeStore.setCurrentTheme
-                                }
-                            />
-                        </Route>
-                        <Route exact path="/form-components">
-                            <FormComponents />
-                        </Route>
+                            <Route exact path="/form-components/greetings">
+                                <Greetings />
+                            </Route>
 
-                        <Route exact path="/form-components/greetings">
-                            <Greetings />
-                        </Route>
+                            <Route
+                                exact
+                                path="/form-components/favorite-dessert"
+                            >
+                                <FavouriteDessert
+                                    dessertList={[
+                                        "Vanilla",
+                                        "Butterscotch",
+                                        "Gulab Jamum",
+                                        "Yoghurt Pots",
+                                        "Baked Banana",
+                                        "Chocolate",
+                                    ]}
+                                />
+                            </Route>
 
-                        <Route exact path="/form-components/favorite-dessert">
-                            <FavouriteDessert
-                                dessertList={[
-                                    "Vanilla",
-                                    "Butterscotch",
-                                    "Gulab Jamum",
-                                    "Yoghurt Pots",
-                                    "Baked Banana",
-                                    "Chocolate",
-                                ]}
-                            />
-                        </Route>
+                            <Route exact path="/form-components/visited-cities">
+                                <VisitedCities
+                                    cityList={[
+                                        "Hyderabad",
+                                        "Chennai",
+                                        "Bangalore",
+                                        "Pune",
+                                        "Mumbai",
+                                        "Delhi",
+                                    ]}
+                                />
+                            </Route>
 
-                        <Route exact path="/form-components/visited-cities">
-                            <VisitedCities
-                                cityList={[
-                                    "Hyderabad",
-                                    "Chennai",
-                                    "Bangalore",
-                                    "Pune",
-                                    "Mumbai",
-                                    "Delhi",
-                                ]}
-                            />
-                        </Route>
+                            <Route exact path="/form-components/your-state">
+                                <YourState
+                                    stateList={[
+                                        "Andhra Pradesh",
+                                        "Telangana",
+                                        "Tamil Nadu",
+                                        "Kerala",
+                                        "Karnataka",
+                                        "Haryana",
+                                    ]}
+                                />
+                            </Route>
 
-                        <Route exact path="/form-components/your-state">
-                            <YourState
-                                stateList={[
-                                    "Andhra Pradesh",
-                                    "Telangana",
-                                    "Tamil Nadu",
-                                    "Kerala",
-                                    "Karnataka",
-                                    "Haryana",
-                                ]}
-                            />
-                        </Route>
+                            <Route exact path="/form-components/disable-enable">
+                                <DisableOrEnable />
+                            </Route>
 
-                        <Route exact path="/form-components/disable-enable">
-                            <DisableOrEnable />
-                        </Route>
-
-                        <Route
-                            exact
-                            path="/covid19-dashboard/details/:countryId"
-                        >
-                            <CountryDetails
-                                selectedTheme={themeStore.getCurrentTheme()}
-                                onChangeSelectedTheme={
-                                    themeStore.setCurrentTheme
-                                }
-                            />
-                        </Route>
-                        <Route exact path="/page-1">
-                            <Page1 />
-                        </Route>
-                        <Route
-                            exact
-                            path="/emojis-game"
-                            children={
-                                <EmojiGame
+                            <Route
+                                exact
+                                path="/covid19-dashboard/details/:countryId"
+                            >
+                                <CountryDetails
                                     selectedTheme={themeStore.getCurrentTheme()}
                                     onChangeSelectedTheme={
                                         themeStore.setCurrentTheme
                                     }
                                 />
-                            }
-                        />
-                        <Route exact path="/">
-                            <HomePage />
-                        </Route>
+                            </Route>
+                            <Route exact path="/page-1">
+                                <Page1 />
+                            </Route>
+                            <Route
+                                exact
+                                path="/emojis-game"
+                                children={
+                                    <EmojiGame
+                                        selectedTheme={themeStore.getCurrentTheme()}
+                                        onChangeSelectedTheme={
+                                            themeStore.setCurrentTheme
+                                        }
+                                    />
+                                }
+                            />
+                            <Route exact path="/">
+                                <HomePage />
+                            </Route>
 
-                        <Route
-                            exact
-                            path="/todo-list-mobx"
-                            children={<TodoListMobx />}
-                        />
-                        <Route
-                            exact
-                            path="/todo-list-mobx-v2"
-                            children={<TodoListMobxV2 />}
-                        />
-                        <Route
-                            exact
-                            path="/events-app"
-                            children={<EventsApp />}
-                        />
-                    </Switch>
-                </div>
-            </Router>
+                            <Route
+                                exact
+                                path="/todo-list-mobx"
+                                children={<TodoListMobx />}
+                            />
+                            <Route
+                                exact
+                                path="/todo-list-mobx-v2"
+                                children={<TodoListMobxV2 />}
+                            />
+                            <Route
+                                exact
+                                path="/events-app"
+                                children={<EventsApp />}
+                            />
+                        </Switch>
+                    </div>
+                </Router>
+            </Provider>
         );
     }
 }
