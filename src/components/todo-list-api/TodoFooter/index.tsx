@@ -1,22 +1,27 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-import themeStore from "../../../stores/TodoList";
+interface footerProps {
+    setCurrentFilter: (filter: string) => void;
+    clearCompleted: () => void;
+    activeTodoCount: number;
+}
 
 @observer
-class TodoFooter extends React.Component {
-    onChangeCurrentFilter = (filter) => {
-        themeStore.setCurrentFilter(filter);
+class TodoFooter extends React.Component<footerProps> {
+    onChangeCurrentFilter = (filter: string) => {
+        this.props.setCurrentFilter(filter);
     };
     clearCompleted = () => {
-        themeStore.clearCompleted();
+        this.props.clearCompleted();
     };
     render() {
+        const { activeTodoCount } = this.props;
         return (
             <div className="extra-functions">
-                <p>Remaining Todos: {themeStore.activeTodoCount}</p>
+                <p>Remaining Todos: {activeTodoCount}</p>
                 <button
-                    className="all-btn "
+                    className="all-btn"
                     onClick={() => this.onChangeCurrentFilter("All")}
                 >
                     All

@@ -18,7 +18,9 @@ interface injectedProps extends todoProps {
 @observer
 class TodoListAPI extends React.Component<todoProps> {
     @observable todos;
-
+    // constructor(props) {
+    //     super(props);
+    // }
     get injected() {
         return this.props as injectedProps;
     }
@@ -52,6 +54,7 @@ class TodoListAPI extends React.Component<todoProps> {
 
     renderTodos = () => {
         const outputList = this.getTodoStore().selectedFilteredTodos;
+
         if (outputList !== null) {
             return outputList.map((eachTodoModel) => (
                 <Todo
@@ -65,48 +68,53 @@ class TodoListAPI extends React.Component<todoProps> {
     };
 
     renderFooter = () => {
-        if (this.getTodoStore().todoLength > 0) return <TodoFooter />;
+        const {
+            setCurrentFilter,
+            clearCompleted,
+            activeTodoCount,
+        } = this.getTodoStore();
+
+        if (this.getTodoStore().todoLength > 0)
+            return (
+                <TodoFooter
+                    setCurrentFilter={setCurrentFilter}
+                    clearCompleted={clearCompleted}
+                    activeTodoCount={activeTodoCount}
+                />
+            );
         return null;
     };
     renderSuccessUi = () => {
-        if (this.getTodoStore().todoLength === 0) {
-            return (
-                <div className="root-div">
-                    <p className="app-name">todos</p>
-                    <div className="searchBar-container">
-                        <input
-                            className="add-todo-bar"
-                            type="text"
-                            onKeyPress={this.isEnterKey}
-                        ></input>
-                    </div>
-
-                    <NoDataView />
-                    {this.renderFooter()}
+        return (
+            <div className="root-div ">
+                <p className="app-name">todos</p>
+                <div className="searchBar-container">
+                    <input
+                        className="add-todo-bar"
+                        type="text"
+                        onKeyPress={this.isEnterKey}
+                    ></input>
                 </div>
-            );
-        } else
-            return (
-                <div className="root-div">
-                    <p className="app-name">todos</p>
-                    <div className="searchBar-container">
-                        <span></span>
-                        <input
-                            className="add-todo-bar"
-                            type="text"
-                            onKeyPress={this.isEnterKey}
-                        ></input>
-                    </div>
+
+                {this.getTodoStore().todoLength === 0 ? (
+                    <NoDataView />
+                ) : (
                     <ul className="todo-items-container">
                         {this.renderTodos()}
                     </ul>
-                    {this.renderFooter()}
-                </div>
-            );
+                )}
+                {this.renderFooter()}
+            </div>
+        );
     };
 
     render() {
-        const { getTodosAPIStatus, getTodosAPIError } = this.getTodoStore();
+        const {
+            getTodosAPIStatus,
+            getTodosAPIError,
+            todoLength,
+            selectedFilter,
+        } = this.getTodoStore();
 
         return (
             <LoadingWrapperWithFailure
@@ -114,6 +122,7 @@ class TodoListAPI extends React.Component<todoProps> {
                 apiError={getTodosAPIError}
                 onRetryClick={this.doNetworkCalls}
                 renderSuccessUI={this.renderSuccessUi}
+                dummy={[selectedFilter, todoLength]}
             />
         );
     }
