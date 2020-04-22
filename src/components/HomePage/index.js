@@ -20,6 +20,9 @@ export default function HomePage() {
             </header>
             <ul className=" w-1/6 flex flex-col p-2 items-center">
                 <li>
+                    <Link to="/todo-list-api">Todo List With API</Link>
+                </li>
+                <li>
                     <Link to="/grid-memory-game">Grid Memory Game</Link>
                 </li>
                 <li>

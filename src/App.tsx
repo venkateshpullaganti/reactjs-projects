@@ -27,6 +27,7 @@ import TodoListMobxV2 from "./components/todo-list-mobx-v2";
 import EventsApp from "./components/events-app";
 import GridMemoryGame from "./components/GridMemoryGame";
 import UsersPage from "./components/UsersPage";
+import TodoListAPI from "./components/todo-list-api";
 import stores from "./stores";
 
 // configure({ enforceActions: "observed" });
@@ -43,6 +44,12 @@ class App extends React.Component {
                 <Router basename={process.env.PUBLIC_URL}>
                     <div>
                         <Switch>
+                            <Route
+                                exact
+                                path="/todo-list-api"
+                                component={TodoListAPI}
+                            />
+
                             <Route exact path="/users" component={UsersPage} />
 
                             <Route
