@@ -29,6 +29,7 @@ import GridMemoryGame from "./components/GridMemoryGame";
 import UsersPage from "./components/UsersPage";
 import TodoListAPI from "./components/todo-list-api";
 import stores from "./stores";
+import LoginPage from "./components/LoginPage";
 
 // configure({ enforceActions: "observed" });
 
@@ -104,7 +105,6 @@ class App extends React.Component {
                                     ]}
                                 />
                             </Route>
-
                             <Route exact path="/form-components/visited-cities">
                                 <VisitedCities
                                     cityList={[
@@ -117,7 +117,6 @@ class App extends React.Component {
                                     ]}
                                 />
                             </Route>
-
                             <Route exact path="/form-components/your-state">
                                 <YourState
                                     stateList={[
@@ -161,10 +160,6 @@ class App extends React.Component {
                                     />
                                 }
                             />
-                            <Route exact path="/">
-                                <HomePage />
-                            </Route>
-
                             <Route
                                 exact
                                 path="/todo-list-mobx"
@@ -180,6 +175,8 @@ class App extends React.Component {
                                 path="/events-app"
                                 children={<EventsApp />}
                             />
+                            <Route exact path="/login" component={LoginPage} />
+                            <Route exact path="/" component={HomePage} />
                         </Switch>
                     </div>
                 </Router>
@@ -189,20 +186,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// class Random extends
-// {
-//   constructor(props)
-//   {
-//     super(props);
-//     console.log("random constructor");
-
-//   }
-//   render(){
-//     console.log("random");
-//     return(
-//       <p>hi</p>
-//       )
-//   }
-
-// }
