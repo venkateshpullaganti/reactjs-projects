@@ -1,6 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { observable } from "mobx";
+import { v4 as uuidv4 } from "uuid";
 
 import LoadingWrapperWithFailure from "../common/LoadingWrapperWithFailure";
 import NoDataView from "../common/NoDataView";
@@ -59,7 +60,7 @@ class TodoListAPI extends React.Component<todoProps> {
             return outputList.map((eachTodoModel) => (
                 <Todo
                     todo={eachTodoModel}
-                    key={Math.random()}
+                    key={uuidv4()}
                     removeTodo={() => this.removeTodo(eachTodoModel.id)}
                 />
             ));
@@ -84,7 +85,7 @@ class TodoListAPI extends React.Component<todoProps> {
             );
         return null;
     };
-    renderSuccessUi = () => {
+    renderSuccessUi = observer(() => {
         return (
             <div className="root-div ">
                 <p className="app-name">todos</p>
@@ -106,15 +107,10 @@ class TodoListAPI extends React.Component<todoProps> {
                 {this.renderFooter()}
             </div>
         );
-    };
+    });
 
     render() {
-        const {
-            getTodosAPIStatus,
-            getTodosAPIError,
-            todoLength,
-            selectedFilter,
-        } = this.getTodoStore();
+        const { getTodosAPIStatus, getTodosAPIError } = this.getTodoStore();
 
         return (
             <LoadingWrapperWithFailure
@@ -122,7 +118,6 @@ class TodoListAPI extends React.Component<todoProps> {
                 apiError={getTodosAPIError}
                 onRetryClick={this.doNetworkCalls}
                 renderSuccessUI={this.renderSuccessUi}
-                dummy={[selectedFilter, todoLength]}
             />
         );
     }

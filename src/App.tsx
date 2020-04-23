@@ -5,12 +5,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { observer, Provider } from "mobx-react";
 
 // import { configure } from "mobx";
+import "./App.css";
 
+import "./components/todo-list/todo-list.css";
 import { TodoList } from "./components/todo-list";
-import { FormComponents } from "./components/form-components";
 import { HomePage } from "./components/HomePage";
-import { Greetings } from "./components/form-components/Greetings";
+import { FormComponents } from "./components/form-components";
 import { FavouriteDessert } from "./components/form-components/favourite-dessert";
+import { Greetings } from "./components/form-components/Greetings";
 import { VisitedCities } from "./components/form-components/visited-cities";
 import { YourState } from "./components/form-components/your-state";
 import { DisableOrEnable } from "./components/form-components/disable-enable";
@@ -18,8 +20,6 @@ import Covid19Dashboard from "./components/covid19-dashboard";
 import CountryDetails from "./components/covid19-dashboard/country-details";
 import Page1 from "./components/Page1";
 import EmojiGame from "./components/EmojiGame";
-import "./App.css";
-import "./components/todo-list/todo-list.css";
 import CounterPage from "./components/CounterPage";
 import { themeStore } from "./stores/ThemeStore";
 import TodoListMobx from "./components/todo-list-mobx";

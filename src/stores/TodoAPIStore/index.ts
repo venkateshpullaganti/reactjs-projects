@@ -36,7 +36,6 @@ class TodoStoreAPI {
                 title: todo.title,
                 isCompleted: todo.completed,
             };
-
             return new TodoModel(todoObj);
         });
     };

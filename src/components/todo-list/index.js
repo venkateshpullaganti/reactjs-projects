@@ -1,7 +1,5 @@
 import React from "react";
 
-import { usersStore } from "../../stores/UsersStore";
-
 class TodoItem extends React.Component {
     constructor(props) {
         super(props);
