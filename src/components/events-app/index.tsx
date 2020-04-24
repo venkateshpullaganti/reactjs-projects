@@ -5,11 +5,8 @@ import eventStore from "../../stores/EventsStore";
 import AddEvent from "./AddEvent";
 import EventList from "./EventList";
 
-
 @observer
 class EventsApp extends React.Component {
-
-
     render() {
         return (
             <div style={{ padding: "100px" }}>
@@ -19,6 +16,5 @@ class EventsApp extends React.Component {
             </div>
         );
     }
-
 }
 export default EventsApp;
