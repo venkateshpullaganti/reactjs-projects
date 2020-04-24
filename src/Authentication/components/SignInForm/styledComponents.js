@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 
-const displayFlex = "flex";
-const displayNone = "none";
-
 export const FormContainer = styled.div`
     ${tw`h-screen w-screen flex justify-center items-center bg-pink-200`}
 `;
@@ -33,12 +30,7 @@ export const PasswordField = styled.input`
 export const Heading = styled.h2`
     ${tw`font-bold m-2`};
 `;
-export const PasswordAlert = styled.p`
-    display: ${(props) => (props.show ? displayFlex : displayNone)};
-    ${tw`text-red-500`};
-`;
 
-export const NameAlert = styled.p`
-    display: ${(props) => (props.show ? displayFlex : displayNone)};
+export const InputAlert = styled.p`
     ${tw`text-red-500`};
 `;

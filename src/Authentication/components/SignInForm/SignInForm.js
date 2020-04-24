@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { observable } from "mobx";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
-import { setAccessToken, clearUserSession } from "../../../utils/StorageUtils";
+import { clearUserSession } from "../../../utils/StorageUtils";
 import {
     FormContainer,
     FormStyled,
@@ -11,55 +11,58 @@ import {
     PasswordField,
     LoginBtn,
     Heading,
-    NameAlert,
-    PasswordAlert,
+    InputAlert,
 } from "./styledComponents";
+import {
+    userNameErrorMessage,
+    passwordErrorMessage,
+    bool_true,
+    bool_false,
+} from "../../constants/signInConstants";
 
-const bool_true = true;
-const bool_false = false;
-
+@inject("authStore")
 @observer
 class SignInForm extends Component {
     @observable userName;
     @observable password;
-    @observable shouldShowNameAlert;
-    @observable shouldShowpasswordAlert;
+    @observable errorMessage;
 
     constructor(props) {
         super(props);
-        this.shouldShowNameAlert = bool_false;
-        this.shouldShowpasswordAlert = bool_false;
+
+        this.errorMessage = null;
         this.userName = "";
         this.password = "";
     }
+    getAuthStore = () => {
+        return this.props.authStore;
+    };
     evaluateUsernameAndPassword = () => {
         if (this.userName === "") {
-            this.shouldShowNameAlert = bool_true;
+            this.errorMessage = userNameErrorMessage;
             return bool_false;
         } else if (this.password === "") {
-            this.shouldShowNameAlert = bool_false;
-            this.shouldShowpasswordAlert = bool_true;
+            this.errorMessage = passwordErrorMessage;
             return bool_false;
         }
-        this.shouldShowNameAlert = bool_false;
-        this.shouldShowpasswordAlert = bool_false;
-
+        this.errorMessage = null;
         return bool_true;
     };
 
     clearSession = () => {
-        clearUserSession();
+        this.getAuthStore().userSignOut();
     };
     onSubmit = (event) => {
         event.preventDefault();
 
         if (this.evaluateUsernameAndPassword()) {
-            setAccessToken("This is sample dummy access token.!");
+            this.getAuthStore().userSignIn();
+
             const { history } = this.props;
             history.replace("/");
         }
     };
-    onChangeName = (event) => {
+    onChangeUserName = (event) => {
         this.userName = event.target.value;
     };
     onChangePassword = (event) => {
@@ -72,7 +75,7 @@ class SignInForm extends Component {
                 <FormStyled onSubmit={this.onSubmit}>
                     <Heading>Sign in</Heading>
                     <UsernameField
-                        onKeyDown={this.onChangeName}
+                        onKeyDown={this.onChangeUserName}
                         type="text"
                         placeholder="Username"
                     />
@@ -85,12 +88,7 @@ class SignInForm extends Component {
                     <button type="button" onClick={this.clearSession}>
                         Clear Session
                     </button>
-                    <NameAlert show={this.shouldShowNameAlert}>
-                        please enter username
-                    </NameAlert>
-                    <PasswordAlert show={this.shouldShowpasswordAlert}>
-                        please enter password
-                    </PasswordAlert>
+                    <InputAlert>{this.errorMessage}</InputAlert>
                 </FormStyled>
             </FormContainer>
         );
