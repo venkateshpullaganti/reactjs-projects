@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 
 export const RootDiv = styled.div`
-    ${tw`ml-32`};
+    ${tw`ml-32 p-8`};
 `;
 
 export const CartIcon = styled.div`
@@ -11,4 +11,7 @@ export const CartIcon = styled.div`
 `;
 export const Itemscount = styled.span`
     ${tw`text-yellow-500 ml-2 p-2 relative text-sm`};
+`;
+export const Container = styled.div`
+    ${tw`flex`};
 `;

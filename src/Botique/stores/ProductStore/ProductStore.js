@@ -20,14 +20,15 @@ class ProductStore {
     }
     @action.bound
     onSelectSize(selectedSize) {
-        const index = this.sizeFilter.indexOf(selectedSize);
-        if (index !== -1) {
-            this.sizeFilter.splic(index, 1);
-        } else this.sizeFilter.push(selectedSize);
+        // const index = this.sizeFilter.indexOf(selectedSize);
+        // if (index !== -1) {
+        //     this.sizeFilter.splic(index, 1);
+        // } else this.sizeFilter.push(selectedSize);
     }
     onChangeSortBy;
     @action.bound
     setProductListResponse(response) {
+        console.log(response);
         this.productList = response;
     }
     @action.bound
@@ -40,7 +41,9 @@ class ProductStore {
     }
     getProductList = () => {
         const productAPIPromise = this.productsAPIService.getProductsAPI();
-        return bindPromiseWithOnSuccess(productAPIPromise).to(this.se);
+        return bindPromiseWithOnSuccess(productAPIPromise)
+            .to(this.setGetProductListAPIStatus, this.setProductListResponse)
+            .catch(this.setGetProductListAPIError);
     };
     @computed
     get productsFilteredBySizes() {
@@ -71,7 +74,7 @@ class ProductStore {
     }
     @computed
     get sortedAndFilteredProducts() {
-        return this.products;
+        return this.productList;
     }
     @computed
     get totalNoOfProductsDisplayed() {

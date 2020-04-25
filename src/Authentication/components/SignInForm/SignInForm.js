@@ -84,9 +84,9 @@ class SignInForm extends Component {
                         placeholder="Password"
                     />
                     <LoginBtn type="submit">Sign In</LoginBtn>
-                    <button type="button" onClick={this.clearSession}>
+                    {/* <button type="button" onClick={this.clearSession}>
                         Clear Session
-                    </button>
+                    </button> */}
                     <InputAlert>{this.errorMessage}</InputAlert>
                 </FormStyled>
             </FormContainer>
