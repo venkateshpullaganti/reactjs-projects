@@ -3,7 +3,12 @@ import { observer } from "mobx-react";
 
 import SizeBtn from "./SizeBtn";
 
-import { SizesContainer, Heading, Sizes } from "./styledComponents";
+import {
+    SizesContainer,
+    Heading,
+    Sizes,
+    SideBarStyled,
+} from "./styledComponents";
 
 @observer
 class SideBar extends Component {
@@ -27,10 +32,12 @@ class SideBar extends Component {
     };
     render() {
         return (
-            <SizesContainer>
-                <Heading>Sizes:</Heading>
-                <Sizes>{this.renderSizeButtons()}</Sizes>
-            </SizesContainer>
+            <SideBarStyled>
+                <SizesContainer>
+                    <Heading>Sizes:</Heading>
+                    <Sizes>{this.renderSizeButtons()}</Sizes>
+                </SizesContainer>
+            </SideBarStyled>
         );
     }
 }

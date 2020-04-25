@@ -9,6 +9,10 @@ import {
     FreeShipping,
     ImageContainer,
     Bar,
+    AddToCartBtn,
+    CurrencyFormat,
+    PriceContainer,
+    Installment,
 } from "./styledComponents";
 
 @observer
@@ -18,16 +22,33 @@ class Product extends Component {
         console.log(props.product.price);
     }
     render() {
-        const { image, price, title, isFreeShipping } = this.props.product;
-
+        const {
+            image,
+            price,
+            title,
+            isFreeShipping,
+            currencyFormat,
+            installments,
+        } = this.props.product;
+        const pricePerinstallment = parseFloat(price / installments).toFixed(2);
         return (
             <ProductContainer>
+                <FreeShipping isFreeShipping={isFreeShipping}>
+                    FreeShipping
+                </FreeShipping>
                 <ImageContainer>
                     <Image alt={title} src={image} />
                 </ImageContainer>
                 <Title>{title}</Title>
                 <Bar />
-                <Price>{price}</Price>
+                <PriceContainer>
+                    <CurrencyFormat>{currencyFormat}</CurrencyFormat>
+                    <Price>{price}</Price>
+                </PriceContainer>
+                <Installment>
+                    or {installments}x{pricePerinstallment}
+                </Installment>
+                <AddToCartBtn>Add To Cart</AddToCartBtn>
             </ProductContainer>
         );
     }
