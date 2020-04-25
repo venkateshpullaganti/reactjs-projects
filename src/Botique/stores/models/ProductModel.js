@@ -9,19 +9,21 @@ class ProductModel {
     price;
     printStyle;
     title;
-    imageURL;
+    image;
+    id;
     constructor(ProductObj) {
         this.productId = ProductObj.productId;
         this.availableSizes = ProductObj.availableSizes;
         this.currencyFormat = ProductObj.currencyFormat;
         this.currencyId = ProductObj.currencyId;
         this.description = ProductObj.description;
-        this.installmentsCount = ProductObj.installmentsCount;
+        this.id = ProductObj.id;
+        this.installments = ProductObj.installments;
         this.isFreeShipping = ProductObj.isFreeShipping;
         this.price = ProductObj.price;
-        this.printStyle = ProductObj.printStyle;
+        this.style = ProductObj.style;
         this.title = ProductObj.title;
-        this.imageURL = ProductObj.imageURL;
+        this.image = ProductObj.image;
     }
 }
 export default ProductModel;

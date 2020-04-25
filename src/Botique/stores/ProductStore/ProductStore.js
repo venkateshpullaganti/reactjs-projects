@@ -2,6 +2,8 @@ import { observable, action, computed } from "mobx";
 import { API_INITIAL } from "@ib/api-constants";
 import { bindPromiseWithOnSuccess } from "@ib/mobx-promise";
 
+import ProductModel from "../models/ProductModel";
+
 class ProductStore {
     @observable productList;
     @observable getProductListAPIStatus;
@@ -16,20 +18,24 @@ class ProductStore {
     }
     @action.bound
     onChangeSortBy(selectedSortBy) {
+        console.log(selectedSortBy);
         this.sortBy = selectedSortBy;
     }
     @action.bound
     onSelectSize(selectedSize) {
-        // const index = this.sizeFilter.indexOf(selectedSize);
-        // if (index !== -1) {
-        //     this.sizeFilter.splic(index, 1);
-        // } else this.sizeFilter.push(selectedSize);
+        const index = this.sizeFilter.indexOf(selectedSize);
+        if (index !== -1) {
+            this.sizeFilter.splice(index, 1);
+        } else this.sizeFilter.push(selectedSize);
+        console.log(this.sizeFilter);
     }
-    onChangeSortBy;
+
     @action.bound
-    setProductListResponse(response) {
-        console.log(response);
-        this.productList = response;
+    setProductListResponse(data) {
+        data.forEach((eachProduct) => {
+            const productModel = new ProductModel(eachProduct);
+            this.productList.push(productModel);
+        });
     }
     @action.bound
     setGetProductListAPIError(error) {
@@ -47,11 +53,12 @@ class ProductStore {
     };
     @computed
     get productsFilteredBySizes() {
-        return this.productList.filter((eachProduct) => {
-            return eachProduct
-                .get("availableSizes")
-                .some((size) => this.sizeFilter.includes(size));
-        });
+        // return this.productList.filter((eachProduct) => {
+        //     return eachProduct
+        //         .get("availableSizes")
+        //         .some((size) => this.sizeFilter.includes(size));
+        // });
+        return this.productList;
     }
     sortedProducts = (products) => {
         // if (this.sortBy === "Asecding") {
@@ -84,7 +91,7 @@ class ProductStore {
         this.init();
     };
     init = () => {
-        this.productList = new Map();
+        this.productList = [];
         this.getProductListAPIStatus = API_INITIAL;
         this.getProductListAPIError = null;
         this.sizeFilter = [];

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { observable } from "mobx";
 import { observer } from "mobx-react";
 
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
 
 import Product from "../Product";
+import ProductSort from "../ProductSort";
 
 import { ProductListStyled } from "./styledComponents";
 
@@ -19,6 +19,7 @@ class ProductsList extends Component {
     doNetworkCalls = () => {
         this.productStore.getProductList();
     };
+
     renderProducts = () => {
         const { sortedAndFilteredProducts } = this.productStore;
 
@@ -27,7 +28,19 @@ class ProductsList extends Component {
         ));
     };
     renderSuccessUi = observer(() => {
-        return <ProductListStyled>{this.renderProducts()}</ProductListStyled>;
+        const {
+            totalNoOfProductsDisplayed,
+            onChangeSortBy,
+        } = this.productStore;
+        return (
+            <div>
+                <ProductSort
+                    productsCount={totalNoOfProductsDisplayed}
+                    onChangeSortBy={onChangeSortBy}
+                />
+                <ProductListStyled>{this.renderProducts()}</ProductListStyled>;
+            </div>
+        );
     });
     render() {
         const {

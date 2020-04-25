@@ -71,8 +71,9 @@ export default class HomePage extends React.Component {
                         <li>
                             <Link to="/page-1">Page 1</Link>
                         </li>
+
                         <li>
-                            <Link to="/login">Login Page</Link>
+                            <Link to="/home">E-Commerce Site</Link>
                         </li>
                     </ul>
                 </div>
