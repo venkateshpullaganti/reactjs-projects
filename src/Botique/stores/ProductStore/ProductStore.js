@@ -88,4 +88,4 @@ class ProductStore {
         this.sortBy = "SELECT";
     };
 }
-export default ProductStore;
+export { ProductStore };

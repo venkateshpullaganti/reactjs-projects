@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import { observer, Provider } from "mobx-react";
 
 // import { configure } from "mobx";
@@ -31,6 +31,7 @@ import TodoListAPI from "./components/todo-list-api";
 import stores from "./stores";
 import { SignInForm } from "./Authentication/components/SignInForm";
 import globalStores from "./common/stores";
+import boutiqueRoutes from "./Botique/routes";
 // import LoginPage from "./Authentication/components/SignInForm";
 
 // configure({ enforceActions: "observed" });
@@ -44,7 +45,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider {...stores} {...globalStores}>
-                <Router basename={process.env.PUBLIC_URL}>
+                <HashRouter basename={process.env.PUBLIC_URL}>
                     <div>
                         <Switch>
                             <Route
@@ -178,10 +179,12 @@ class App extends React.Component {
                                 children={<EventsApp />}
                             />
                             <Route exact path="/login" component={SignInForm} />
+                            {boutiqueRoutes}
+
                             <Route exact path="/" component={HomePage} />
                         </Switch>
                     </div>
-                </Router>
+                </HashRouter>
             </Provider>
         );
     }

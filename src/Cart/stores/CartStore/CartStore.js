@@ -12,8 +12,12 @@ class CartStore {
     clearCart = () => {};
     getProductDetailsById = () => {};
     @computed
-    totalCartAmount() {}
+    totalCartAmount() {
+        return 1250;
+    }
     @computed
-    noOfProductsInCart() {}
+    noOfProductsInCart() {
+        return 5;
+    }
 }
 export default CartStore;

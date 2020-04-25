@@ -1,3 +1,4 @@
 import authStore from "../../Authentication/stores";
+import productStore from "../../Botique/stores";
 
-export default { authStore };
+export default { authStore, productStore };

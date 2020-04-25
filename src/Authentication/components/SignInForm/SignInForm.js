@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
-import { clearUserSession } from "../../../utils/StorageUtils";
 import {
     FormContainer,
     FormStyled,
@@ -59,7 +58,7 @@ class SignInForm extends Component {
             this.getAuthStore().userSignIn();
 
             const { history } = this.props;
-            history.replace("/");
+            history.replace({ pathname: "/home" });
         }
     };
     onChangeUserName = (event) => {
@@ -75,12 +74,12 @@ class SignInForm extends Component {
                 <FormStyled onSubmit={this.onSubmit}>
                     <Heading>Sign in</Heading>
                     <UsernameField
-                        onKeyDown={this.onChangeUserName}
+                        onChange={this.onChangeUserName}
                         type="text"
                         placeholder="Username"
                     />
                     <PasswordField
-                        onKeyDown={this.onChangePassword}
+                        onChange={this.onChangePassword}
                         type="password"
                         placeholder="Password"
                     />
