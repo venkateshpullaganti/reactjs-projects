@@ -15,3 +15,7 @@ export const Itemscount = styled.span`
 export const Container = styled.div`
     ${tw`flex`};
 `;
+
+export const ProductListWrapper = styled.div`
+    ${tw`w-3/4`};
+`;

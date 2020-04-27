@@ -1,1 +1,3 @@
-export { CartStore as default } from "./CartStore";
+import CartStore from "./CartStore";
+
+export default CartStore;

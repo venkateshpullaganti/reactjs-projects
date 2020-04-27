@@ -4,8 +4,8 @@ import { observer } from "mobx-react";
 
 const SORTING_OPTIONS = [
     { value: "All", displayname: "All" },
-    { value: "Asending", displayname: "Highest to lowest" },
-    { value: "Descending", displayname: "Lowest to highest" },
+    { value: "Descending", displayname: "Highest to lowest" },
+    { value: "Asending", displayname: "Lowest to highest" },
 ];
 
 @observer
@@ -16,11 +16,11 @@ class ProductSort extends Component {
         onChangeSortBy(event.target.value);
     };
     render() {
-        const { productCount } = this.props;
+        const { totalNoOfProductsDisplayed } = this.props;
         return (
             <SortBar>
                 <DisplayedProductsCount>
-                    {productCount} Product(s) Found.
+                    {totalNoOfProductsDisplayed} Product(s) Found.
                 </DisplayedProductsCount>
                 <Dropdown
                     id="ProductsSort"
@@ -28,7 +28,7 @@ class ProductSort extends Component {
                     onChange={this.onChangeSortBy}
                 >
                     {SORTING_OPTIONS.map((sortBy) => (
-                        <option value={sortBy.value}>
+                        <option key={sortBy.value} value={sortBy.value}>
                             {sortBy.displayname}
                         </option>
                     ))}

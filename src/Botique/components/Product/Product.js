@@ -17,13 +17,15 @@ import {
 
 @observer
 class Product extends Component {
-    constructor(props) {
-        super(props);
-        console.log(props.product.price);
-    }
+    onClickAddTOCart = () => {
+        const { onClickAddTOCart } = this.props;
+        const { productId } = this.props.product;
+
+        onClickAddTOCart(productId);
+    };
     render() {
         const {
-            image,
+            imageURL,
             price,
             title,
             isFreeShipping,
@@ -37,7 +39,7 @@ class Product extends Component {
                     FreeShipping
                 </FreeShipping>
                 <ImageContainer>
-                    <Image alt={title} src={image} />
+                    <Image alt={title} src={imageURL} />
                 </ImageContainer>
                 <Title>{title}</Title>
                 <Bar />
@@ -48,7 +50,9 @@ class Product extends Component {
                 <Installment>
                     or {installments}x{pricePerinstallment}
                 </Installment>
-                <AddToCartBtn>Add To Cart</AddToCartBtn>
+                <AddToCartBtn onClick={this.onClickAddTOCart}>
+                    Add To Cart
+                </AddToCartBtn>
             </ProductContainer>
         );
     }

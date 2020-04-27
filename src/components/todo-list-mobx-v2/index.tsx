@@ -49,7 +49,7 @@ class TodoListMobxV2 extends React.Component {
         } catch (error) {
             console.log(error);
             this.statusText =
-                error.status.toString() !== ""
+                error.status !== undefined
                     ? error.status.toString()
                     : "Can't connect";
             this.hasNetworkError = true;
