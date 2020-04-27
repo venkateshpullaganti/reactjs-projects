@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
     ProductContainer,
@@ -15,12 +17,19 @@ import {
     Installment,
 } from "./styledComponents";
 
+toast.configure({
+    autoClose: 1000,
+    draggable: true,
+});
+
 @observer
 class Product extends Component {
     onClickAddTOCart = () => {
         const { onClickAddTOCart } = this.props;
         const { productId } = this.props.product;
-
+        toast.success("Product successfully added to cart !", {
+            position: toast.POSITION.BOTTOM_CENTER,
+        });
         onClickAddTOCart(productId);
     };
     render() {
@@ -30,9 +39,12 @@ class Product extends Component {
             title,
             isFreeShipping,
             currencyFormat,
-            installments,
+            installmentsCount,
         } = this.props.product;
-        const pricePerinstallment = parseFloat(price / installments).toFixed(2);
+        const pricePerinstallment = parseFloat(
+            price / installmentsCount
+        ).toFixed(2);
+
         return (
             <ProductContainer>
                 <FreeShipping isFreeShipping={isFreeShipping}>
@@ -48,7 +60,9 @@ class Product extends Component {
                     <Price>{price}</Price>
                 </PriceContainer>
                 <Installment>
-                    or {installments}x{pricePerinstallment}
+                    {installmentsCount
+                        ? `or ${installmentsCount} x ${pricePerinstallment}`
+                        : "No Installments for this product."}
                 </Installment>
                 <AddToCartBtn onClick={this.onClickAddTOCart}>
                     Add To Cart

@@ -19,6 +19,7 @@
         "autoprefixer": "^9.7.5",
         "babel-plugin-macros": "^2.8.0",
         "emotion": "^10.0.27",
+        "js-cookie": "2.2.1",
         "local-storage": "^2.0.0",
         "mobx": "5.15.0",
         "mobx-react": "6.1.4",
@@ -28,10 +29,10 @@
         "react-icons": "^3.9.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.0",
+        "react-toastify": "5.5.0",
         "tailwind.macro": "^1.0.0-alpha.10",
         "typescript": "3.8.3",
-        "uuid": "^7.0.3",
-        "js-cookie": "2.2.1"
+        "uuid": "^7.0.3"
     },
     "scripts": {
         "build:css": "postcss src/index.css -o src/styles/tailwind.css",

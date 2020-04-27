@@ -5,7 +5,7 @@ export const SizesContainer = styled.div`
     ${tw``};
 `;
 export const SideBarStyled = styled.div`
-    ${tw`flex flex-wrap items-start w-1/4 p-4 border-solid border-2 border-gray-600`};
+    ${tw`flex flex-wrap items-start w-1/4 p-4`};
 `;
 
 export const Heading = styled.div`

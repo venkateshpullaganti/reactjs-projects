@@ -27,7 +27,7 @@ export const FreeShipping = styled.div`
     display: ${(props) => (props.isFreeShipping ? SHOW : HIDE)};
     ${tw`text-xs text-white p-1 bg-black absolute top-0 right-0`};
 `;
-export const Bar = styled.div`
+export const Bar = styled.span`
     ${tw`w-4 m-2 border-solid border-2 border-yellow-500 rounded-full `};
 `;
 
@@ -38,7 +38,7 @@ export const AddToCartBtn = styled.button`
     }
 `;
 export const CurrencyFormat = styled.div`
-    ${tw`text-xs mr-1 align-baseline`};
+    ${tw`text-xs mr-1 `};
 `;
 export const PriceContainer = styled.div`
     ${tw`flex items-baseline`};

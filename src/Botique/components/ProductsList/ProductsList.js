@@ -13,7 +13,6 @@ class ProductsList extends Component {
 
     renderProducts = () => {
         const { onClickAddTOCart } = this.props;
-        console.log(this.props);
         return this.products.map((eachProduct) => {
             return (
                 <Product

@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { FiShoppingCart } from "react-icons/fi";
 
-import { SIZES } from "../../constants/ProductsConstants";
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
+
+import { SIZES } from "../../constants/ProductsConstants";
 
 import Header from "../Header";
 import ProductList from "../ProductsList";
 import ProductSort from "../ProductSort";
 import { SideBar } from "../SideBar";
+
+import Cart from "../../../Cart/components/Cart";
 
 import {
     RootDiv,
@@ -17,10 +20,19 @@ import {
     Container,
     ProductListWrapper,
 } from "./styledComponents";
+import { observable } from "mobx";
+
+// const YES = true;
+// const NO = false;
 
 @inject("authStore", "productStore", "cartStore")
 @observer
 class EcommerceHomePage extends Component {
+    @observable shouldShowCart;
+    constructor(props) {
+        super(props);
+        this.shouldShowCart = false;
+    }
     get productStore() {
         return this.props.productStore;
     }
@@ -38,8 +50,9 @@ class EcommerceHomePage extends Component {
         this.productStore.getProductList();
     };
     onClickAddTOCart = (productId) => {
-        const { onClickAdToCart } = this.cartStore;
-        onClickAdToCart(productId);
+        const { onClickAddToCart } = this.cartStore;
+
+        onClickAddToCart(productId);
     };
     renderSuccessUi = observer(() => {
         const { products } = this.productStore;
@@ -59,6 +72,12 @@ class EcommerceHomePage extends Component {
         const { onSelectSize } = this.productStore;
         onSelectSize(selectedSize);
     };
+    onClickCart = () => {
+        this.shouldShowCart = !this.shouldShowCart;
+    };
+    toggleCart = () => {
+        this.shouldShowCart = !this.shouldShowCart;
+    };
 
     render() {
         const {
@@ -67,12 +86,13 @@ class EcommerceHomePage extends Component {
             onChangeSortBy,
             totalNoOfProductsDisplayed,
         } = this.productStore;
+        const { noOfProductsInCart } = this.cartStore;
         return (
             <RootDiv>
                 <Header onClickSignOut={this.onClickSignOut} />
-                <CartIcon>
+                <CartIcon onClick={this.onClickCart}>
                     <FiShoppingCart className="absolute" />
-                    <Itemscount>58</Itemscount>
+                    <Itemscount>{noOfProductsInCart}</Itemscount>
                 </CartIcon>
                 <Container>
                     <SideBar sizes={SIZES} onSelectSize={this.onSelectSize} />
@@ -92,6 +112,11 @@ class EcommerceHomePage extends Component {
                         />
                     </ProductListWrapper>
                 </Container>
+                <Cart
+                    show={this.shouldShowCart}
+                    toggleCart={this.toggleCart}
+                    cartStore={this.cartStore}
+                />
             </RootDiv>
         );
     }
