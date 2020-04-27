@@ -27,7 +27,7 @@ export const CartTxt = styled.div`
     ${tw` text-xl font-bold text-white`};
 `;
 export const CartHeader = styled.div`
-    ${tw`flex pl-32 h-20 border border-solid border-yellow-600`};
+    ${tw`flex pl-32 h-20 `};
 `;
 export const Footer = styled.div`
     ${tw`p-0`};
