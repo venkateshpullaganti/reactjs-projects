@@ -21,6 +21,7 @@ import {
     Heading,
     InputAlert,
 } from "./styledComponents";
+import { getAccessToken } from "../../../utils/StorageUtils";
 
 @inject("authStore")
 @observer
@@ -61,11 +62,17 @@ class SignInForm extends Component {
         event.preventDefault();
 
         if (this.evaluateUsernameAndPassword()) {
-            this.getAuthStore().userSignIn();
-            this.goToEcommercePage();
+            this.verifySignIn();
         }
     };
-    goToEcommercePage = () => {
+    verifySignIn = () => {
+        const timeout = 1000;
+        this.getAuthStore().userSignIn();
+        setTimeout(() => {
+            this.redirectToEcommercePage();
+        }, timeout);
+    };
+    redirectToEcommercePage = () => {
         const { history } = this.props;
         history.replace({ pathname: Ecommerce_Home_Path });
     };

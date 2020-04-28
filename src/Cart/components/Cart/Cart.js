@@ -16,6 +16,7 @@ import {
     Footer,
     CartSubHeader,
 } from "./styledComponents";
+
 @observer
 class Cart extends Component {
     render() {
@@ -54,7 +55,10 @@ class Cart extends Component {
                 />
                 <Footer>
                     <SubTotal totalCartAmount={totalCartAmount} />
-                    <CheckOutButton OnCheckOut={clearCart} />
+                    <CheckOutButton
+                        noOfProductsInCart={noOfProductsInCart}
+                        OnCheckOut={clearCart}
+                    />
                 </Footer>
             </CartContainer>
         );

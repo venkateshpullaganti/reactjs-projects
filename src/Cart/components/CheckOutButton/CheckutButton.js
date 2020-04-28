@@ -11,7 +11,15 @@ class CheckOutButton extends Component {
         );
     };
     render() {
-        return <CheckOutBtn onClick={this.OnCheckOut}>CHECKOUT</CheckOutBtn>;
+        const { noOfProductsInCart } = this.props;
+        return (
+            <CheckOutBtn
+                isCursorAllowed={noOfProductsInCart ? true : false}
+                onClick={this.OnCheckOut}
+            >
+                CHECKOUT
+            </CheckOutBtn>
+        );
     }
 }
 

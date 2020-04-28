@@ -31,7 +31,7 @@ export const CartHeader = styled.div`
 `;
 export const Footer = styled.div`
     margin-top: auto;
-    ${tw`p-0 h-1/4 flex flex-col mb-4 overflow-hidden`};
+    ${tw`pb-4 h-1/4 flex flex-col  overflow-hidden`};
 `;
 export const CartSubHeader = styled.div`
     ${tw`p-2 flex ml-40  mb-2 overflow-hidden`};

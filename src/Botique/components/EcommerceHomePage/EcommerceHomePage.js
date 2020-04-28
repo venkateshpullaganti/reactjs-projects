@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 import { FiShoppingCart } from "react-icons/fi";
+import { withRouter } from "react-router-dom";
 
+import { getAccessToken } from "../../../utils/StorageUtils";
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
+import { SignInForm_PATH } from "../../../Authentication/constants/RouteConstants";
+import Cart from "../../../Cart/components/Cart";
 
 import { SIZES } from "../../constants/ProductsConstants";
 
@@ -11,8 +16,6 @@ import ProductList from "../ProductsList";
 import ProductSort from "../ProductSort";
 import { SideBar } from "../SideBar";
 
-import Cart from "../../../Cart/components/Cart";
-
 import {
     RootDiv,
     CartIcon,
@@ -20,10 +23,6 @@ import {
     Container,
     ProductListWrapper,
 } from "./styledComponents";
-import { observable } from "mobx";
-
-// const YES = true;
-// const NO = false;
 
 @inject("authStore", "productStore", "cartStore")
 @observer
@@ -33,6 +32,14 @@ class EcommerceHomePage extends Component {
         super(props);
         this.shouldShowCart = false;
     }
+
+    componentDidMount() {
+        if (getAccessToken() === undefined) {
+            return this.redirectToLoginPage();
+        }
+        this.doNetworkCalls();
+    }
+
     get productStore() {
         return this.props.productStore;
     }
@@ -42,9 +49,6 @@ class EcommerceHomePage extends Component {
     }
     get cartStore() {
         return this.props.cartStore;
-    }
-    componentDidMount() {
-        this.doNetworkCalls();
     }
     doNetworkCalls = () => {
         this.productStore.getProductList();
@@ -78,6 +82,10 @@ class EcommerceHomePage extends Component {
     toggleCart = () => {
         this.shouldShowCart = !this.shouldShowCart;
     };
+    redirectToLoginPage = () => {
+        const { history } = this.props;
+        history.replace(SignInForm_PATH);
+    };
 
     render() {
         const {
@@ -87,6 +95,7 @@ class EcommerceHomePage extends Component {
             totalNoOfProductsDisplayed,
         } = this.productStore;
         const { noOfProductsInCart } = this.cartStore;
+
         return (
             <RootDiv>
                 <Header onClickSignOut={this.onClickSignOut} />
@@ -125,4 +134,4 @@ class EcommerceHomePage extends Component {
     }
 }
 
-export { EcommerceHomePage };
+export default withRouter(EcommerceHomePage);

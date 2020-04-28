@@ -1,1 +1,3 @@
-export { EcommerceHomePage as default } from "./EcommerceHomePage";
+import EcommerceHomePage from "./EcommerceHomePage";
+
+export default EcommerceHomePage;
