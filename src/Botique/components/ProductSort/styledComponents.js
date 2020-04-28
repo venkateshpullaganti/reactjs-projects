@@ -8,5 +8,11 @@ export const DisplayedProductsCount = styled.div`
     ${tw``};
 `;
 export const Dropdown = styled.select`
-    ${tw`bg-grey-700`};
+    ${tw`bg-grey-700 p-1 border border-slod border-gray-500 rounded`};
+    &:focus {
+        outline: none;
+    }
+    &:hover {
+        border: 1px solid black;
+    }
 `;

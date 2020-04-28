@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import { SignInForm_PATH } from "../../../Authentication/constants/RouteConstants";
+
 import { HeaderStyled, SignOutBtn } from "./styledComponents";
 
 class Header extends Component {
@@ -8,12 +10,17 @@ class Header extends Component {
         const { onClickSignOut } = this.props;
         onClickSignOut();
         const { history } = this.props;
-        history.replace("/login");
+        history.replace(SignInForm_PATH);
     };
     render() {
         return (
             <HeaderStyled>
-                <SignOutBtn onClick={this.onClickSignOut}>Sign Out</SignOutBtn>
+                <SignOutBtn
+                    data-testid="sign-out-button"
+                    onClick={this.onClickSignOut}
+                >
+                    Sign Out
+                </SignOutBtn>
             </HeaderStyled>
         );
     }

@@ -3,9 +3,9 @@ import { SortBar, DisplayedProductsCount, Dropdown } from "./styledComponents";
 import { observer } from "mobx-react";
 
 const SORTING_OPTIONS = [
-    { value: "All", displayname: "All" },
-    { value: "Descending", displayname: "Highest to lowest" },
-    { value: "Asending", displayname: "Lowest to highest" },
+    { value: "Select", displayname: "Select", isHidden: true },
+    { value: "ASCENDING", displayname: "Lowest to highest", isHidden: false },
+    { value: "DESCENDING", displayname: "Highest to lowest", isHidden: false },
 ];
 
 @observer
@@ -28,7 +28,11 @@ class ProductSort extends Component {
                     onChange={this.onChangeSortBy}
                 >
                     {SORTING_OPTIONS.map((sortBy) => (
-                        <option key={sortBy.value} value={sortBy.value}>
+                        <option
+                            key={sortBy.value}
+                            value={sortBy.value}
+                            hidden={sortBy.isHidden}
+                        >
                             {sortBy.displayname}
                         </option>
                     ))}

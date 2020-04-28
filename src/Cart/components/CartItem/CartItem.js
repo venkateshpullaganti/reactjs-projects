@@ -50,7 +50,12 @@ class CartItem extends Component {
                     <Quantity>Quantity: {quantity}</Quantity>
                 </Details>
                 <PriceContainer>
-                    <RemoveBtn onClick={this.onRemoveCartItem}>x</RemoveBtn>
+                    <RemoveBtn
+                        data-testid="remove-cart-item"
+                        onClick={this.onRemoveCartItem}
+                    >
+                        x
+                    </RemoveBtn>
                     <Price>
                         <CurrencyFormat>{currencyFormat}: </CurrencyFormat>
                         {price}

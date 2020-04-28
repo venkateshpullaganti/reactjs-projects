@@ -90,7 +90,10 @@ class EcommerceHomePage extends Component {
         return (
             <RootDiv>
                 <Header onClickSignOut={this.onClickSignOut} />
-                <CartIcon onClick={this.onClickCart}>
+                <CartIcon
+                    data-testid="cart-open-button"
+                    onClick={this.onClickCart}
+                >
                     <FiShoppingCart className="absolute" />
                     <Itemscount>{noOfProductsInCart}</Itemscount>
                 </CartIcon>

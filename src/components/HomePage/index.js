@@ -4,13 +4,13 @@ import { Link, Redirect } from "react-router-dom";
 import logo from "../../logo.svg";
 import { getAccessToken } from "../../utils/StorageUtils";
 
+import { SignInForm_PATH } from "../../Authentication/constants/RouteConstants";
+import { Ecommerce_Home_Path } from "../../Botique/constants/RouteConstants";
+
 export default class HomePage extends React.Component {
     gotoLoginPage() {
-        return <Redirect to={{ pathname: "/login" }} />;
+        return <Redirect to={{ pathname: SignInForm_PATH }} />;
     }
-    // function gotoGridScreenIfLoggedIn() {
-    //     return <Redirect to={{ pathname: "/grid-memory-game" }} />;
-    // }
     render() {
         if (getAccessToken() === undefined) {
             return this.gotoLoginPage();
@@ -73,7 +73,9 @@ export default class HomePage extends React.Component {
                         </li>
 
                         <li>
-                            <Link to="/home">E-Commerce Site</Link>
+                            <Link to={Ecommerce_Home_Path}>
+                                E-Commerce Site
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -82,3 +84,7 @@ export default class HomePage extends React.Component {
 }
 
 export { HomePage };
+
+// function gotoGridScreenIfLoggedIn() {
+//     return <Redirect to={{ pathname: "/grid-memory-game" }} />;
+// }

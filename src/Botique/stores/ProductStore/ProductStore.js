@@ -88,10 +88,10 @@ class ProductStore {
             });
 
         switch (this.sortBy) {
-            case "Asending":
+            case "ASCENDING":
                 productsArray.sort((a, b) => (a.price > b.price ? 1 : -1));
                 break;
-            case "Descending":
+            case "DESCENDING":
                 productsArray.sort((a, b) => (a.price < b.price ? 1 : -1));
                 break;
 

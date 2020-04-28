@@ -63,7 +63,7 @@ class Product extends Component {
         return (
             <ProductContainer>
                 <FreeShipping isFreeShipping={isFreeShipping}>
-                    FreeShipping
+                    Free shipping
                 </FreeShipping>
                 <ImageContainer>
                     <Image alt={title} src={imageURL} />
@@ -80,7 +80,7 @@ class Product extends Component {
                         : "No Installments for this product."}
                 </Installment>
                 <AddToCartBtn onClick={this.onClickAddTOCart}>
-                    Add To Cart
+                    Add to cart
                 </AddToCartBtn>
             </ProductContainer>
         );

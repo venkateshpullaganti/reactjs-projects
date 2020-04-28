@@ -32,7 +32,11 @@ class Cart extends Component {
         return (
             <CartContainer show={show}>
                 <CartHeader>
-                    <CloseBtn show={show} onClick={toggleCart}>
+                    <CloseBtn
+                        data-testid="cart-close-button"
+                        show={show}
+                        onClick={toggleCart}
+                    >
                         X
                     </CloseBtn>
                     <CartSubHeader>

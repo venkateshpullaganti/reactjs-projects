@@ -29,9 +29,9 @@ import GridMemoryGame from "./components/GridMemoryGame";
 import UsersPage from "./components/UsersPage";
 import TodoListAPI from "./components/todo-list-api";
 import stores from "./stores";
-import { SignInForm } from "./Authentication/components/SignInForm";
 import globalStores from "./common/stores";
 import boutiqueRoutes from "./Botique/routes";
+import authenticationRoutes from "./Authentication/routes";
 // import LoginPage from "./Authentication/components/SignInForm";
 
 // configure({ enforceActions: "observed" });
@@ -178,7 +178,7 @@ class App extends React.Component {
                                 path="/events-app"
                                 children={<EventsApp />}
                             />
-                            <Route exact path="/login" component={SignInForm} />
+                            {authenticationRoutes}
                             {boutiqueRoutes}
 
                             <Route exact path="/" component={HomePage} />

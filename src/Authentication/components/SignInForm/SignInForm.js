@@ -3,6 +3,15 @@ import { withRouter } from "react-router-dom";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
+import { Ecommerce_Home_Path } from "../../../Botique/constants/RouteConstants";
+
+import {
+    userNameErrorMessage,
+    passwordErrorMessage,
+    bool_true,
+    bool_false,
+} from "../../constants/signInConstants";
+
 import {
     FormContainer,
     FormStyled,
@@ -12,12 +21,6 @@ import {
     Heading,
     InputAlert,
 } from "./styledComponents";
-import {
-    userNameErrorMessage,
-    passwordErrorMessage,
-    bool_true,
-    bool_false,
-} from "../../constants/signInConstants";
 
 @inject("authStore")
 @observer
@@ -36,6 +39,13 @@ class SignInForm extends Component {
     getAuthStore = () => {
         return this.props.authStore;
     };
+
+    onChangeUserName = (event) => {
+        this.userName = event.target.value;
+    };
+    onChangePassword = (event) => {
+        this.password = event.target.value;
+    };
     evaluateUsernameAndPassword = () => {
         if (this.userName === "") {
             this.errorMessage = userNameErrorMessage;
@@ -47,25 +57,17 @@ class SignInForm extends Component {
         this.errorMessage = null;
         return bool_true;
     };
-
-    clearSession = () => {
-        this.getAuthStore().userSignOut();
-    };
     onSubmit = (event) => {
         event.preventDefault();
 
         if (this.evaluateUsernameAndPassword()) {
             this.getAuthStore().userSignIn();
-
-            const { history } = this.props;
-            history.replace({ pathname: "/home" });
+            this.goToEcommercePage();
         }
     };
-    onChangeUserName = (event) => {
-        this.userName = event.target.value;
-    };
-    onChangePassword = (event) => {
-        this.password = event.target.value;
+    goToEcommercePage = () => {
+        const { history } = this.props;
+        history.replace({ pathname: Ecommerce_Home_Path });
     };
 
     render() {
@@ -83,10 +85,9 @@ class SignInForm extends Component {
                         type="password"
                         placeholder="Password"
                     />
-                    <LoginBtn type="submit">Sign In</LoginBtn>
-                    {/* <button type="button" onClick={this.clearSession}>
-                        Clear Session
-                    </button> */}
+                    <LoginBtn data-testid="sign-in-button" type="submit">
+                        Sign In
+                    </LoginBtn>
                     <InputAlert>{this.errorMessage}</InputAlert>
                 </FormStyled>
             </FormContainer>
@@ -95,3 +96,11 @@ class SignInForm extends Component {
 }
 
 export default withRouter(SignInForm);
+
+// clearSession = () => {
+//     this.getAuthStore().userSignOut();
+// };
+
+// /* <button type="button" onClick={this.clearSession}>
+//                     Clear Session
+//                 </button> */
