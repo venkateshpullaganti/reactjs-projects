@@ -7,9 +7,10 @@ import { HeaderStyled, SignOutBtn } from "./styledComponents";
 
 class Header extends Component {
     onClickSignOut = () => {
-        const { onClickSignOut } = this.props;
-        onClickSignOut();
         const { history } = this.props;
+        const { onClickSignOut } = this.props;
+
+        onClickSignOut();
         history.replace(SignInForm_PATH);
     };
     render() {

@@ -6,10 +6,13 @@ import logo from "../../logo.svg";
 import { Ecommerce_Home_Path } from "../../Botique/constants/RouteConstants";
 
 export default class HomePage extends React.Component {
+    // gotoLoginPage() {
+    //     return <Redirect to={{ pathname: SignInForm_PATH }} />;
+    // }
     render() {
         return (
             <div className="h-screen bg-gray-800 flex justify-center items-center flex-col text-white">
-                <header className="">
+                <header>
                     <img src={logo} className="App-logo" alt="logo" />
                     <p>Hello..!</p>
                     <a

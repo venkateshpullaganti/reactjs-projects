@@ -14,7 +14,7 @@ class CheckOutButton extends Component {
         const { noOfProductsInCart } = this.props;
         return (
             <CheckOutBtn
-                isCursorAllowed={noOfProductsInCart ? true : false}
+                disabled={noOfProductsInCart === 0}
                 onClick={this.OnCheckOut}
             >
                 CHECKOUT

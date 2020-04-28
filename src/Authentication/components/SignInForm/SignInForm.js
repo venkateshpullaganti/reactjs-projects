@@ -8,8 +8,6 @@ import { Ecommerce_Home_Path } from "../../../Botique/constants/RouteConstants";
 import {
     userNameErrorMessage,
     passwordErrorMessage,
-    bool_true,
-    bool_false,
 } from "../../constants/signInConstants";
 
 import {
@@ -21,7 +19,6 @@ import {
     Heading,
     InputAlert,
 } from "./styledComponents";
-import { getAccessToken } from "../../../utils/StorageUtils";
 
 @inject("authStore")
 @observer
@@ -47,31 +44,27 @@ class SignInForm extends Component {
     onChangePassword = (event) => {
         this.password = event.target.value;
     };
-    evaluateUsernameAndPassword = () => {
-        if (this.userName === "") {
-            this.errorMessage = userNameErrorMessage;
-            return bool_false;
-        } else if (this.password === "") {
-            this.errorMessage = passwordErrorMessage;
-            return bool_false;
-        }
-        this.errorMessage = null;
-        return bool_true;
-    };
+
     onSubmit = (event) => {
         event.preventDefault();
+        const timeout = 1000;
 
-        if (this.evaluateUsernameAndPassword()) {
-            this.verifySignIn();
+        if (this.userName.trim() === "") {
+            this.errorMessage = userNameErrorMessage;
+        } else if (this.password === "") {
+            this.errorMessage = passwordErrorMessage;
+        } else {
+            this.errorMessage = null;
+            this.getToken();
+            setTimeout(() => {
+                this.redirectToEcommercePage();
+            }, timeout);
         }
     };
-    verifySignIn = () => {
-        const timeout = 1000;
+    getToken = () => {
         this.getAuthStore().userSignIn();
-        setTimeout(() => {
-            this.redirectToEcommercePage();
-        }, timeout);
     };
+
     redirectToEcommercePage = () => {
         const { history } = this.props;
         history.replace({ pathname: Ecommerce_Home_Path });

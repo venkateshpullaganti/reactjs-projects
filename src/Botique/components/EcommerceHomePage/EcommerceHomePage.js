@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 import { FiShoppingCart } from "react-icons/fi";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 import { getAccessToken } from "../../../utils/StorageUtils";
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
@@ -34,9 +34,6 @@ class EcommerceHomePage extends Component {
     }
 
     componentDidMount() {
-        if (getAccessToken() === undefined) {
-            return this.redirectToLoginPage();
-        }
         this.doNetworkCalls();
     }
 
@@ -83,8 +80,9 @@ class EcommerceHomePage extends Component {
         this.shouldShowCart = !this.shouldShowCart;
     };
     redirectToLoginPage = () => {
-        const { history } = this.props;
-        history.replace(SignInForm_PATH);
+        // const { history } = this.props;
+        // history.replace(SignInForm_PATH);
+        return <Redirect to={{ pathname: SignInForm_PATH }} />;
     };
 
     render() {
@@ -96,6 +94,9 @@ class EcommerceHomePage extends Component {
         } = this.productStore;
         const { noOfProductsInCart } = this.cartStore;
 
+        if (getAccessToken() === undefined) {
+            return this.redirectToLoginPage();
+        }
         return (
             <RootDiv>
                 <Header onClickSignOut={this.onClickSignOut} />
