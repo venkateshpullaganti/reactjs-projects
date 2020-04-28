@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
-import { toast } from "react-toastify";
+import { toast, Slide, Flip, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import tickMark from "../../../common/assets/tickmark.png";
 
 import {
     ProductContainer,
@@ -15,19 +17,32 @@ import {
     CurrencyFormat,
     PriceContainer,
     Installment,
+    ToastComponent,
+    SuccessMsg,
 } from "./styledComponents";
 
 toast.configure({
-    autoClose: 1000,
+    autoClose: 2500,
     draggable: true,
+    hideProgressBar: true,
+    pauseOnHover: false,
+    closeButton: false,
+    transition: Slide,
 });
+
+const Toaster = () => (
+    <ToastComponent>
+        <img width={32} alt="success" src={tickMark} />
+        <SuccessMsg>Product added to your cart! </SuccessMsg>
+    </ToastComponent>
+);
 
 @observer
 class Product extends Component {
     onClickAddTOCart = () => {
         const { onClickAddTOCart } = this.props;
         const { productId } = this.props.product;
-        toast.success("Product successfully added to cart !", {
+        toast.warn(<Toaster />, {
             position: toast.POSITION.BOTTOM_CENTER,
         });
         onClickAddTOCart(productId);

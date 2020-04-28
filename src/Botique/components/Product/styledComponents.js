@@ -5,7 +5,10 @@ const SHOW = "FLEX";
 const HIDE = "none";
 
 export const ProductContainer = styled.div`
-    ${tw`sm:w-64 md:w-56 m-2 flex flex-col items-center justify-center border-solid border-2 border-black-700 relative`};
+    ${tw`sm:w-64 md:w-56 m-2 flex flex-col items-center justify-center relative border border-transparent`};
+    &:hover {
+        border: 1px solid lightgrey;
+    }
 `;
 export const Image = styled.img`
     ${tw``};
@@ -46,4 +49,10 @@ export const PriceContainer = styled.div`
 
 export const Installment = styled.div`
     ${tw`text-xs`};
+`;
+export const ToastComponent = styled.div`
+    ${tw`m-0 flex items-center justify-center`};
+`;
+export const SuccessMsg = styled.p`
+    ${tw`m-0`};
 `;

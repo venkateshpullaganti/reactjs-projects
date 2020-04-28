@@ -11,7 +11,6 @@ class ProductStore {
     productsAPIService;
     @observable sizeFilter;
     @observable sortBy;
-    price = "price";
 
     constructor(productsAPIService) {
         this.productsAPIService = productsAPIService;

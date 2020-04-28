@@ -14,6 +14,7 @@ import {
     CartTxt,
     CartHeader,
     Footer,
+    CartSubHeader,
 } from "./styledComponents";
 @observer
 class Cart extends Component {
@@ -30,15 +31,17 @@ class Cart extends Component {
 
         return (
             <CartContainer show={show}>
-                <CloseBtn show={show} onClick={toggleCart}>
-                    X
-                </CloseBtn>
                 <CartHeader>
-                    <CartIcon onClick={this.onClickCart}>
-                        <FiShoppingCart className="absolute" />
-                        <Itemscount>{noOfProductsInCart}</Itemscount>
-                    </CartIcon>
-                    <CartTxt>Cart</CartTxt>
+                    <CloseBtn show={show} onClick={toggleCart}>
+                        X
+                    </CloseBtn>
+                    <CartSubHeader>
+                        <CartIcon onClick={this.onClickCart}>
+                            <FiShoppingCart className="absolute" />
+                            <Itemscount>{noOfProductsInCart}</Itemscount>
+                        </CartIcon>
+                        <CartTxt>Cart</CartTxt>
+                    </CartSubHeader>
                 </CartHeader>
                 <CartList
                     productsInCart={cartProductList}

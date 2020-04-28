@@ -2,14 +2,10 @@ import React, { Component } from "react";
 
 import { CartItem } from "../CartItem";
 
-import { ProductList } from "./styledComponents";
+import { ProductList, AddItemsTxt } from "./styledComponents";
 import { observer } from "mobx-react";
 
 class CartList extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    // }
     renderCartItems = () => {
         const {
             productsInCart,
@@ -31,7 +27,7 @@ class CartList extends Component {
             });
             return products;
         }
-        return null;
+        return <AddItemsTxt>Add some products to your cart.</AddItemsTxt>;
     };
 
     render() {

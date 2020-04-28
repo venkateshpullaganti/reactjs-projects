@@ -8,7 +8,7 @@ class SubTotal extends Component {
         return (
             <SubTotalContainer>
                 <Text>SUBTOTAL</Text>
-                <Amount>{totalCartAmount}</Amount>
+                <Amount>₹: {totalCartAmount}</Amount>
             </SubTotalContainer>
         );
     }

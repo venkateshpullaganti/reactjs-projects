@@ -42,7 +42,9 @@ class CartStore {
     get totalCartAmount() {
         let totalAmount = 0;
         this.cartProductList.forEach((cartItem, key) => {
-            totalAmount += this.getProductDetailsById(cartItem.productId).price;
+            totalAmount +=
+                this.getProductDetailsById(cartItem.productId).price *
+                cartItem.quantity;
         });
         return totalAmount.toFixed(2);
     }
