@@ -25,7 +25,7 @@ export default class HomePage extends React.Component {
                     </a>
                 </header>
                 <ul className=" w-1/6 flex flex-col p-2 items-center">
-                    <li>
+                    {/* <li>
                         <Link to="/todo-list-api">Todo List With API</Link>
                     </li>
                     <li>
@@ -40,7 +40,7 @@ export default class HomePage extends React.Component {
                     </li>
                     <li>
                         <Link to="/todo-list">TodoList</Link>
-                    </li>
+                    </li> */}
                     <li>
                         <Link to="/covid19-dashboard">Covid19 Dashboard</Link>
                     </li>
@@ -50,7 +50,7 @@ export default class HomePage extends React.Component {
                     <li>
                         <Link to="/emojis-game">Emojis Game</Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to="/counter-page">Counter Page</Link>
                     </li>
                     <li>
@@ -63,7 +63,7 @@ export default class HomePage extends React.Component {
                     </li>
                     <li>
                         <Link to="/page-1">Page 1</Link>
-                    </li>
+                    </li> */}
 
                     <li>
                         <Link to={Ecommerce_Home_Path}>E-Commerce Site</Link>

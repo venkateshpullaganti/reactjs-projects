@@ -1,4 +1,5 @@
-/** @jsx jsx */
+/* @jsx jsx */
+
 import { jsx } from "@emotion/core";
 import React from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
@@ -145,10 +146,10 @@ class App extends React.Component {
                             <Route exact path="/page-1">
                                 <Page1 />
                             </Route>
-                            <Route
+                            <ProtectedRoute
                                 exact
                                 path="/emojis-game"
-                                children={
+                                component={
                                     <EmojiGame
                                         selectedTheme={themeStore.getCurrentTheme()}
                                         onChangeSelectedTheme={

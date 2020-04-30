@@ -43,8 +43,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "js:start": "npm run watch:css & react-app-rewired start",
-        "js:build": "npm run build:css & react-app-rewired build",
-        "js:test": "react-app-rewired test",
+        "js:build": "npm run build:css react-app-rewired build",
+        "js:test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
         "js:eject": "react-app-rewired eject",
         "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh"
     },
@@ -71,6 +71,9 @@
         "babel-eslint": "10.0.3",
         "customize-cra": "0.9.1",
         "react-app-rewired": "2.1.5",
-        "tailwindcss": "^1.2.0"
+        "tailwindcss": "^1.2.0",
+        "@testing-library/jest-dom": "5.5.0",
+        "@testing-library/react": "10.0.3",
+        "jest-environment-jsdom-sixteen": "1.0.3"
     }
 }

@@ -1,1 +1,2 @@
-import * as React from "react";
+import SignInRoute from "./SignInRoute";
+export { SignInRoute };

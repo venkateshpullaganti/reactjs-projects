@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { observable } from "mobx";
-import { observer, inject } from "mobx-react";
+// import { withRouter } from "react-router-dom";
+// import { observable } from "mobx";
+// import { observer, inject } from "mobx-react";
 
-import { Ecommerce_Home_Path } from "../../../Botique/constants/RouteConstants";
-import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperForSignInFrom";
+// import { Ecommerce_Home_Path } from "../../../Botique/constants/RouteConstants";
+// import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperForSignInFrom";
 
-import {
-    userNameErrorMessage,
-    passwordErrorMessage,
-} from "../../constants/signInConstants";
+// import {
+//     userNameErrorMessage,
+//     passwordErrorMessage,
+// } from "../../constants/signInConstants";
 
 import {
     FormContainer,
@@ -21,102 +21,90 @@ import {
     InputAlert,
 } from "./styledComponents";
 
-@inject("authStore")
-@observer
 class SignInForm extends Component {
-    @observable userName;
-    @observable password;
-    @observable errorMessage;
+    // @observable userName;
+    // @observable password;
+    // @observable errorMessage;
 
-    constructor(props) {
-        super(props);
-        console.log("sign in", props.component);
-        this.errorMessage = null;
-        this.userName = "";
-        this.password = "";
-    }
-    authStore = () => {
-        return this.props.authStore;
-    };
+    // constructor(props) {
+    //     super(props);
 
-    onChangeUserName = (event) => {
-        this.userName = event.target.value;
-    };
-    onChangePassword = (event) => {
-        this.password = event.target.value;
-    };
+    //     this.errorMessage = null;
+    //     this.userName = "";
+    //     this.password = "";
+    //     this.onSuccess = this.onSuccess.bind(this);
+    //     this.onFailure = this.onFailure.bind(this);
+    // }
+    // authStore = () => {
+    //     return this.props.authStore;
+    // };
 
-    onSubmit = (event) => {
-        event.preventDefault();
+    // onChangeUserName = (event) => {
+    //     this.userName = event.target.value;
+    // };
+    // onChangePassword = (event) => {
+    //     this.password = event.target.value;
+    // };
 
-        if (this.userName.trim() === "") {
-            this.errorMessage = userNameErrorMessage;
-        } else if (this.password === "") {
-            this.errorMessage = passwordErrorMessage;
-        } else {
-            this.errorMessage = null;
-            this.authStore().userSignIn();
-            setTimeout(() => {
-                this.redirectToCalledComponent();
-            }, 1000);
-        }
-    };
+    // onSubmit = (event) => {
+    //     event.preventDefault();
 
-    redirectToCalledComponent = () => {
-        // const { component: Component } = this.props;
-        // console.log(Component);
+    //     if (this.userName.trim() === "") {
+    //         this.errorMessage = userNameErrorMessage;
+    //     } else if (this.password === "") {
+    //         this.errorMessage = passwordErrorMessage;
+    //     } else {
+    //         this.errorMessage = null;
 
-        // return <Component />;
-        const { history } = this.props;
-        history.replace({ pathname: Ecommerce_Home_Path });
-    };
-    setErrorMsg = (error) => {
-        console.log(error);
+    //         this.authStore().userSignIn(this.onSuccess, this.onFailure);
+    //     }
+    // };
 
-        this.errorMessage = error;
-    };
+    // onFailure(error) {
+    //     this.errorMessage = JSON.parse(error).problem;
+    // }
+    // onSuccess() {
+    //     const { history } = this.props;
+    //     history.replace({ pathname: Ecommerce_Home_Path });
+    // }
 
     render() {
-        // const {
-        //     getUserSignInAPIStatus,
-        //     getUserSignInAPIError,
-        // } = this.authStore;
-        // console.log("status", getUserSignInAPIStatus);
-
+        const {
+            onChangeUserName,
+            onChangePassword,
+            onSubmit,
+            errorMessage,
+        } = this.props;
         return (
             <FormContainer>
                 <FormStyled>
                     <Heading>Sign in</Heading>
                     <UsernameField
-                        onChange={this.onChangeUserName}
+                        onChange={onChangeUserName}
                         type="text"
                         placeholder="Username"
                     />
                     <PasswordField
-                        onChange={this.onChangePassword}
+                        onChange={onChangePassword}
                         type="password"
                         placeholder="Password"
                     />
                     <LoginBtn
                         data-testid="sign-in-button"
-                        type="submit"
-                        onClick={this.onSubmit}
+                        type="button"
+                        onClick={onSubmit}
                     >
                         Sign In
                     </LoginBtn>
-                    {/* <LoadingWrapperWithFailure
-                        apiStatus={getUserSignInAPIStatus}
-                        apiError={getUserSignInAPIError}
-                        renderSuccessUI={this.redirectToCalledComponent}
-                    /> */}
-                    <InputAlert>{this.errorMessage}</InputAlert>
+
+                    <InputAlert>{errorMessage}</InputAlert>
                 </FormStyled>
             </FormContainer>
         );
     }
 }
 
-export default withRouter(SignInForm);
+export { SignInForm };
 
 // clearSession = () => {
 //     this.authStore().userSignOut();
