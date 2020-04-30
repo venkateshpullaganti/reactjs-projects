@@ -4,6 +4,7 @@ import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
 import { Ecommerce_Home_Path } from "../../../Botique/constants/RouteConstants";
+import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperForSignInFrom";
 
 import {
     userNameErrorMessage,
@@ -29,12 +30,12 @@ class SignInForm extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log("sign in", props.component);
         this.errorMessage = null;
         this.userName = "";
         this.password = "";
     }
-    getAuthStore = () => {
+    authStore = () => {
         return this.props.authStore;
     };
 
@@ -47,7 +48,6 @@ class SignInForm extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        const timeout = 1000;
 
         if (this.userName.trim() === "") {
             this.errorMessage = userNameErrorMessage;
@@ -55,25 +55,37 @@ class SignInForm extends Component {
             this.errorMessage = passwordErrorMessage;
         } else {
             this.errorMessage = null;
-            this.getToken();
+            this.authStore().userSignIn();
             setTimeout(() => {
-                this.redirectToEcommercePage();
-            }, timeout);
+                this.redirectToCalledComponent();
+            }, 1000);
         }
     };
-    getToken = () => {
-        this.getAuthStore().userSignIn();
-    };
 
-    redirectToEcommercePage = () => {
+    redirectToCalledComponent = () => {
+        // const { component: Component } = this.props;
+        // console.log(Component);
+
+        // return <Component />;
         const { history } = this.props;
         history.replace({ pathname: Ecommerce_Home_Path });
     };
+    setErrorMsg = (error) => {
+        console.log(error);
+
+        this.errorMessage = error;
+    };
 
     render() {
+        // const {
+        //     getUserSignInAPIStatus,
+        //     getUserSignInAPIError,
+        // } = this.authStore;
+        // console.log("status", getUserSignInAPIStatus);
+
         return (
             <FormContainer>
-                <FormStyled onSubmit={this.onSubmit}>
+                <FormStyled>
                     <Heading>Sign in</Heading>
                     <UsernameField
                         onChange={this.onChangeUserName}
@@ -85,9 +97,18 @@ class SignInForm extends Component {
                         type="password"
                         placeholder="Password"
                     />
-                    <LoginBtn data-testid="sign-in-button" type="submit">
+                    <LoginBtn
+                        data-testid="sign-in-button"
+                        type="submit"
+                        onClick={this.onSubmit}
+                    >
                         Sign In
                     </LoginBtn>
+                    {/* <LoadingWrapperWithFailure
+                        apiStatus={getUserSignInAPIStatus}
+                        apiError={getUserSignInAPIError}
+                        renderSuccessUI={this.redirectToCalledComponent}
+                    /> */}
                     <InputAlert>{this.errorMessage}</InputAlert>
                 </FormStyled>
             </FormContainer>
@@ -98,7 +119,7 @@ class SignInForm extends Component {
 export default withRouter(SignInForm);
 
 // clearSession = () => {
-//     this.getAuthStore().userSignOut();
+//     this.authStore().userSignOut();
 // };
 
 // /* <button type="button" onClick={this.clearSession}>

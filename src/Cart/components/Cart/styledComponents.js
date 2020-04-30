@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 
-const SHOW = "25%";
+const SHOW = "30%";
 const HIDE = "0";
 
 export const CartContainer = styled.div`

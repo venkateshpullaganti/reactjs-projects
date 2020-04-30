@@ -32,16 +32,10 @@ import stores from "./stores";
 import globalStores from "./common/stores";
 import boutiqueRoutes from "./Botique/routes";
 import authenticationRoutes from "./Authentication/routes";
-// import LoginPage from "./Authentication/components/SignInForm";
-
-// configure({ enforceActions: "observed" });
+import { ProtectedRoute } from "./common/ProtectedRoute";
 
 @observer
 class App extends React.Component {
-    // getSelectedTheme = () => {
-    //   return themeStore.getCurrentTheme();
-    // }
-
     render() {
         return (
             <Provider {...stores} {...globalStores}>

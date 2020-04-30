@@ -1,7 +1,11 @@
 import { observable, action } from "mobx";
 import { API_INITIAL } from "@ib/api-constants";
 import { bindPromiseWithOnSuccess } from "@ib/mobx-promise";
-import { setAccessToken, clearUserSession } from "../../../utils/StorageUtils";
+import {
+    setAccessToken,
+    clearUserSession,
+    getAccessToken,
+} from "../../../utils/StorageUtils";
 
 const ACCESS_TOKEN = "access_token";
 
@@ -44,7 +48,10 @@ class AuthStore {
     };
 
     userSignOut = () => {
+        console.log("signout user");
+
         clearUserSession();
+        console.log(getAccessToken());
     };
 
     @action.bound

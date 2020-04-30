@@ -11,6 +11,7 @@ class ProductStore {
     productsAPIService;
     @observable sizeFilter;
     @observable sortBy;
+    @observable searchText;
 
     constructor(productsAPIService) {
         this.productsAPIService = productsAPIService;
@@ -68,6 +69,21 @@ class ProductStore {
     //         });
     //     return productsBySize;
     // }
+    @action.bound
+    onChangeSearchText(updatedSearchText) {
+        this.searchText = updatedSearchText.toLowerCase();
+    }
+
+    filterProductsBySearchText = (productsArray) => {
+        if (this.searchText !== "") {
+            productsArray = productsArray.filter(
+                (product) =>
+                    product.title.toLowerCase().includes(this.searchText) ||
+                    product.printStyle.toLowerCase().includes(this.searchText)
+            );
+        }
+        return productsArray;
+    };
 
     @computed
     get sortedAndFilteredProducts() {
@@ -98,6 +114,15 @@ class ProductStore {
             default:
                 productsArray.sort();
         }
+
+        if (this.searchText !== "") {
+            productsArray = productsArray.filter(
+                (product) =>
+                    product.title.toLowerCase().includes(this.searchText) ||
+                    product.printStyle.toLowerCase().includes(this.searchText)
+            );
+        }
+
         this.displayedProductsCount = productsArray.length;
 
         return productsArray;
@@ -120,6 +145,7 @@ class ProductStore {
         this.getProductListAPIError = null;
         this.sizeFilter = [];
         this.sortBy = "ALL";
+        this.searchText = "";
     };
 }
 export { ProductStore };

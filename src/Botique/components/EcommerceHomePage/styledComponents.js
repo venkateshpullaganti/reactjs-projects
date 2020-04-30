@@ -19,3 +19,7 @@ export const Container = styled.div`
 export const ProductListWrapper = styled.div`
     ${tw`w-3/4`};
 `;
+
+export const CookieConsentDiv = styled.div`
+    ${tw`absolute`};
+`;

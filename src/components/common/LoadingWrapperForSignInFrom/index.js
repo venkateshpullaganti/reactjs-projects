@@ -5,8 +5,8 @@ import { API_FETCHING, API_SUCCESS, API_FAILED } from "@ib/api-constants";
 
 import { getUserDisplayableErrorMessage } from "../../../utils/APIUtils";
 
-import LoadingView from "./LoadingView";
-import FailureView from "./FailureView";
+// import LoadingView from "./LoadingView";
+// import FailureView from "./FailureView";
 
 @observer
 class LoadingWrapperWithFailure extends React.Component {
@@ -16,19 +16,23 @@ class LoadingWrapperWithFailure extends React.Component {
         const {
             apiStatus,
             renderSuccessUI: RenderSuccessUI,
-            setErrorMsg,
+
             apiError,
         } = this.props;
         const errorMessage = getUserDisplayableErrorMessage(apiError);
 
         switch (apiStatus) {
-            case API_FETCHING:
-                return <LoadingView />;
+            // case API_FETCHING:
+            //     return <LoadingView />;
             case API_SUCCESS:
                 return <RenderSuccessUI />;
-            case API_FAILED:
-                setErrorMsg(errorMessage);
-                return null;
+            // case API_FAILED:
+            //     return (
+            //         <FailureView
+            //             onRetryClick={onRetryClick}
+            //             errorMessage={errorMessage}
+            //         />
+            //     );
             default:
                 return null;
         }

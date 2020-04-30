@@ -1,11 +1,12 @@
 import React from "react";
-import { Route } from "react-router-dom";
+
+import { ProtectedRoute } from "../../common/ProtectedRoute";
 
 import EcommerceHomeRoute from "../components/EcommerceHomePage";
 import { Ecommerce_Home_Path } from "../constants/RouteConstants";
 
 const routes = [
-    <Route
+    <ProtectedRoute
         key="EcommerceHomeRoute"
         exact
         path={Ecommerce_Home_Path}

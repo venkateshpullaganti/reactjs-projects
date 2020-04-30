@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 
 export const FormContainer = styled.div`
-    ${tw`h-screen w-screen flex justify-center items-center bg-pink-200`}
+    ${tw`h-screen w-screen flex justify-center items-center bg-teal-500`}
 `;
 export const FormStyled = styled.form`
     ${tw`flex flex-col p-8 bg-white shadow-lg rounded`}

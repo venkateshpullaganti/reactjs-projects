@@ -42,9 +42,11 @@ class Product extends Component {
     onClickAddTOCart = () => {
         const { onClickAddTOCart } = this.props;
         const { productId } = this.props.product;
+
         toast.warn(<Toaster />, {
             position: toast.POSITION.BOTTOM_CENTER,
         });
+
         onClickAddTOCart(productId);
     };
     render() {

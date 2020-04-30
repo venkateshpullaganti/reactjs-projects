@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 import { FiShoppingCart } from "react-icons/fi";
-import { withRouter, Redirect } from "react-router-dom";
+import cookieconsent from "cookieconsent";
 
-import { getAccessToken } from "../../../utils/StorageUtils";
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
-import { SignInForm_PATH } from "../../../Authentication/constants/RouteConstants";
 import Cart from "../../../Cart/components/Cart";
 
 import { SIZES } from "../../constants/ProductsConstants";
@@ -22,7 +20,38 @@ import {
     Itemscount,
     Container,
     ProductListWrapper,
+    CookieConsentDiv,
 } from "./styledComponents";
+
+window.cookieconsent.initialise({
+    container: { CookieConsentDiv },
+    palette: {
+        popup: {
+            background: "#252e39",
+        },
+        button: { background: "#14a7d0" },
+    },
+    revokable: true,
+    onStatusChange: function (status) {
+        console.log(this.hasConsented() ? "enable cookies" : "disable cookies");
+    },
+    theme: "classic",
+    type: "opt-out",
+    position: "bottom-left",
+    static: false,
+    content: {
+        header: "Cookies used on the website!",
+        message: "We use cookies to ensure you get best userexperience.",
+        dismiss: "Got it!",
+        allow: "Allow cookies",
+        deny: "Decline",
+        link: "Learn more",
+        href: "https://www.cookiesandyou.com",
+        close: "&#x274c;",
+        policy: "Cookie Policy",
+        target: "www.google.com",
+    },
+});
 
 @inject("authStore", "productStore", "cartStore")
 @observer
@@ -79,10 +108,10 @@ class EcommerceHomePage extends Component {
     toggleCart = () => {
         this.shouldShowCart = !this.shouldShowCart;
     };
-    redirectToLoginPage = () => {
-        // const { history } = this.props;
-        // history.replace(SignInForm_PATH);
-        return <Redirect to={{ pathname: SignInForm_PATH }} />;
+
+    onChangeSearchText = (searchText) => {
+        const { onChangeSearchText } = this.productStore;
+        onChangeSearchText(searchText);
     };
 
     render() {
@@ -94,12 +123,12 @@ class EcommerceHomePage extends Component {
         } = this.productStore;
         const { noOfProductsInCart } = this.cartStore;
 
-        if (getAccessToken() === undefined) {
-            return this.redirectToLoginPage();
-        }
         return (
             <RootDiv>
-                <Header onClickSignOut={this.onClickSignOut} />
+                <Header
+                    onClickSignOut={this.onClickSignOut}
+                    onChangeSearchText={this.onChangeSearchText}
+                />
                 <CartIcon
                     data-testid="cart-open-button"
                     onClick={this.onClickCart}
@@ -130,9 +159,10 @@ class EcommerceHomePage extends Component {
                     toggleCart={this.toggleCart}
                     cartStore={this.cartStore}
                 />
+                <CookieConsentDiv />
             </RootDiv>
         );
     }
 }
 
-export default withRouter(EcommerceHomePage);
+export default EcommerceHomePage;

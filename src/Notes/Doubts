@@ -1,5 +1,5 @@
 1. React router is calling the costrutor twice. calling of function 4 times eventhough i called once explicitly.(filter bar)  -- pending
 2. why spread operator is not assigning to new object.                           -- resolved.
 3. showing error of same key eventhough id is generated randomly in gamestore currentlevelcells - math.random() should not be used --resolved
-4. Why don't we give url to service while creating t+he service instance in stores/index
-5. why loaderwithfailure is not rendering when success ui changes.  
+4. Why don't we give url to service while creating t+he service instance in stores/index -resolved
+5. why loaderwithfailure is not rendering when success ui changes.   -resolved
