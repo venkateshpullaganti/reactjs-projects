@@ -39,8 +39,6 @@ class SignInRoute extends Component {
     };
 
     onSubmit = (event) => {
-        event.preventDefault();
-
         if (this.userName.trim() === "") {
             this.errorMessage = userNameErrorMessage;
         } else if (this.password === "") {
@@ -48,7 +46,7 @@ class SignInRoute extends Component {
         } else {
             this.errorMessage = null;
 
-            this.authStore().userSignIn(this.onSuccess, this.onFailure);
+            this.authStore().userSignIn({}, this.onSuccess, this.onFailure);
         }
     };
 
@@ -56,7 +54,11 @@ class SignInRoute extends Component {
         this.errorMessage = JSON.parse(error).problem;
     }
     onSuccess() {
+        // const { state } = this.props.location;
         const { history } = this.props;
+        // state !== undefined
+        //     ? history.replace({ pathname: state.from })
+        //     : history.replace({ pathname: Ecommerce_Home_Path });
         history.replace({ pathname: Ecommerce_Home_Path });
     }
 

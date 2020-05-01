@@ -19,14 +19,19 @@ import { isLoggedIn } from "../../utils/AuthUtils";
 //     />
 // );
 
-const ProtectedRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({ component: Component, path, ...rest }) => (
     <Route
         {...rest}
         render={(props) =>
             isLoggedIn() ? (
                 <Component {...props} />
             ) : (
-                <Redirect to={SignInForm_PATH} />
+                <Redirect
+                    to={{
+                        pathname: SignInForm_PATH,
+                        state: { from: path },
+                    }}
+                />
             )
         }
     />

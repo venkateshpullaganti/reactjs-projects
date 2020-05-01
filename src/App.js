@@ -146,7 +146,7 @@ class App extends React.Component {
                             <Route exact path="/page-1">
                                 <Page1 />
                             </Route>
-                            <ProtectedRoute
+                            {/* <Route
                                 exact
                                 path="/emojis-game"
                                 component={
@@ -157,7 +157,7 @@ class App extends React.Component {
                                         }
                                     />
                                 }
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path="/todo-list-mobx"
@@ -171,7 +171,7 @@ class App extends React.Component {
                             <Route
                                 exact
                                 path="/events-app"
-                                children={<EventsApp />}
+                                component={<EventsApp />}
                             />
                             {authenticationRoutes}
                             {boutiqueRoutes}

@@ -11,16 +11,16 @@ import {
 } from "./styledComponents";
 
 class SignInForm extends Component {
+    onSubmit = (event) => {
+        event.preventDefault();
+        const { onSubmit } = this.props;
+        onSubmit();
+    };
     render() {
-        const {
-            onChangeUserName,
-            onChangePassword,
-            onSubmit,
-            errorMessage,
-        } = this.props;
+        const { onChangeUserName, onChangePassword, errorMessage } = this.props;
         return (
             <FormContainer>
-                <FormStyled>
+                <FormStyled onSubmit={this.onSubmit}>
                     <Heading>Sign in</Heading>
                     <UsernameField
                         onChange={onChangeUserName}
@@ -32,11 +32,7 @@ class SignInForm extends Component {
                         type="password"
                         placeholder="Password"
                     />
-                    <LoginBtn
-                        data-testid="sign-in-button"
-                        type="button"
-                        onClick={onSubmit}
-                    >
+                    <LoginBtn data-testid="sign-in-button" type="submit">
                         Sign In
                     </LoginBtn>
 

@@ -43,7 +43,7 @@ class Cell extends React.Component<CellProps> {
         const { isHidden } = this.props.cell;
         if (!this.isClickedOnCell) {
             this.isClickedOnCell = true;
-            console.log(isHidden);
+
             setTimeout(() => onCellClick(isHidden), 200);
         }
     };

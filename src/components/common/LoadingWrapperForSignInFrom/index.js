@@ -11,8 +11,6 @@ import { getUserDisplayableErrorMessage } from "../../../utils/APIUtils";
 @observer
 class LoadingWrapperWithFailure extends React.Component {
     render() {
-        console.log("wrapper");
-
         const {
             apiStatus,
             renderSuccessUI: RenderSuccessUI,

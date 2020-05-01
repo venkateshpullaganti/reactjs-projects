@@ -1,1 +1,1 @@
-export { ProductStore as default } from "./ProductStore";
+export { ProductStore } from "./ProductStore";
