@@ -44,9 +44,11 @@ describe("AuthStore Tests", () => {
         const mockLoadingPromise = new Promise(function (resolve, reject) {});
         const mockSignInAPI = jest.fn();
         mockSignInAPI.mockReturnValue(mockLoadingPromise);
-        authAPI.signInAPI = mockSignInAPI;
-
-        authStore.userSignIn(requestObject, onSuccess, onFailure);
+        authAPI.signInAPI = authStore.userSignIn(
+            requestObject,
+            onSuccess,
+            onFailure
+        );
         expect(authStore.getUserSignInAPIStatus).toBe(API_FETCHING);
         expect(onSuccess).not.toBeCalled();
         expect(onFailure).not.toBeCalled();

@@ -123,7 +123,35 @@ describe("ProductStore tests", () => {
         );
     });
 
-    // it("should test the products by search text, selected sizes", async () => {
+    it("should test the products by search text, selected sizes and selected sort", async () => {
+        let testOrder = "DECENDING";
+        let sampleSearchText = "Cat";
 
-    // });
+        let mockSuccessPromise = Promise.resolve(getProductsResponse);
+        let mockProductsAPI = jest.fn();
+        mockProductsAPI.mockReturnValue(mockSuccessPromise);
+        productService.getProductsAPI = mockProductsAPI;
+
+        await productStore.getProductList();
+
+        productStore.onChangeSearchText(sampleSearchText);
+        productStore.onSelectSize("XL");
+        productStore.onSelectSize("S");
+        productStore.onChangeSortBy(testOrder);
+
+        const products = productStore.products;
+
+        expect(products.length).toBe(2);
+
+        productStore.products.forEach((product) => {
+            expect(product.title).toContain(sampleSearchText);
+        });
+
+        productStore.products.forEach((product) => {
+            expect(product.availableSizes).toContain("S" || "XL");
+            // expect(product.availableSizes).toEqual(
+            //     expect.arrayContaining(["S", "XL"])
+            // );
+        });
+    });
 });
