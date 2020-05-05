@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import logo from "../../logo.svg";
 
-import { Ecommerce_Home_Path } from "../../Botique/constants/RouteConstants";
+import { E_COMMERCE_PRODUCTS_PATH } from "../../constants/RouteConstants";
 
 export default class HomePage extends React.Component {
     // gotoLoginPage() {
-    //     return <Redirect to={{ pathname: SignInForm_PATH }} />;
+    //     return <Redirect to={{ pathname: E_COMMERCE_SIGN_IN_PATH }} />;
     // }
     render() {
         return (
@@ -66,7 +66,9 @@ export default class HomePage extends React.Component {
                     </li> */}
 
                     <li>
-                        <Link to={Ecommerce_Home_Path}>E-Commerce Site</Link>
+                        <Link to={E_COMMERCE_PRODUCTS_PATH}>
+                            E-Commerce Site
+                        </Link>
                     </li>
                 </ul>
             </div>

@@ -43,7 +43,7 @@ class AuthStore {
             })
             .catch((error) => {
                 this.setGetUserSignInAPIError(error);
-                onFailure(error);
+                onFailure();
             });
     };
 

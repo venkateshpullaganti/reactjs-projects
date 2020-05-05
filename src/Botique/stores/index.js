@@ -1,4 +1,4 @@
-import ProductStore from "./ProductStore";
+import { ProductStore } from "./ProductStore";
 
 import ProductService from "../services/ProductService";
 

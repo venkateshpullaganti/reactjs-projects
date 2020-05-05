@@ -9,7 +9,8 @@ export const FormStyled = styled.form`
 `;
 
 export const LoginBtn = styled.button`
-    ${tw`text-white  bg-black p-2 m-2 rounded`};
+    opacity: ${(props) => (props.disabled ? "0.7" : "1")};
+    ${tw`flex justify-center items-center text-white bg-black p-2 m-2 rounded`};
     &:focus {
         outline: none;
     }

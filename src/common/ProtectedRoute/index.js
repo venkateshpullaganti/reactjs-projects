@@ -1,20 +1,20 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { SignInForm_PATH } from "../../Authentication/constants/RouteConstants";
+import { E_COMMERCE_SIGN_IN_PATH } from "../../constants/RouteConstants";
 import { isLoggedIn } from "../../utils/AuthUtils";
 
 // function ProtectedRoute(props) {
 //     const { component: Component, ...rest } = props;
 //     if (isLoggedIn()) return <Route component={Component} {...rest} />;
-//     else return <Redirect to={{ pathname: SignInForm_PATH }} />;
+//     else return <Redirect to={{ pathname: E_COMMERCE_SIGN_IN_PATH }} />;
 // }
 
 // const ProtectedRoute = ({ component: Component, ...rest }) => (
 //     <Route
 //         {...rest}
 //         render={() =>
-//             isLoggedIn() ? <Component /> : <Redirect to={SignInForm_PATH} />
+//             isLoggedIn() ? <Component /> : <Redirect to={E_COMMERCE_SIGN_IN_PATH} />
 //         }
 //     />
 // );
@@ -28,7 +28,7 @@ const ProtectedRoute = ({ component: Component, path, ...rest }) => (
             ) : (
                 <Redirect
                     to={{
-                        pathname: SignInForm_PATH,
+                        pathname: E_COMMERCE_SIGN_IN_PATH,
                         state: { from: path },
                     }}
                 />

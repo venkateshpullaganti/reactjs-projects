@@ -5,8 +5,7 @@ import { HelloMessage } from ".";
 
 describe("HelloMessage tests", () => {
     it("should render given message", () => {
-        const { getByText, debug } = render(<HelloMessage message="venky" />);
+        const { getByText } = render(<HelloMessage message="venky" />);
         getByText(/venky/i);
-        debug();
     });
 });

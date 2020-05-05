@@ -42,7 +42,6 @@ describe("ProductStore tests", () => {
 
         await productStore.getProductList();
         expect(productStore.getProductListAPIStatus).toBe(API_SUCCESS);
-        // expect(productStore.setProductListResponse).toBeCalled();
     });
     it("should test ProductListAPI failure state", async () => {
         let mockFailurePromise = Promise.reject();

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { observable } from "mobx";
 
-import { SignInForm_PATH } from "../../../Authentication/constants/RouteConstants";
+import { E_COMMERCE_SIGN_IN_PATH } from "../../../constants/RouteConstants";
 
 import { HeaderContainer, SignOutBtn, SearchBar } from "./styledComponents";
 
@@ -17,7 +17,7 @@ class Header extends Component {
         const { onClickSignOut } = this.props;
 
         onClickSignOut();
-        history.replace(SignInForm_PATH);
+        history.replace(E_COMMERCE_SIGN_IN_PATH);
     };
     onChangeSearchText = (event) => {
         const { onChangeSearchText } = this.props;
