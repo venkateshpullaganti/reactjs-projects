@@ -2,7 +2,7 @@ import React from "react";
 
 import { ProtectedRoute } from "../../common/ProtectedRoute";
 
-import EcommerceHomeRoute from "../components/EcommerceHomePage";
+import { EcommerceHomePageRoute } from "./EcommerceHomePageRoute";
 import { E_COMMERCE_PRODUCTS_PATH } from "../../constants/RouteConstants";
 
 const routes = [
@@ -10,7 +10,7 @@ const routes = [
         key="EcommerceHomeRoute"
         exact
         path={E_COMMERCE_PRODUCTS_PATH}
-        component={EcommerceHomeRoute}
+        component={EcommerceHomePageRoute}
     />,
 ];
 

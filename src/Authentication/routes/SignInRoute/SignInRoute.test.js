@@ -71,7 +71,6 @@ describe("SignInRoute Tests", () => {
         const {
             getByTestId,
             getByPlaceholderText,
-            getByAltText,
 
             getByRole,
         } = render(
