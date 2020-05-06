@@ -124,7 +124,6 @@ class ProductStore {
         }
 
         this.displayedProductsCount = productsArray.length;
-
         return productsArray;
     }
     @computed

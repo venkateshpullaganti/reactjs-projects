@@ -19,9 +19,10 @@ import {
 
 import AuthService from "../../../Authentication/services/AuthService";
 import AuthStore from "../../stores/AuthStore";
-import { getUserSignInResponse } from "../../../fixtures/getUserSignInResponse.json";
+import getUserSignInResponse from "../../../fixtures/getUserSignInResponse.json";
 
 import { SignInRoute } from ".";
+import { API_SUCCESS } from "@ib/api-constants";
 
 const LocationDisplay = withRouter(({ location }) => (
     <div data-testid="location-display">{location.pathname}</div>
@@ -95,7 +96,7 @@ describe("SignInRoute Tests", () => {
 
         // await getByRole("button", { disabled: true });
     });
-    it("should render success state", () => {
+    it("should render success state", async () => {
         const history = createMemoryHistory();
         const route = E_COMMERCE_SIGN_IN_PATH;
         history.push(route);
@@ -115,29 +116,32 @@ describe("SignInRoute Tests", () => {
                 </Router>
             </Provider>
         );
+
+        const mockSuccessPromise = new Promise((resolve, reject) => {
+            resolve(getUserSignInResponse);
+        });
+
+        const mockSignInApi = jest.fn();
+        mockSignInApi.mockReturnValue(mockSuccessPromise);
+        authAPI.signInAPI = mockSignInApi;
+
         const usernameField = getByPlaceholderText("Username");
         const passwordField = getByPlaceholderText("Password");
         const signInBtn = getByTestId("sign-in-button");
-
-        const mockLoadingPromise = Promise.resolve();
-
-        const mockSignInApi = jest.fn();
-        mockSignInApi.mockReturnValue(mockLoadingPromise);
-        authAPI.signInAPI = mockSignInApi;
 
         fireEvent.change(usernameField, { target: { value: username } });
         fireEvent.change(passwordField, { target: { value: password } });
         fireEvent.click(signInBtn);
 
-        waitForElement(() => {
+        await waitFor(() => {
+            expect(authStore.getUserSignInAPIStatus).toBe(API_SUCCESS);
             expect(getByTestId("location-display")).toHaveTextContent(
                 E_COMMERCE_PRODUCTS_PATH
             );
-            expect(
-                queryByRole("button", { name: "Sign In" })
-            ).not.toBeInTheDocument();
+            expect(signInBtn).not.toBeInTheDocument();
         });
     });
+
     it("should render failure state", () => {
         const username = "test-username";
         const password = "test-password";

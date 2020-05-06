@@ -11,8 +11,6 @@ import FailureView from "./FailureView";
 @observer
 class LoadingWrapperWithFailure extends React.Component {
     render() {
-        console.log("wrapper");
-
         const {
             apiStatus,
             renderSuccessUI: RenderSuccessUI,

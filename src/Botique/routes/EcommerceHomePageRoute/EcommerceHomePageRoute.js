@@ -97,6 +97,7 @@ class EcommerceHomePageRoute extends Component {
 
     onChangeSearchText = (searchText) => {
         const { onChangeSearchText } = this.productStore;
+
         onChangeSearchText(searchText);
     };
 

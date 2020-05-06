@@ -33,7 +33,8 @@ class AuthStore {
         this.getUserSignInAPIStatus = API_INITIAL;
         this.getUserSignInAPIError = null;
     }
-    userSignIn = ({}, onSuccess, onFailure) => {
+    @action.bound
+    userSignIn(requestObject, onSuccess, onFailure) {
         const userSignInPromise = this.authAPIService.signInAPI();
 
         return bindPromiseWithOnSuccess(userSignInPromise)
@@ -45,7 +46,7 @@ class AuthStore {
                 this.setGetUserSignInAPIError(error);
                 onFailure();
             });
-    };
+    }
 
     userSignOut = () => {
         clearUserSession();
