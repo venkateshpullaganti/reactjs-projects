@@ -7,6 +7,8 @@ import { observer, Provider } from "mobx-react";
 
 import "./App.css";
 
+//just a comment
+
 import "./components/todo-list/todo-list.css";
 import { TodoList } from "./components/todo-list";
 import { HomePage } from "./components/HomePage";
