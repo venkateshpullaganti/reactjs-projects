@@ -18,16 +18,18 @@ class ProductStore {
       this.init();
    }
 
+   init = () => {
+      this.productList = new Map();
+      this.getProductListAPIStatus = API_INITIAL;
+      this.getProductListAPIError = null;
+      this.sizeFilter = [];
+      this.sortBy = "ALL";
+      this.searchText = "";
+   };
+
    @action.bound
    onChangeSortBy(selectedSortBy) {
       this.sortBy = selectedSortBy;
-   }
-   @action.bound
-   onSelectSize(selectedSize) {
-      const index = this.sizeFilter.indexOf(selectedSize);
-      if (index !== -1) {
-         this.sizeFilter.splice(index, 1);
-      } else this.sizeFilter.push(selectedSize);
    }
 
    @action.bound
@@ -41,38 +43,29 @@ class ProductStore {
    setGetProductListAPIError(error) {
       this.getProductListAPIError = error;
    }
+
    @action.bound
    setGetProductListAPIStatus(status) {
       this.getProductListAPIStatus = status;
    }
+
    getProductList = () => {
       const productAPIPromise = this.productsAPIService.getProductsAPI();
       return bindPromiseWithOnSuccess(productAPIPromise)
          .to(this.setGetProductListAPIStatus, this.setProductListResponse)
          .catch(this.setGetProductListAPIError);
    };
-   // @computed
-   // get productsBySize() {
-   //     let productsBySize = [];
 
-   //     if (this.sizeFilter.length)
-   //         this.productList.forEach((eachProduct, key) => {
-   //             if (
-   //                 eachProduct.availableSizes.some((size) =>
-   //                     this.sizeFilter.includes(size)
-   //                 )
-   //             )
-   //                 productsBySize.push(eachProduct);
-   //         });
-   //     else
-   //         this.productList.forEach((product) => {
-   //             productsBySize.push(product);
-   //         });
-   //     return productsBySize;
-   // }
+   @action.bound
+   onSelectSize(selectedSize) {
+      if (this.sizeFilter.includes(selectedSize)) {
+         this.sizeFilter.splice(this.sizeFilter.indexOf(selectedSize), 1);
+      } else this.sizeFilter.push(selectedSize);
+   }
+
    @action.bound
    onChangeSearchText(updatedSearchText) {
-      this.searchText = updatedSearchText.toLowerCase();
+      this.searchText = updatedSearchText.trim().toLowerCase();
    }
 
    filterProductsBySearchText = (productsArray) => {
@@ -86,10 +79,8 @@ class ProductStore {
       return productsArray;
    };
 
-   @computed
-   get sortedAndFilteredProducts() {
-      let productsArray = [];
-
+   filterProductsBySizes = () => {
+      let filteredProducts = [];
       if (this.sizeFilter.length)
          this.productList.forEach((eachProduct, key) => {
             if (
@@ -97,13 +88,26 @@ class ProductStore {
                   this.sizeFilter.includes(size)
                )
             )
-               productsArray.push(eachProduct);
+               filteredProducts.push(eachProduct);
          });
       else
          this.productList.forEach((product) => {
-            productsArray.push(product);
+            filteredProducts.push(product);
          });
+      return filteredProducts;
+   };
 
+   @computed
+   get sortedAndFilteredProducts() {
+      let productsArray = this.filterProductsBySizes();
+
+      if (this.searchText !== "") {
+         productsArray = productsArray.filter(
+            (product) =>
+               product.title.toLowerCase().includes(this.searchText) ||
+               product.printStyle.toLowerCase().includes(this.searchText)
+         );
+      }
       switch (this.sortBy) {
          case "ASCENDING":
             productsArray.sort((a, b) => (a.price > b.price ? 1 : -1));
@@ -115,16 +119,6 @@ class ProductStore {
          default:
             productsArray.sort();
       }
-
-      if (this.searchText !== "") {
-         productsArray = productsArray.filter(
-            (product) =>
-               product.title.toLowerCase().includes(this.searchText) ||
-               product.printStyle.toLowerCase().includes(this.searchText)
-         );
-      }
-
-      this.displayedProductsCount = productsArray.length;
 
       return productsArray;
    }
@@ -139,14 +133,6 @@ class ProductStore {
    }
    clearStore = () => {
       this.init();
-   };
-   init = () => {
-      this.productList = new Map();
-      this.getProductListAPIStatus = API_INITIAL;
-      this.getProductListAPIError = null;
-      this.sizeFilter = [];
-      this.sortBy = "ALL";
-      this.searchText = "";
    };
 }
 export { ProductStore };

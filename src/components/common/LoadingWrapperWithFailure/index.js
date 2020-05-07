@@ -10,27 +10,31 @@ import FailureView from "./FailureView";
 
 @observer
 class LoadingWrapperWithFailure extends React.Component {
-    render() {
-        const {
-            apiStatus,
-            renderSuccessUI: RenderSuccessUI,
-            setErrorMsg,
-            apiError,
-        } = this.props;
-        const errorMessage = getUserDisplayableErrorMessage(apiError);
+   render() {
+      const {
+         apiStatus,
+         onRetryClick,
+         apiError,
+         renderSuccessUI: RenderSuccessUI,
+      } = this.props;
+      const errorMessage = getUserDisplayableErrorMessage(apiError);
 
-        switch (apiStatus) {
-            case API_FETCHING:
-                return <LoadingView />;
-            case API_SUCCESS:
-                return <RenderSuccessUI />;
-            case API_FAILED:
-                setErrorMsg(errorMessage);
-                return null;
-            default:
-                return null;
-        }
-    }
+      switch (apiStatus) {
+         case API_FETCHING:
+            return <LoadingView />;
+         case API_SUCCESS:
+            return <RenderSuccessUI />;
+         case API_FAILED:
+            return (
+               <FailureView
+                  onRetryClick={onRetryClick}
+                  errorMessage={errorMessage}
+               />
+            );
+         default:
+            return null;
+      }
+   }
 }
 
 export default LoadingWrapperWithFailure;

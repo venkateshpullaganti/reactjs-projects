@@ -1,1 +1,2 @@
-export { EcommerceHomePageRoute } from "./EcommerceHomePageRoute";
+import EcommerceHomePageRoute from "./EcommerceHomePageRoute";
+export { EcommerceHomePageRoute };

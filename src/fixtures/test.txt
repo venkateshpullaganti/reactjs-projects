@@ -1,0 +1,79 @@
+  [
+      ProductModel {
+        productId: 12,
+        availableSizes: [ 'S', 'XS' ],      
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: '4 MSL',
+        installmentsCount: 9,
+        isFreeShipping: true,
+        price: 845.24,
+        printStyle: 'Black with custom print',
+        title: 'Cat Tee Black T-Shirt',     
+        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/12064273040195392_1.2995d79a.jpg'
+      },
+      ProductModel {
+        productId: 15,
+        availableSizes: [ 'M', 'L', 'XL', 'XXL' ],
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: 'Treino 2014',
+        installmentsCount: 5,
+        isFreeShipping: true,
+        price: 1077.72,
+        printStyle: 'Black T-Shirt with front print',
+        title: 'Skuul',
+        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/11033926921508488_1.84c82a5a.jpg'
+      },
+      ProductModel {
+        productId: 0,
+        availableSizes: [ 'S', 'L', 'XL', 'XXL' ],
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: '14/15 s/nº',
+        installmentsCount: 9,
+        isFreeShipping: true,
+        price: 845.24,
+        printStyle: 'Branco com listras pretas',
+        title: 'Cat Tee Black T-Shirt',     
+        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/8552515751438644_1.87b5353e.jpg'
+      },
+      ProductModel {
+        productId: 1,
+        availableSizes: [ 'S', 'L', 'XL', 'XXL' ],
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: '14/15 s/nº',
+        installmentsCount: 9,
+        isFreeShipping: true,
+        price: 800.24,
+        printStyle: 'Preta com listras brancas',
+        title: 'Sphynx Tie Dye Grey T-Shirt',
+        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/11854078013954528_1.7faf6a31.jpg'
+      },
+      ProductModel {
+        productId: 6,
+        availableSizes: [ 'XL', 'XXL' ],    
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: 'Goleiro 13/14',       
+        installmentsCount: 0,
+        isFreeShipping: true,
+        price: 3841.99,
+        printStyle: 'Branco',
+        title: 'Crazy Monkey Black T-Shirt',        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/18532669286405344_1.d78e2790.jpg'
+      },
+      ProductModel {
+        productId: 7,
+        availableSizes: [ 'S' ],
+        currencyFormat: '₹',
+        currencyId: 'USD',
+        description: '1977 Infantil',       
+        installmentsCount: 4,
+        isFreeShipping: true,
+        price: 1732.05,
+        printStyle: 'Preto com listras brancas',
+        title: 'Man Tie Dye Cinza Grey T-Shirt',
+        imageURL: 'https://react-shopping-cart-67954.firebaseapp.com/static/media/27250082398145996_1.4c799bac.jpg'
+      }
+    ]
