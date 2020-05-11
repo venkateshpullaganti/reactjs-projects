@@ -4,6 +4,7 @@ import { jsx } from "@emotion/core";
 import React from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { observer, Provider } from "mobx-react";
+import { observable, autorun } from "mobx";
 
 import "./App.css";
 
@@ -35,6 +36,7 @@ import globalStores from "./common/stores";
 import boutiqueRoutes from "./Botique/routes";
 import authenticationRoutes from "./Authentication/routes";
 import { ProtectedRoute } from "./common/ProtectedRoute";
+import Practice from "./components/Practice";
 
 @observer
 class App extends React.Component {
@@ -103,6 +105,7 @@ class App extends React.Component {
                            cityList={[
                               "Hyderabad",
                               "Chennai",
+
                               "Bangalore",
                               "Pune",
                               "Mumbai",
@@ -155,6 +158,7 @@ class App extends React.Component {
                      <Route exact path="/events-app" component={EventsApp} />
                      {authenticationRoutes}
                      {boutiqueRoutes}
+                     <Route exact path="/practice" component={Practice} />
 
                      <Route exact path="/" component={HomePage} />
                   </Switch>

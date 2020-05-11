@@ -24,6 +24,7 @@ class ProductSort extends Component {
             </DisplayedProductsCount>
             <Dropdown
                id="ProductsSort"
+               data-testid="sort-by-dropdown"
                placeholder="Select"
                onChange={this.onChangeSortBy}
             >

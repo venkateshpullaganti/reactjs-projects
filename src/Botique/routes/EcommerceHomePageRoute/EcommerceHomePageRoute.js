@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { observable } from "mobx";
+import { observable, action } from "mobx";
 import { observer, inject } from "mobx-react";
 import cookieconsent from "cookieconsent";
 import { withRouter } from "react-router-dom";
 
 import EcommerceHomePage from "../../components/EcommerceHomePage";
 import { SIZES } from "../../constants/ProductsConstants";
-import ProductList from "../../components/ProductsList";
 
 import { E_COMMERCE_SIGN_IN_PATH } from "../../../constants/RouteConstants";
 
@@ -65,6 +64,7 @@ class EcommerceHomePageRoute extends Component {
    get cartStore() {
       return this.props.cartStore;
    }
+   @action
    doNetworkCalls = () => {
       this.productStore.getProductList();
    };
@@ -73,16 +73,16 @@ class EcommerceHomePageRoute extends Component {
 
       onClickAddToCart(productId);
    };
-   renderSuccessUi = observer(() => {
-      const { products } = this.productStore;
+   // renderSuccessUi = observer(() => {
+   //    const { products } = this.productStore;
 
-      return (
-         <ProductList
-            products={products}
-            onClickAddTOCart={this.onClickAddTOCart}
-         />
-      );
-   });
+   //    return (
+   //       <ProductList
+   //          products={products}
+   //          onClickAddTOCart={this.onClickAddTOCart}
+   //       />
+   //    );
+   // });
 
    onClickSignOut = () => {
       const { history } = this.props;
@@ -113,6 +113,7 @@ class EcommerceHomePageRoute extends Component {
          getProductListAPIError,
          onChangeSortBy,
          totalNoOfProductsDisplayed,
+         products,
       } = this.productStore;
       const { noOfProductsInCart } = this.cartStore;
 
@@ -123,9 +124,9 @@ class EcommerceHomePageRoute extends Component {
          onClickCart,
          onSelectSize,
          doNetworkCalls,
-         renderSuccessUi,
          toggleCart,
          cartStore,
+         onClickAddTOCart,
       } = this;
 
       const ecommerceProps = {
@@ -142,8 +143,9 @@ class EcommerceHomePageRoute extends Component {
          onClickCart,
          onSelectSize,
          doNetworkCalls,
-         renderSuccessUi,
          toggleCart,
+         products,
+         onClickAddTOCart,
       };
 
       return (

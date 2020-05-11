@@ -12,7 +12,7 @@ describe("Header tests", () => {
 
    it("should render the search text", () => {
       const expectedOutput = "test-searchtext";
-      const { getByPlaceholderText, getByDisplayValue } = render(
+      const { getByPlaceholderText, getByDisplayValue, debug } = render(
          <Header onChangeSearchText={() => {}} />
       );
       const searchBar = getByPlaceholderText("Search Products");

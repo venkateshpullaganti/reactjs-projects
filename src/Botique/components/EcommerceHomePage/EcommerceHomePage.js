@@ -5,6 +5,8 @@ import { FiShoppingCart } from "react-icons/fi";
 import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
 import Cart from "../../../Cart/components/Cart";
 
+import ProductList from "../../components/ProductsList";
+
 import Header from "../Header";
 import ProductSort from "../ProductSort";
 import { SideBar } from "../SideBar";
@@ -19,6 +21,13 @@ import {
 
 @observer
 class EcommerceHomePage extends Component {
+   renderSuccessUi = observer(() => {
+      const { products, onClickAddTOCart } = this.props;
+
+      return (
+         <ProductList products={products} onClickAddTOCart={onClickAddTOCart} />
+      );
+   });
    render() {
       const {
          getProductListAPIStatus,
@@ -33,7 +42,6 @@ class EcommerceHomePage extends Component {
          SIZES,
          onSelectSize,
          doNetworkCalls,
-         renderSuccessUi,
          cartStore,
          toggleCart,
       } = this.props;
@@ -60,7 +68,7 @@ class EcommerceHomePage extends Component {
                      apiStatus={getProductListAPIStatus}
                      apiError={getProductListAPIError}
                      onRetryClick={doNetworkCalls}
-                     renderSuccessUI={renderSuccessUi}
+                     renderSuccessUI={this.renderSuccessUi}
                   />
                </ProductListWrapper>
             </Container>

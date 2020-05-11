@@ -144,6 +144,14 @@ describe("SignInRoute Tests", () => {
       const username = "test-username";
       const password = "test-password";
 
+      const mockLoadingPromise = new Promise(function (resolve, reject) {
+         reject(new Error("error"));
+      }).catch(() => {});
+
+      const mockSignInApi = jest.fn();
+      mockSignInApi.mockReturnValue(mockLoadingPromise);
+      authAPI.signInAPI = mockSignInApi;
+
       const { getByTestId, getByPlaceholderText } = render(
          <Router history={createMemoryHistory()}>
             <SignInRoute authStore={authStore} />
@@ -152,13 +160,6 @@ describe("SignInRoute Tests", () => {
       const usernameField = getByPlaceholderText("Username");
       const passwordField = getByPlaceholderText("Password");
       const signInBtn = getByTestId("sign-in-button");
-
-      const mockLoadingPromise = new Promise(function (resolve, reject) {
-         reject(new Error("error"));
-      }).catch(() => {});
-      const mockSignInApi = jest.fn();
-      mockSignInApi.mockReturnValue(mockLoadingPromise);
-      authAPI.signInAPI = mockSignInApi;
 
       fireEvent.change(usernameField, { target: { value: username } });
       fireEvent.change(passwordField, { target: { value: password } });

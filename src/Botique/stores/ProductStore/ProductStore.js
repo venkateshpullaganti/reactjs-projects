@@ -49,6 +49,7 @@ class ProductStore {
       this.getProductListAPIStatus = status;
    }
 
+   @action
    getProductList = () => {
       const productAPIPromise = this.productsAPIService.getProductsAPI();
       return bindPromiseWithOnSuccess(productAPIPromise)
