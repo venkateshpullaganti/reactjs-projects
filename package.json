@@ -86,7 +86,8 @@
          "!src/index.js",
          "!src/App.js",
          "!src/index.tsx",
-         "!src/serviceWorker.ts"
+         "!src/serviceWorker.ts",
+         "!src/home/**/*.{ts,tsx,js,jsx}"
       ]
    }
 }

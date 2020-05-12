@@ -211,13 +211,8 @@ describe("Ecommerce home route tests", () => {
          productsTestFixtures[0].availableSizes
       );
    });
-   it("should render products in cart on click add to cart", () => {
-      const {
-         getByRole,
-         getByPlaceholderText,
-         getByTestId,
-         getAllByRole,
-      } = render(
+   it("should render products in cart on click add to cart, empty cart on Checkout and close cart Button", () => {
+      const { getByRole, getAllByRole, getAllByTestId, getByTestId } = render(
          <Provider
             productStore={productStore}
             authStore={authStore}
@@ -234,11 +229,29 @@ describe("Ecommerce home route tests", () => {
       const xsBtn = getByRole("button", { name: "XS" });
 
       fireEvent.click(xsBtn);
-      const addToCartBtn = getAllByRole("button", { name: "Add to cart" });
+      const addToCartBtns = getAllByRole("button", { name: "Add to cart" });
 
-      fireEvent.click(addToCartBtn[0]);
-      fireEvent.click(addToCartBtn[1]);
+      fireEvent.click(addToCartBtns[0]);
+      fireEvent.click(addToCartBtns[1]);
       expect(cartStore.noOfProductsInCart).toEqual(2);
-      expect(cartStore.totalCartAmount).toEqual("1992.24");
+      expect(cartStore.totalCartAmount).toBe("1992.24");
+
+      fireEvent.click(addToCartBtns[0]);
+      fireEvent.click(addToCartBtns[0]);
+      expect(cartStore.totalCartAmount).toEqual("3682.72");
+      expect(cartStore.noOfProductsInCart).toEqual(4);
+
+      const removeItemBtns = getAllByTestId("remove-cart-item");
+      fireEvent.click(removeItemBtns[1]);
+      expect(cartStore.totalCartAmount).toEqual("2535.72");
+      expect(cartStore.noOfProductsInCart).toEqual(3);
+
+      const checkOutBtn = getByRole("button", { name: "CHECKOUT" });
+      fireEvent.click(checkOutBtn);
+
+      expect(cartStore.noOfProductsInCart).toEqual(0);
+      expect(cartStore.totalCartAmount).toBe("0.00");
+
+      getByTestId("cart-close-button");
    });
 });
