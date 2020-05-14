@@ -15,61 +15,61 @@ enableLogging(config);
 
 @observer
 class Practice extends Component {
-   count = 0;
-   isCountChanged = false;
-   @observable arr = [1, 2, 3, 4, 5];
+   // count = 0;
+   // isCountChanged = false;
+   // @observable arr = [1, 2, 3, 4, 5];
 
-   @action
-   onChangeCount = () => {
-      this.count += 1;
-      this.isCountChanged = !this.isCountChanged;
+   // @action
+   // onChangeCount = () => {
+   //    this.count += 1;
+   //    this.isCountChanged = !this.isCountChanged;
 
-      this.arr[0] = 5;
+   //    this.arr[0] = 5;
 
-      // console.log("before settimeout");
+   //    // console.log("before settimeout");
 
-      // const promise = new Promise((resolve) => {
-      //    console.log("before resolve log");
-      //    resolve("success");
-      //    console.log("after resolve log");
-      // });
+   //    // const promise = new Promise((resolve) => {
+   //    //    console.log("before resolve log");
+   //    //    resolve("success");
+   //    //    console.log("after resolve log");
+   //    // });
 
-      // console.log("after promise");
+   //    // console.log("after promise");
 
-      // promise.then(() => {
-      //    console.log("before in then");
-      //    this.isCountChanged = !this.isCountChanged;
-      //    console.log("after in then");
-      // });
-      // setTimeout(() => {
-      //    console.log("in time out");
-      //    this.count = 34;
-      // }, 1000);
+   //    // promise.then(() => {
+   //    //    console.log("before in then");
+   //    //    this.isCountChanged = !this.isCountChanged;
+   //    //    console.log("after in then");
+   //    // });
+   //    // setTimeout(() => {
+   //    //    console.log("in time out");
+   //    //    this.count = 34;
+   //    // }, 1000);
 
-      console.log("after then ");
-      this.update();
-   };
+   //    console.log("after then ");
+   //    this.update();
+   // };
 
-   update = () => {
-      console.log("in update");
+   // update = () => {
+   //    console.log("in update");
 
-      this.count += -11;
-      console.log("update", this.count);
+   //    this.count += -11;
+   //    console.log("update", this.count);
 
-      this.isCountChanged = !this.isCountChanged;
-      this.update2();
-   };
-   update2 = () => {
-      console.log("in update2");
+   //    this.isCountChanged = !this.isCountChanged;
+   //    this.update2();
+   // };
+   // update2 = () => {
+   //    console.log("in update2");
 
-      this.count += 1;
+   //    this.count += 1;
 
-      this.isCountChanged = !this.isCountChanged;
-   };
+   //    this.isCountChanged = !this.isCountChanged;
+   // };
 
-   disposer = autorun(() => {
-      console.log("autorun", this.count);
-   });
+   // disposer = autorun(() => {
+   //    console.log("autorun", this.count);
+   // });
 
    // disposer = autorun(() => {
    //    console.log(`auto run ==> count:${this.count}   ${this.isCountChanged}`);
@@ -89,15 +89,27 @@ class Practice extends Component {
    //    this.isCountChanged = !this.isCountChanged;
    //    this.count = this.count / 4;
    // }, 0);
+   fetchImage = () => {
+      fetch(
+         "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
+      )
+         .then((response) => {
+            console.log("img downloaded");
+            return response;
+         })
+         .then((logo) => {
+            console.log(logo.url);
+         })
+         .catch((e) => {
+            console.log("error", e);
+         });
+   };
 
    render() {
-      console.log("render", this.arr[0]);
       return (
-         <div className="m-32">
-            <p>Count : {this.count}</p>
-            <p>{this.isCountChanged ? "Count Changed" : "Count Changed"}</p>
-            <button onClick={this.onChangeCount}>Change Count</button>
-            {/* <Child  changeCount={this.changeCount} /> */}
+         <div>
+            <span></span>
+            <button onClick={this.fetchImage}>click me</button>
          </div>
       );
    }

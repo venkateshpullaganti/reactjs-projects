@@ -14,12 +14,22 @@ import {
    InputAlert,
 } from "./styledComponents";
 
+const DisplayMessage = (props) => {
+   return <div>{this.props.children}</div>;
+};
+
 @observer
 class SignInForm extends Component {
+   usernameRef = React.createRef();
+   passwordRef = React.createRef();
+
    constructor(props) {
       super(props);
 
       this.isLoading = false;
+   }
+   componentDidMount() {
+      this.usernameRef.current.focus();
    }
    onSubmit = (event) => {
       event.preventDefault();
@@ -60,12 +70,14 @@ class SignInForm extends Component {
             <FormStyled onSubmit={this.onSubmit}>
                <Heading>Sign in</Heading>
                <UsernameField
+                  ref={this.usernameRef}
                   onChange={onChangeUserName}
                   type="text"
                   placeholder="Username"
                   value={userName}
                />
                <PasswordField
+                  ref={this.passwordRef}
                   onChange={onChangePassword}
                   type="password"
                   placeholder="Password"

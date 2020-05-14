@@ -16,6 +16,8 @@ import { YES, NO } from "../../constants/SignInConstants";
 @inject("authStore")
 @observer
 class SignInRoute extends Component {
+   signinFormRef = React.createRef();
+
    @observable userName;
    @observable password;
    @observable errorMessage;
@@ -48,8 +50,10 @@ class SignInRoute extends Component {
    onSubmit = () => {
       if (this.userName.trim() === "") {
          this.errorMessage = userNameErrorMessage;
+         this.signinFormRef.current.usernameRef.current.focus();
       } else if (this.password === "") {
          this.errorMessage = passwordErrorMessage;
+         this.signinFormRef.current.passwordRef.current.focus();
       } else {
          this.errorMessage = null;
          this.isLoading = YES;
@@ -80,14 +84,14 @@ class SignInRoute extends Component {
          userName,
          password,
          isLoading,
-         errorMessage,
       } = this;
       return (
          <SignInForm
+            ref={this.signinFormRef}
             onChangeUserName={onChangeUserName}
             onChangePassword={onChangePassword}
             onSubmit={onSubmit}
-            errorMessage={errorMessage}
+            errorMessage={this.errorMessage}
             userName={userName}
             password={password}
             isLoading={isLoading}
