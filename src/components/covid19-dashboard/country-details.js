@@ -1,70 +1,39 @@
 /**@jsx jsx */
 import { jsx } from "@emotion/core";
-import styled from "@emotion/styled";
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { reaction } from "mobx";
 
 import "./country-details.css";
 import Header from "./header.js";
 import { MdArrowBack } from "react-icons/md";
-// import {FiLoader} from "react-icons/fi";
+import withCountries from "../../components/common/hocs/withCountries";
 
-const Bold = styled.span`
-   font-weight: bold;
-`;
-
-const BorderBtn = styled.button(
-   {
-      padding: "5px",
-      margin: "5px",
-   },
-   (props) => ({
-      color: props.selectedTheme.color,
-      backgroundColor: props.selectedTheme.secondaryBgColor,
-   })
-);
-
-const CountryDetailsDiv = styled.div(
-   {
-      minHeight: "100vh",
-   },
-   (props) => ({
-      backgroundColor: props.selectedTheme.backgroundColor,
-      color: props.selectedTheme.color,
-   })
-);
-
-const NavigatorDiv = styled.div({
-   padding: "20px",
-   display: "flex",
-});
-const StyledBtn = styled.div(
-   {
-      backgroundColor: "white",
-      border: "none",
-      fontSize: "18px",
-      display: "flex",
-      margin: "10px",
-      justifyContent: "baseline",
-      alignItems: "center",
-      borderRadius: "4px",
-      width: "100px",
-   },
-   (props) => ({
-      backgroundColor: props.selectedTheme.secondaryBgColor,
-      color: props.selectedTheme.color,
-   })
-);
+import {
+   StyledBtn,
+   NavigatorDiv,
+   CountryDetailsDiv,
+   BorderBtn,
+   Bold,
+} from "./styledComponents";
 
 class CountryDetails extends React.Component {
    constructor(props) {
       super(props);
+
       this.state = {
-         countries: null,
          country: null,
       };
    }
-
+   componentDidMount() {
+      const { countries } = this.props;
+      const intervalId = setTimeout(() => {
+         if (countries !== null) {
+            this.getCurrentCountry();
+            clearInterval(intervalId);
+         }
+      }, 2000);
+   }
    navigateToSpecifiedCountry = (country) => {
       const { history } = this.props;
 
@@ -72,32 +41,14 @@ class CountryDetails extends React.Component {
          pathname: `/covid19-dashboard/details/${country.alpha3Code}`,
       });
       this.setState({ country: country });
-      this.getData = this.getData.bind(this);
    };
 
-   componentDidMount() {
-      this.getData();
-   }
-   async getData() {
-      try {
-         const response = await fetch("https://restcountries.eu/rest/v2/all");
-         if (response.ok) {
-            const json = await response.json();
-            this.setState({ countries: json });
-         } else {
-            throw Error(response.statusText);
-         }
-      } catch (error) {
-         alert(error);
-      }
-
-      this.getCurrentCountry();
-   }
-
    getCurrentCountry = () => {
+      const { countries } = this.props;
       const alpha3Code = this.props.match.params.countryId;
-      if (this.state.countries !== null) {
-         const currentCountry = this.state.countries.find(
+
+      if (countries !== null) {
+         const currentCountry = countries.find(
             (country) => country.alpha3Code === alpha3Code
          );
          this.setState({ country: currentCountry });
@@ -105,8 +56,9 @@ class CountryDetails extends React.Component {
    };
 
    renderBorderCountries = () => {
+      const { countries } = this.props;
       const bordernNations = this.state.country.borders;
-      const borderCountries = this.state.countries.filter((territory) =>
+      const borderCountries = countries.filter((territory) =>
          bordernNations.includes(territory.alpha3Code)
       );
       if (borderCountries.length > 0) {
@@ -144,7 +96,10 @@ class CountryDetails extends React.Component {
    };
 
    render() {
-      if (this.state.country !== null) {
+      const { errorMessage } = this.props;
+
+      if (errorMessage !== null) return <div>Error: {errorMessage}</div>;
+      else if (this.state.country !== null) {
          return (
             <CountryDetailsDiv selectedTheme={this.props.selectedTheme}>
                <Header
@@ -248,7 +203,7 @@ class CountryDetails extends React.Component {
          );
    }
 }
-export default withRouter(CountryDetails);
+export default withRouter(withCountries(CountryDetails));
 
 // <img src="https://media1.tenor.com/images/713a3272124cc57ba9e9fb7f59e9ab3b/tenor.gif?itemid=14829442"/>
 //<img src="https://media1.tenor.com/images/8541c07f20eba85d78f2ef7087ee1a0e/tenor.gif?itemid=15295932"/>

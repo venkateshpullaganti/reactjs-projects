@@ -8,8 +8,6 @@ import { observable, autorun } from "mobx";
 
 import "./App.css";
 
-//just a comment
-
 import "./components/todo-list/todo-list.css";
 import { TodoList } from "./components/todo-list";
 import { HomePage } from "./components/HomePage";
@@ -37,6 +35,10 @@ import boutiqueRoutes from "./Botique/routes";
 import authenticationRoutes from "./Authentication/routes";
 import { ProtectedRoute } from "./common/ProtectedRoute";
 import Practice from "./components/Practice";
+
+import { ThemeContext } from "./Context/ThemeContex";
+
+import { PracticeAdvancedConceptsRoute } from "./common/routes/PracticeAdvancedConceptsRoute";
 
 @observer
 class App extends React.Component {
@@ -74,12 +76,18 @@ class App extends React.Component {
                      <Route exact path="/todo-list">
                         <TodoList />
                      </Route>
+
                      <Route exact path="/covid19-dashboard">
-                        <Covid19Dashboard
-                           selectedTheme={themeStore.getCurrentTheme()}
-                           onChangeSelectedTheme={themeStore.setCurrentTheme}
-                        />
+                        <ThemeContext.Provider
+                           value={{
+                              selectedTheme: themeStore.getCurrentTheme(),
+                              onChangeSelectedTheme: themeStore.setCurrentTheme,
+                           }}
+                        >
+                           <Covid19Dashboard />
+                        </ThemeContext.Provider>
                      </Route>
+
                      <Route exact path="/form-components">
                         <FormComponents />
                      </Route>
@@ -159,6 +167,11 @@ class App extends React.Component {
                      {authenticationRoutes}
                      {boutiqueRoutes}
                      <Route exact path="/practice" component={Practice} />
+                     <Route
+                        exact
+                        path="/practice-advanced-concepts"
+                        component={PracticeAdvancedConceptsRoute}
+                     />
 
                      <Route exact path="/" component={HomePage} />
                   </Switch>

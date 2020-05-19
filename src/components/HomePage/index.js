@@ -66,6 +66,9 @@ export default class HomePage extends React.Component {
                <li>
                   <Link to={E_COMMERCE_PRODUCTS_PATH}>E-Commerce Site</Link>
                </li>
+               <li>
+                  <Link to={"/practice-advanced-concepts"}>Adv Topics</Link>
+               </li>
             </ul>
          </div>
       );
