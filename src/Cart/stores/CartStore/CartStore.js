@@ -48,7 +48,7 @@ class CartStore {
          totalAmount +=
             this.getProductDetailsById(key).price * cartItem.quantity;
       });
-      return totalAmount.toFixed(2);
+      return parseFloat(totalAmount.toFixed(2));
    }
 
    @computed

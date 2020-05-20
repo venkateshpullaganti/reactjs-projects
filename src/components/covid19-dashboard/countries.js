@@ -19,17 +19,7 @@ class Countries extends React.Component {
    };
 
    render() {
-      return (
-         <CountriesList
-         // css={{
-         //    display: "flex",
-         //    flexWrap: "wrap",
-         //    justifyContent: "center",
-         // }}
-         >
-            {this.renderCountries()}
-         </CountriesList>
-      );
+      return <CountriesList>{this.renderCountries()}</CountriesList>;
    }
 }
 

@@ -36,14 +36,22 @@ function withCountries(WrappedComponent) {
       render() {
          const { countries, isLoading, errorMessage } = this.state;
 
-         return (
-            <WrappedComponent
-               countries={countries}
-               isLoading={isLoading}
-               errorMessage={errorMessage}
-               {...this.props}
-            />
-         );
+         if (isLoading)
+            return (
+               <div className="loader-container">
+                  <img
+                     alt="loading img"
+                     src="https://media1.tenor.com/images/713a3272124cc57ba9e9fb7f59e9ab3b/tenor.gif?itemid=14829442"
+                  />
+               </div>
+            );
+         else if (errorMessage !== null)
+            return (
+               <p className="text-center text-xl">ERR: {errorMessage} ):</p>
+            );
+         else {
+            return <WrappedComponent countries={countries} {...this.props} />;
+         }
       }
    }
    return EnhancedComponent;

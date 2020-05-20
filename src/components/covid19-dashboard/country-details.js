@@ -25,14 +25,9 @@ class CountryDetails extends React.Component {
          country: null,
       };
    }
+
    componentDidMount() {
-      const { countries } = this.props;
-      const intervalId = setTimeout(() => {
-         if (countries !== null) {
-            this.getCurrentCountry();
-            clearInterval(intervalId);
-         }
-      }, 2000);
+      this.getCurrentCountry();
    }
    navigateToSpecifiedCountry = (country) => {
       const { history } = this.props;
@@ -92,14 +87,13 @@ class CountryDetails extends React.Component {
    };
    goBack = () => {
       window.history.back();
+
       this.getCurrentCountry();
    };
 
    render() {
-      const { errorMessage } = this.props;
-
-      if (errorMessage !== null) return <div>Error: {errorMessage}</div>;
-      else if (this.state.country !== null) {
+      console.log(this.state.country);
+      if (this.state.country !== null)
          return (
             <CountryDetailsDiv selectedTheme={this.props.selectedTheme}>
                <Header
@@ -129,17 +123,8 @@ class CountryDetails extends React.Component {
                      Dashboard
                   </button>
                </NavigatorDiv>
-               <div
-                  css={{
-                     display: "flex",
-                     justifyContent: "center",
-                  }}
-               >
-                  <div
-                     css={{
-                        width: "40%",
-                     }}
-                  >
+               <div className="flex justify-center">
+                  <div className="w-2/5">
                      <img
                         css={{
                            width: "350px",
@@ -150,7 +135,7 @@ class CountryDetails extends React.Component {
                      />
                   </div>
 
-                  <div css={{ width: "50%" }}>
+                  <div className="w-1/2">
                      <h3>{this.state.country.name}</h3>
                      <div css={{ display: "flex" }}>
                         <div>
@@ -191,7 +176,7 @@ class CountryDetails extends React.Component {
                </div>
             </CountryDetailsDiv>
          );
-      } else
+      else
          return (
             <div className="loader-container">
                <img

@@ -10,12 +10,13 @@ function withScreenSizeDetectors(WrappedComponent) {
          window.addEventListener("resize", this.onWindowResize);
          this.onWindowResize();
       }
+
       componentWillUnmount() {
          window.removeEventListener("resize", this.onWindowResize);
       }
-      onWindowResize = (e) => {
+
+      onWindowResize = () => {
          const windowWidth = window.innerWidth;
-         console.log(e);
          if (windowWidth < 576) {
             this.viewPort = "Mobile";
          } else if (windowWidth >= 576 && windowWidth < 992) {

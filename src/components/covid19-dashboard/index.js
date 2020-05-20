@@ -83,64 +83,51 @@ class Covid19Dashboard extends React.Component {
    };
 
    render() {
-      const { countries, isLoading, errorMessage } = this.props;
+      const { countries } = this.props;
 
       let displayCountries = null;
       if (countries !== null) {
          displayCountries = this.displayCountries();
       }
 
-      if (errorMessage !== null) {
-         return <div>Error: {errorMessage}</div>;
-      } else if (isLoading) {
-         return (
-            <div className="loader-container">
-               <img
-                  alt="loading img"
-                  src="https://media1.tenor.com/images/713a3272124cc57ba9e9fb7f59e9ab3b/tenor.gif?itemid=14829442"
-               />
-            </div>
-         );
-      } else if (this.props.countries !== null) {
-         return (
-            <ThemeContext.Consumer>
-               {({ selectedTheme, onChangeSelectedTheme }) => (
-                  <RootContainer>
-                     <Header
+      return (
+         <ThemeContext.Consumer>
+            {({ selectedTheme, onChangeSelectedTheme }) => (
+               <RootContainer>
+                  <Header
+                     selectedTheme={selectedTheme}
+                     onChangeSelectedTheme={onChangeSelectedTheme}
+                  />
+                  <DashboardBody
+                     bgColor={selectedTheme.backgroundColor}
+                     color={selectedTheme.color}
+                  >
+                     <FilterBar
+                        onChangeSearchText={this.onChangeSearchText}
+                        onChangeSelectedRegion={this.onChangeSelectedRegion}
+                        regions={this.getRegionNames()}
                         selectedTheme={selectedTheme}
-                        onChangeSelectedTheme={onChangeSelectedTheme}
                      />
-                     <DashboardBody
-                        bgColor={selectedTheme.backgroundColor}
-                        color={selectedTheme.color}
-                     >
-                        <FilterBar
-                           onChangeSearchText={this.onChangeSearchText}
-                           onChangeSelectedRegion={this.onChangeSelectedRegion}
-                           regions={this.getRegionNames()}
+                     {this.props.countries !== null &&
+                     this.state.searchText !== null &&
+                     displayCountries.length === 0 ? (
+                        <p className="bold">
+                           Can't Find {this.state.searchText} in{" "}
+                           {this.state.selectedRegion} Region
+                        </p>
+                     ) : (
+                        <Countries
+                           countries={displayCountries}
+                           searchText={this.state.searchText}
                            selectedTheme={selectedTheme}
+                           selectedRegion={this.state.selectedRegion}
                         />
-                        {this.props.countries !== null &&
-                        this.state.searchText !== null &&
-                        displayCountries.length === 0 ? (
-                           <p className="bold">
-                              Can't Find {this.state.searchText} in{" "}
-                              {this.state.selectedRegion} Region
-                           </p>
-                        ) : (
-                           <Countries
-                              countries={displayCountries}
-                              searchText={this.state.searchText}
-                              selectedTheme={selectedTheme}
-                              selectedRegion={this.state.selectedRegion}
-                           />
-                        )}
-                     </DashboardBody>
-                  </RootContainer>
-               )}
-            </ThemeContext.Consumer>
-         );
-      }
+                     )}
+                  </DashboardBody>
+               </RootContainer>
+            )}
+         </ThemeContext.Consumer>
+      );
    }
 }
 export default withCountries(Covid19Dashboard);

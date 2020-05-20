@@ -15,10 +15,11 @@ class MouseCoordinates extends Component {
       };
    };
    render() {
+      const { render } = this.props;
       return (
          <div className="self-center" onMouseMove={this.handleMouseMovement}>
             <p>DisplayMouseCoordinates</p>
-            {this.props.render(this.mouse)}
+            {render(this.mouse)}
          </div>
       );
    }

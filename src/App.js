@@ -166,7 +166,9 @@ class App extends React.Component {
                      <Route exact path="/events-app" component={EventsApp} />
                      {authenticationRoutes}
                      {boutiqueRoutes}
-                     <Route exact path="/practice" component={Practice} />
+                     <Route exact path="/practice">
+                        <Practice totalCartAmount={2456.456} />
+                     </Route>
                      <Route
                         exact
                         path="/practice-advanced-concepts"
