@@ -1,78 +1,78 @@
-import React, { Component } from "react";
-import { observable, action } from "mobx";
-import { observer, inject } from "mobx-react";
-import cookieconsent from "cookieconsent";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react'
+import { observable, action } from 'mobx'
+import { observer, inject } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import cookieconsent from 'cookieconsent'
 
-import EcommerceHomePage from "../../components/EcommerceHomePage";
-import { SIZES } from "../../constants/ProductsConstants";
+import EcommerceHomePage from '../../components/EcommerceHomePage'
+import { SIZES } from '../../constants/ProductsConstants'
 
-import { E_COMMERCE_SIGN_IN_PATH } from "../../../constants/RouteConstants";
+import { E_COMMERCE_SIGN_IN_PATH } from '../../../constants/RouteConstants'
 
-import { CookieConsentDiv, Root } from "./styledComponents";
+import { CookieConsentDiv, Root } from './styledComponents'
 
 window.cookieconsent.initialise({
    container: { CookieConsentDiv },
    palette: {
       popup: {
-         background: "#252e39",
+         background: '#252e39'
       },
-      button: { background: "#14a7d0" },
+      button: { background: '#14a7d0' }
    },
    revokable: true,
-   onStatusChange: function (status) {
-      console.log(this.hasConsented() ? "enable cookies" : "disable cookies");
+   onStatusChange: function(status) {
+      console.log(this.hasConsented() ? 'enable cookies' : 'disable cookies')
    },
-   theme: "classic",
-   type: "opt-out",
-   position: "bottom-left",
+   theme: 'classic',
+   type: 'opt-out',
+   position: 'bottom-left',
    static: false,
    content: {
-      header: "Cookies used on the website!",
-      message: "We use cookies to ensure you get best userexperience.",
-      dismiss: "Got it!",
-      allow: "Allow cookies",
-      deny: "Decline",
-      link: "Learn more",
-      href: "https://www.cookiesandyou.com",
-      close: "&#x274c;",
-      policy: "Cookie Policy",
-      target: "www.google.com",
-   },
-});
+      header: 'Cookies used on the website!',
+      message: 'We use cookies to ensure you get best userexperience.',
+      dismiss: 'Got it!',
+      allow: 'Allow cookies',
+      deny: 'Decline',
+      link: 'Learn more',
+      href: 'https://www.cookiesandyou.com',
+      close: '&#x274c;',
+      policy: 'Cookie Policy',
+      target: 'www.google.com'
+   }
+})
 
-@inject("authStore", "productStore", "cartStore")
+@inject('authStore', 'productStore', 'cartStore')
 @observer
 class EcommerceHomePageRoute extends Component {
-   @observable shouldShowCart;
+   @observable shouldShowCart
    constructor(props) {
-      super(props);
-      this.shouldShowCart = false;
+      super(props)
+      this.shouldShowCart = false
    }
 
    componentDidMount() {
-      this.doNetworkCalls();
+      this.doNetworkCalls()
    }
 
    get productStore() {
-      return this.props.productStore;
+      return this.props.productStore
    }
 
    get authStore() {
-      return this.props.authStore;
+      return this.props.authStore
    }
    get cartStore() {
-      return this.props.cartStore;
+      return this.props.cartStore
    }
    @action
    doNetworkCalls = () => {
-      this.productStore.getProductList();
-   };
-   onClickAddTOCart = (productId) => {
-      const { onClickAddToCart } = this.cartStore;
+      this.productStore.getProductList()
+   }
+   onClickAddTOCart = productId => {
+      const { onClickAddToCart } = this.cartStore
 
-      onClickAddToCart(productId);
-   };
+      onClickAddToCart(productId)
+   }
    // renderSuccessUi = observer(() => {
    //    const { products } = this.productStore;
 
@@ -85,27 +85,28 @@ class EcommerceHomePageRoute extends Component {
    // });
 
    onClickSignOut = () => {
-      const { history } = this.props;
+      const { history } = this.props
 
-      this.authStore.userSignOut();
-      history.replace(E_COMMERCE_SIGN_IN_PATH);
-   };
-   onSelectSize = (selectedSize) => {
-      const { onSelectSize } = this.productStore;
-      onSelectSize(selectedSize);
-   };
+      this.productStore.clearStore()
+      this.authStore.userSignOut()
+      history.replace(E_COMMERCE_SIGN_IN_PATH)
+   }
+   onSelectSize = selectedSize => {
+      const { onSelectSize } = this.productStore
+      onSelectSize(selectedSize)
+   }
    onClickCart = () => {
-      this.shouldShowCart = !this.shouldShowCart;
-   };
+      this.shouldShowCart = !this.shouldShowCart
+   }
    toggleCart = () => {
-      this.shouldShowCart = !this.shouldShowCart;
-   };
+      this.shouldShowCart = !this.shouldShowCart
+   }
 
-   onChangeSearchText = (searchText) => {
-      const { onChangeSearchText } = this.productStore;
+   onChangeSearchText = searchText => {
+      const { onChangeSearchText } = this.productStore
 
-      onChangeSearchText(searchText);
-   };
+      onChangeSearchText(searchText)
+   }
 
    render() {
       const {
@@ -113,9 +114,9 @@ class EcommerceHomePageRoute extends Component {
          getProductListAPIError,
          onChangeSortBy,
          totalNoOfProductsDisplayed,
-         products,
-      } = this.productStore;
-      const { noOfProductsInCart } = this.cartStore;
+         products
+      } = this.productStore
+      const { noOfProductsInCart } = this.cartStore
 
       const {
          shouldShowCart,
@@ -126,8 +127,8 @@ class EcommerceHomePageRoute extends Component {
          doNetworkCalls,
          toggleCart,
          cartStore,
-         onClickAddTOCart,
-      } = this;
+         onClickAddTOCart
+      } = this
 
       const ecommerceProps = {
          getProductListAPIStatus,
@@ -144,17 +145,17 @@ class EcommerceHomePageRoute extends Component {
          onSelectSize,
          doNetworkCalls,
          toggleCart,
-         products,
          onClickAddTOCart,
-      };
+         products
+      }
 
       return (
          <Root>
             <EcommerceHomePage {...ecommerceProps} />
             <CookieConsentDiv />
          </Root>
-      );
+      )
    }
 }
 
-export default withRouter(EcommerceHomePageRoute);
+export default withRouter(EcommerceHomePageRoute)
