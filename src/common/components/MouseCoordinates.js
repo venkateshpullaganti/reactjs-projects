@@ -1,28 +1,31 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
-import { observable } from "mobx";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 
 @observer
 class MouseCoordinates extends Component {
    @observable mouse = {
-      mouseX: 786,
-      mouseY: 234,
-   };
-   handleMouseMovement = (event) => {
+      mouseX: 0,
+      mouseY: 0
+   }
+   componentDidMount() {
+      window.addEventListener('mousemove', this.handleMouseMovement)
+   }
+   handleMouseMovement = event => {
       this.mouse = {
          mouseX: event.clientX,
-         mouseY: event.clientY,
-      };
-   };
+         mouseY: event.clientY
+      }
+   }
    render() {
-      const { render } = this.props;
+      const { render } = this.props
       return (
-         <div className="self-center" onMouseMove={this.handleMouseMovement}>
+         <div className='self-center'>
             <p>DisplayMouseCoordinates</p>
             {render(this.mouse)}
          </div>
-      );
+      )
    }
 }
 
-export default MouseCoordinates;
+export default MouseCoordinates

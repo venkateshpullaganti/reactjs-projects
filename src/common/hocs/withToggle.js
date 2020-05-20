@@ -1,18 +1,17 @@
-import React from "react";
-import { observable } from "mobx";
-import { observer } from "mobx-react";
+import React from 'react'
+import { observable } from 'mobx'
+import { observer } from 'mobx-react'
 
 function withToggle(WrappedComponent) {
    @observer
    class EnhancedComponent extends React.Component {
-      @observable toggleStatus = false;
+      @observable toggleStatus = false
 
       onToggle = () => {
-         this.toggleStatus = !this.toggleStatus;
-      };
+         this.toggleStatus = !this.toggleStatus
+      }
       render() {
-         const { toggleStatus } = this;
-         console.log(toggleStatus);
+         const { toggleStatus } = this
 
          return (
             <WrappedComponent
@@ -20,10 +19,10 @@ function withToggle(WrappedComponent) {
                onToggle={this.onToggle}
                {...this.props}
             />
-         );
+         )
       }
    }
 
-   return EnhancedComponent;
+   return EnhancedComponent
 }
-export default withToggle;
+export default withToggle
