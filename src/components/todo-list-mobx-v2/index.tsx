@@ -1,161 +1,164 @@
-import React from "react";
-import { observer } from "mobx-react";
-import { observable, action } from "mobx";
+import React from 'react'
+import { observer } from 'mobx-react'
+import { observable, action } from 'mobx'
 
-import todoStore from "../../stores/TodoList";
+import todoStore from '../../stores/TodoList'
 
-import Todo from "./Todo";
-import TodoFooter from "./TodoFooter";
+import Todo from './Todo'
+import TodoFooter from './TodoFooter'
 import {
-    NetworkFailed,
-    Msg,
-    Retry,
-    NoData,
-    LoadingComp,
-} from "./styledComponent";
+   NetworkFailed,
+   Msg,
+   Retry,
+   NoData,
+   LoadingComp
+} from './styledComponent'
+
+export function AddTodo(props) {
+   return (
+      <div className='searchBar-container'>
+         <span></span>
+         <input
+            className='add-todo-bar'
+            type='text'
+            onKeyPress={props.isEnterKey}
+         ></input>
+      </div>
+   )
+}
 
 @observer
 class TodoListMobxV2 extends React.Component {
-    @observable isLoading: boolean;
-    @observable hasNetworkError: boolean;
-    @observable todos;
-    statusText!: string;
+   @observable isLoading: boolean
+   @observable hasNetworkError: boolean
+   @observable todos
+   statusText!: string
 
-    constructor(props) {
-        super(props);
-        this.isLoading = true;
-        this.hasNetworkError = false;
-    }
-    addTodoItem = (title: string): void => {
-        todoStore.addTodo(title);
-    };
+   constructor(props) {
+      super(props)
+      this.isLoading = true
+      this.hasNetworkError = false
+   }
+   addTodoItem = (title: string): void => {
+      todoStore.addTodo(title)
+   }
 
-    componentDidMount() {
-        this.getTodoList();
-    }
-    @action.bound
-    async getTodoList() {
-        try {
-            const url = "https://jsonplaceholder.typicode.com/todos";
-            const response = await fetch(url);
-            if (response.ok) {
-                this.todos = await response.json();
-                this.isLoading = false;
-                this.hasNetworkError = false;
-                this.updateTodosInStore();
-            } else {
-                throw response;
-            }
-        } catch (error) {
-            console.log(error);
-            this.statusText =
-                error.status !== undefined
-                    ? error.status.toString()
-                    : "Can't connect";
-            this.hasNetworkError = true;
-        }
-    }
+   componentDidMount() {
+      this.getTodoList()
+   }
+   @action.bound
+   async getTodoList() {
+      try {
+         const url = 'https://jsonplaceholder.typicode.com/todos'
+         const response = await fetch(url)
+         if (response.ok) {
+            this.todos = await response.json()
+            this.isLoading = false
+            this.hasNetworkError = false
+            this.updateTodosInStore()
+         } else {
+            throw response
+         }
+      } catch (error) {
+         console.log(error)
+         this.statusText =
+            error.status !== undefined
+               ? error.status.toString()
+               : "Can't connect"
+         this.hasNetworkError = true
+      }
+   }
 
-    updateTodosInStore = () => {
-        todoStore.updateTodoList(this.todos);
-    };
-    isEnterKey = (event) => {
-        if (event.charCode === 13 && event.target.value.trim() !== "") {
-            todoStore.setCurrentFilter("All");
-            this.addTodoItem(event.target.value);
-            event.target.value = "";
-        }
-    };
+   updateTodosInStore = () => {
+      todoStore.updateTodoList(this.todos)
+   }
+   isEnterKey = event => {
+      if (event.charCode === 13 && event.target.value.trim() !== '') {
+         todoStore.setCurrentFilter('All')
+         this.addTodoItem(event.target.value)
+         event.target.value = ''
+      }
+   }
 
-    removeTodo = (removeid: string) => {
-        todoStore.removeTodo(removeid);
-    };
+   removeTodo = (removeid: string) => {
+      todoStore.removeTodo(removeid)
+   }
 
-    renderTodos = () => {
-        const outputList = todoStore.selectedFilteredTodos;
-        if (outputList !== null) {
-            return outputList.map((eachTodoModel) => (
-                <Todo
-                    todo={eachTodoModel}
-                    key={Math.random()}
-                    removeTodo={() => this.removeTodo(eachTodoModel.id)}
-                />
-            ));
-        }
-        return null;
-    };
+   renderTodos = () => {
+      const outputList = todoStore.selectedFilteredTodos
+      if (outputList !== null) {
+         return outputList.map(eachTodoModel => (
+            <Todo
+               todo={eachTodoModel}
+               key={Math.random()}
+               removeTodo={() => this.removeTodo(eachTodoModel.id)}
+            />
+         ))
+      }
+      return null
+   }
 
-    renderFooter = () => {
-        if (todoStore.todoLength > 0) return <TodoFooter />;
-        return null;
-    };
-    renderOnNetworkStatus = () => {
-        const { hasNetworkError, statusText } = this;
-        if (hasNetworkError) {
-            return (
-                <NetworkFailed>
-                    <Msg>Network Error</Msg>
-                    <Msg>status: {statusText}</Msg>
-                    <Retry onClick={this.getTodoList}>Retry</Retry>
-                </NetworkFailed>
-            );
-        } else if (this.isLoading) {
-            return (
-                <LoadingComp>
-                    <img
-                        alt="loading"
-                        src={require("../../common/assets/dots_loading.svg")}
-                    />
-                    <Msg>Loading...</Msg>
-                </LoadingComp>
-            );
-        } else if (todoStore.todoLength === 0) {
-            return (
-                <div className="root-div">
-                    <p className="app-name">todos</p>
-                    <div className="searchBar-container">
-                        <span></span>
-                        <input
-                            className="add-todo-bar"
-                            type="text"
-                            onKeyPress={this.isEnterKey}
-                        ></input>
-                    </div>
-
-                    <NoData>No Data.</NoData>
-                    {this.renderFooter()}
-                </div>
-            );
-        } else
-            return (
-                <div className="root-div">
-                    <p className="app-name">todos</p>
-                    <div className="searchBar-container">
-                        <span></span>
-                        <input
-                            className="add-todo-bar"
-                            type="text"
-                            onKeyPress={this.isEnterKey}
-                        ></input>
-                    </div>
-                    <ul className="todo-items-container">
-                        {this.renderTodos()}
-                    </ul>
-                    {this.renderFooter()}
-                </div>
-            );
-    };
-
-    render() {
-        return (
-            <div className="todo-list-container">
-                {this.renderOnNetworkStatus()}
+   renderFooter = () => {
+      if (todoStore.todoLength > 0) return <TodoFooter />
+      return null
+   }
+   renderOnNetworkStatus = () => {
+      const { hasNetworkError, statusText } = this
+      if (hasNetworkError) {
+         return (
+            <NetworkFailed>
+               <Msg>Network Error</Msg>
+               <Msg>status: {statusText}</Msg>
+               <Retry onClick={this.getTodoList}>Retry</Retry>
+            </NetworkFailed>
+         )
+      } else if (this.isLoading) {
+         return (
+            <LoadingComp>
+               <img
+                  alt='loading'
+                  src={require('../../common/assets/dots_loading.svg')}
+               />
+               <Msg>Loading...</Msg>
+            </LoadingComp>
+         )
+      } else if (todoStore.todoLength === 0) {
+         return (
+            <div className='root-div'>
+               <p className='app-name'>todos</p>
+               <AddTodo isEnterKey={this.isEnterKey} />
+               <NoData>No Data.</NoData>
+               {this.renderFooter()}
             </div>
-        );
-    }
+         )
+      } else
+         return (
+            <div className='root-div'>
+               <p className='app-name'>todos</p>
+               <div className='searchBar-container'>
+                  <span></span>
+                  <input
+                     className='add-todo-bar'
+                     type='text'
+                     onKeyPress={this.isEnterKey}
+                  ></input>
+               </div>
+               <ul className='todo-items-container'>{this.renderTodos()}</ul>
+               {this.renderFooter()}
+            </div>
+         )
+   }
+
+   render() {
+      return (
+         <div className='todo-list-container'>
+            {this.renderOnNetworkStatus()}
+         </div>
+      )
+   }
 }
 
-export default TodoListMobxV2;
+export default TodoListMobxV2
 
 // import React from "react";
 // import { observer } from "mobx-react";

@@ -1,37 +1,40 @@
-import styled from "@emotion/styled";
-import tw from "tailwind.macro";
+import styled from '@emotion/styled'
+import tw from 'tailwind.macro'
 
 export const FormContainer = styled.div`
-    ${tw`h-screen w-screen flex justify-center items-center bg-teal-500`}
-`;
+   ${tw`h-screen w-screen flex justify-center items-center bg-teal-500`}
+`
 export const FormStyled = styled.form`
-    ${tw`flex flex-col p-8 bg-white shadow-lg rounded`}
-`;
+   ${tw`flex flex-col p-8 bg-white shadow-lg rounded`}
+`
 
 export const LoginBtn = styled.button`
-    opacity: ${(props) => (props.disabled ? "0.7" : "1")};
-    ${tw`flex justify-center items-center text-white bg-black p-2 m-2 rounded`};
-    &:focus {
-        outline: none;
-    }
-`;
+   background: ${props => props.background ?? 'black'};
+   width: ${props =>
+      props.width !== undefined ? `${props.width}px` : `initial`};
+   opacity: ${props => (props.disabled ? '0.7' : '1')};
+   ${tw`flex justify-center items-center text-white p-2 m-2 rounded`};
+   &:focus {
+      outline: none;
+   }
+`
 
 export const UsernameField = styled.input`
-    ${tw`border border-grey-700 border-solid p-2 m-2 rounded`};
-    &:focus {
-        outline: none;
-    }
-`;
+   ${tw`border border-grey-700 border-solid p-2 m-2 rounded`};
+   &:focus {
+      outline: none;
+   }
+`
 export const PasswordField = styled.input`
-    ${tw`border border-grey-700 p-2 m-2 rounded`};
-    &:focus {
-        outline: none;
-    }
-`;
+   ${tw`border border-grey-700 p-2 m-2 rounded`};
+   &:focus {
+      outline: none;
+   }
+`
 export const Heading = styled.h2`
-    ${tw`font-bold m-2`};
-`;
+   ${tw`font-bold m-2`};
+`
 
 export const InputAlert = styled.p`
-    ${tw`text-red-500`};
-`;
+   ${tw`text-red-500`};
+`

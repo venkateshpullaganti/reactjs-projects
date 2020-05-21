@@ -27,6 +27,10 @@ export type ThemeType = {
    cell: string
 }
 
+export const PlayAgainButton = props => (
+   <PlayAgainBtn onClick={props.onClickPlayAgain}>Play Again</PlayAgainBtn>
+)
+
 interface GridMemoryGameProps {
    selectedTheme: ThemeType
    onChangeSelectedTheme: (inputTheme: string) => void
@@ -54,9 +58,7 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
                <Message>
                   Congratulations..! You have completed all the Levels.
                </Message>
-               <PlayAgainBtn onClick={this.onClickPlayAgain}>
-                  Play Again
-               </PlayAgainBtn>
+               <PlayAgainButton onClickPlayAgain={this.onClickPlayAgain} />
             </GameCompletedComp>
          )
       } else {

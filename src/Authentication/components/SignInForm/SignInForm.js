@@ -11,12 +11,48 @@ import {
    PasswordField,
    LoginBtn,
    Heading,
-   InputAlert,
+   InputAlert
 } from './styledComponents'
 
-const DisplayMessage = (props) => {
-   return <div>{this.props.children}</div>
-}
+// const DisplayMessage = props => {
+//    return <div>{this.props.children}</div>
+// }
+
+export const SignInBtn = props => (
+   <LoginBtn
+      data-testid='sign-in-button'
+      type='submit'
+      disabled={props.isLoading}
+      width={props.width}
+      background={props.background}
+   >
+      {props.isLoading ? (
+         <ReactLoading type='spin' width='20px' height='20px' alt='loader' />
+      ) : (
+         props.displayText ?? SIGN_IN_TEXT
+      )}
+   </LoginBtn>
+)
+
+export const UsernameInput = React.forwardRef((props, ref) => (
+   <UsernameField
+      ref={ref}
+      onChange={props.onChangeUserName}
+      type='text'
+      placeholder='Username'
+      value={props.value}
+   />
+))
+
+export const PasswordInput = React.forwardRef((props, ref) => (
+   <PasswordField
+      ref={ref}
+      onChange={props.onChangePassword}
+      type='password'
+      placeholder='Password'
+      value={props.value}
+   />
+))
 
 @observer
 class SignInForm extends Component {
@@ -31,31 +67,14 @@ class SignInForm extends Component {
    componentDidMount() {
       this.usernameRef.current.focus()
    }
-   onSubmit = (event) => {
+   onSubmit = event => {
       event.preventDefault()
       const { onSubmit } = this.props
       onSubmit()
    }
    renderLoginButton = () => {
       const { isLoading } = this.props
-      return (
-         <LoginBtn
-            data-testid='sign-in-button'
-            type='submit'
-            disabled={isLoading}
-         >
-            {isLoading ? (
-               <ReactLoading
-                  type='spin'
-                  width='20px'
-                  height='20px'
-                  alt='loader'
-               />
-            ) : (
-               SIGN_IN_TEXT
-            )}
-         </LoginBtn>
-      )
+      return <SignInBtn isLoading={isLoading} />
    }
    render() {
       const {
@@ -63,26 +82,23 @@ class SignInForm extends Component {
          onChangePassword,
          errorMessage,
          userName,
-         password,
+         password
       } = this.props
       return (
          <FormContainer>
             <FormStyled onSubmit={this.onSubmit}>
                <Heading>Sign in</Heading>
-               <UsernameField
+               <UsernameInput
                   ref={this.usernameRef}
-                  onChange={onChangeUserName}
-                  type='text'
-                  placeholder='Username'
+                  onChangeUserName={onChangeUserName}
                   value={userName}
                />
-               <PasswordField
+               <PasswordInput
                   ref={this.passwordRef}
-                  onChange={onChangePassword}
-                  type='password'
-                  placeholder='Password'
+                  onChangePassword={onChangePassword}
                   value={password}
                />
+
                {this.renderLoginButton()}
 
                <InputAlert>{errorMessage}</InputAlert>

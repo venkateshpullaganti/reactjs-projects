@@ -1,9 +1,11 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
-import { toast, Slide } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
 
-import tickMark from "../../../common/assets/tickmark.png";
+import { toast, Slide } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
+
+import tickMark from '../../../common/assets/tickmark.png'
 
 import {
    ProductContainer,
@@ -18,8 +20,8 @@ import {
    PriceContainer,
    Installment,
    ToastComponent,
-   SuccessMsg,
-} from "./styledComponents";
+   SuccessMsg
+} from './styledComponents'
 
 toast.configure({
    autoClose: 2500,
@@ -27,28 +29,28 @@ toast.configure({
    hideProgressBar: true,
    pauseOnHover: false,
    closeButton: false,
-   transition: Slide,
-});
+   transition: Slide
+})
 
 const Toaster = () => (
    <ToastComponent>
-      <img width={32} alt="success" src={tickMark} />
+      <img width={32} alt='success' src={tickMark} />
       <SuccessMsg>Product added to your cart! </SuccessMsg>
    </ToastComponent>
-);
+)
 
 @observer
 class Product extends Component {
    onClickAddTOCart = () => {
-      const { onClickAddTOCart } = this.props;
-      const { productId } = this.props.product;
+      const { onClickAddTOCart } = this.props
+      const { productId } = this.props.product
 
       toast.warn(<Toaster />, {
-         position: toast.POSITION.BOTTOM_CENTER,
-      });
+         position: toast.POSITION.BOTTOM_CENTER
+      })
 
-      onClickAddTOCart(productId);
-   };
+      onClickAddTOCart(productId)
+   }
    render() {
       const {
          imageURL,
@@ -56,11 +58,11 @@ class Product extends Component {
          title,
          isFreeShipping,
          currencyFormat,
-         installmentsCount,
-      } = this.props.product;
+         installmentsCount
+      } = this.props.product
       const pricePerinstallment = parseFloat(price / installmentsCount).toFixed(
          2
-      );
+      )
 
       return (
          <ProductContainer>
@@ -79,14 +81,14 @@ class Product extends Component {
             <Installment>
                {installmentsCount
                   ? `or ${installmentsCount} x ${pricePerinstallment}`
-                  : "No Installments for this product."}
+                  : 'No Installments for this product.'}
             </Installment>
             <AddToCartBtn onClick={this.onClickAddTOCart}>
                Add to cart
             </AddToCartBtn>
          </ProductContainer>
-      );
+      )
    }
 }
 
-export { Product };
+export { Product }

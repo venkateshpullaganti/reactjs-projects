@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
-import { observable, autorun, action } from "mobx";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 
-import withFormatCurrency from "../../common/hocs/withFormatCurrency";
+import withFormatCurrency from '../../common/hocs/withFormatCurrency'
 
 @observer
 class Practice extends Component {
-   @observable width = 100;
+   @observable width = 100
 
    expandWidth = () => {
-      this.width = 300;
-   };
+      this.width = 300
+   }
    render() {
       return (
-         <div className="flex m-4">
-            <p className="m-4"> {this.props.totalCartAmount}</p>
+         <div className='flex m-4'>
+            <p className='m-4'> {this.props.formattedAmount}</p>
             <button onClick={this.expandWidth}>...</button>
          </div>
-      );
+      )
    }
 }
 
-export default withFormatCurrency(Practice);
+export default withFormatCurrency(Practice)

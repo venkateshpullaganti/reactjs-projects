@@ -1,15 +1,15 @@
-import { render } from "@testing-library/react";
-import React from "react";
+import { render } from '@testing-library/react'
+import React from 'react'
 
-import { SubTotal } from ".";
+import { SubTotal } from '.'
 
-describe("subtotal tests", () => {
-   it("Should render subtotoal amount for cart items ", () => {
-      const expectedOutput = 7876.34;
+describe('subtotal tests', () => {
+   it('Should render subtotoal amount for cart items ', () => {
+      const expectedOutput = 7876.34
       const { getByText } = render(
          <SubTotal totalCartAmount={expectedOutput} />
-      );
-      getByText(/SUBTOTAL/);
-      getByText(/7876.34/);
-   });
-});
+      )
+      getByText(/SUBTOTAL/)
+      getByText(/₹7,876.34/)
+   })
+})
