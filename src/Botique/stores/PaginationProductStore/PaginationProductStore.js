@@ -4,7 +4,7 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import ProductModel from '../models/ProductModel'
 
-const PAGINATION_LIMIT = 4
+const PAGINATION_LIMIT = 5
 
 class PaginationProductStore {
    @observable productList
@@ -15,7 +15,7 @@ class PaginationProductStore {
    @observable sortBy
    @observable searchText
    presentPage = 1
-   @observable totalProducts = 16
+   @observable totalProducts = 0
 
    constructor(productsAPIService) {
       this.productsAPIService = productsAPIService
@@ -51,8 +51,9 @@ class PaginationProductStore {
 
    @action.bound
    setProductListResponse(data) {
-      // this.totalProducts = data.total
+      this.totalProducts = data.total
       this.productList.clear()
+
       data.products.forEach(eachProduct => {
          const productModel = new ProductModel(eachProduct)
          this.productList.set(productModel.productId, productModel)

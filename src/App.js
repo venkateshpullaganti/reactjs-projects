@@ -43,7 +43,7 @@ import { PracticeAdvancedConceptsRoute } from './common/routes/PracticeAdvancedC
 @observer
 class App extends React.Component {
    render() {
-      console.log(globalStores)
+      console.log('render app.js')
       return (
          <Provider {...stores} {...globalStores}>
             <HashRouter basename={process.env.PUBLIC_URL}>

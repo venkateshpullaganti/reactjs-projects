@@ -17,7 +17,7 @@ class Pagination extends Component {
          presentPage,
          totalPages
       } = this.props
-      console.log('render', totalPages)
+
       return (
          <Container>
             <LeftArrow

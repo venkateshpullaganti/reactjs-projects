@@ -20,7 +20,8 @@ const LeftArrow = styled.button`
    }
 `
 const RightArrow = styled.button`
-   ${tw`bg-black text-white pl-1 pr-1 rounded text-3xl`};
+   ${tw`bg-black text-white pl-1 pr-1 rounded text-3xl z-0`};
+
    &:focus {
       outline: none;
    }
@@ -35,7 +36,7 @@ const RightArrow = styled.button`
             `};
 `
 const TotoalPages = styled.div`
-   ${tw`p-1 m-1`};
+   ${tw`p-1 m-1 `};
 `
 const PresentPage = styled.div`
    ${tw`border border-solid border-black p-1 m-1`};
