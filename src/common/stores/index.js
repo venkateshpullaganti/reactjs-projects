@@ -1,5 +1,5 @@
-import authStore from "../../Authentication/stores";
-import productStore from "../../Botique/stores";
-import cartStore from "../../Cart/stores";
+import authStore from '../../Authentication/stores'
+import productStores from '../../Botique/stores'
+import cartStore from '../../Cart/stores'
 
-export default { authStore, productStore, cartStore };
+export default { authStore, ...productStores, cartStore }

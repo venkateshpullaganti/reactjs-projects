@@ -41,7 +41,7 @@ window.cookieconsent.initialise({
    }
 })
 
-@inject('authStore', 'productStore', 'cartStore')
+@inject('authStore', 'paginationProductStore', 'cartStore')
 @observer
 class EcommerceHomePageRoute extends Component {
    @observable shouldShowCart
@@ -55,7 +55,7 @@ class EcommerceHomePageRoute extends Component {
    }
 
    get productStore() {
-      return this.props.productStore
+      return this.props.paginationProductStore
    }
 
    get authStore() {
@@ -114,8 +114,13 @@ class EcommerceHomePageRoute extends Component {
          getProductListAPIError,
          onChangeSortBy,
          totalNoOfProductsDisplayed,
-         products
+         products,
+         navigateToPreviousPage,
+         navigateToNextPage,
+         presentPage,
+         totalPages
       } = this.productStore
+
       const { noOfProductsInCart } = this.cartStore
 
       const {
@@ -146,7 +151,11 @@ class EcommerceHomePageRoute extends Component {
          doNetworkCalls,
          toggleCart,
          onClickAddTOCart,
-         products
+         products,
+         navigateToPreviousPage,
+         navigateToNextPage,
+         presentPage,
+         totalPages
       }
 
       return (

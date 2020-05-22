@@ -1,33 +1,34 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
-import { FiShoppingCart } from "react-icons/fi";
+import React, { Component } from 'react'
+import { observer } from 'mobx-react'
+import { FiShoppingCart } from 'react-icons/fi'
 
-import LoadingWrapperWithFailure from "../../../components/common/LoadingWrapperWithFailure";
-import Cart from "../../../Cart/components/Cart";
+import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure'
+import Cart from '../../../Cart/components/Cart'
 
-import ProductList from "../../components/ProductsList";
+import ProductList from '../../components/ProductsList'
 
-import Header from "../Header";
-import ProductSort from "../ProductSort";
-import { SideBar } from "../SideBar";
+import Header from '../Header'
+import ProductSort from '../ProductSort'
+import { SideBar } from '../SideBar'
+import { Pagination } from '../Pagination'
 
 import {
    RootDiv,
    CartIcon,
    Itemscount,
    Container,
-   ProductListWrapper,
-} from "./styledComponents";
+   ProductListWrapper
+} from './styledComponents'
 
 @observer
 class EcommerceHomePage extends Component {
    renderSuccessUi = observer(() => {
-      const { products, onClickAddTOCart } = this.props;
+      const { products, onClickAddTOCart } = this.props
 
       return (
          <ProductList products={products} onClickAddTOCart={onClickAddTOCart} />
-      );
-   });
+      )
+   })
    render() {
       const {
          getProductListAPIStatus,
@@ -43,8 +44,15 @@ class EcommerceHomePage extends Component {
          onSelectSize,
          doNetworkCalls,
          cartStore,
-         toggleCart,
-      } = this.props;
+         toggleCart
+      } = this.props
+
+      const {
+         navigateToPreviousPage,
+         navigateToNextPage,
+         presentPage,
+         totalPages
+      } = this.props
 
       return (
          <RootDiv>
@@ -52,8 +60,8 @@ class EcommerceHomePage extends Component {
                onClickSignOut={onClickSignOut}
                onChangeSearchText={onChangeSearchText}
             />
-            <CartIcon data-testid="cart-open-button" onClick={onClickCart}>
-               <FiShoppingCart className="absolute" />
+            <CartIcon data-testid='cart-open-button' onClick={onClickCart}>
+               <FiShoppingCart className='absolute' />
                <Itemscount>{noOfProductsInCart}</Itemscount>
             </CartIcon>
             <Container>
@@ -77,9 +85,15 @@ class EcommerceHomePage extends Component {
                toggleCart={toggleCart}
                cartStore={cartStore}
             />
+            <Pagination
+               navigateToPreviousPage={navigateToPreviousPage}
+               navigateToNextPage={navigateToNextPage}
+               presentPage={presentPage}
+               totalPages={totalPages}
+            />
          </RootDiv>
-      );
+      )
    }
 }
 
-export default EcommerceHomePage;
+export default EcommerceHomePage

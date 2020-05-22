@@ -1,2 +1,2 @@
-import CheckOutButton from "./CheckutButton";
-export default CheckOutButton;
+import CheckOutButton from './CheckOutButton'
+export default CheckOutButton

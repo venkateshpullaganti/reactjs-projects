@@ -11,7 +11,7 @@ export default {
 export const defaultView = () => <PlayAgainButton />
 
 export const buttonWithFunctionality = () => (
-   <PlayAgainButton onClick={action('On Click')} />
+   <PlayAgainButton onClickPlayAgain={action('On Click')} />
 )
 
 buttonWithFunctionality.story = {

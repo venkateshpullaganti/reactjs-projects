@@ -1,8 +1,15 @@
-import { ProductStore } from "./ProductStore";
+import ProductService from '../services/ProductService'
+import PaginationProductService from '../services/PaginationProductService'
 
-import ProductService from "../services/ProductService";
+import { ProductStore } from './ProductStore'
+import { PaginationProductStore } from './PaginationProductStore'
 
-const productService = new ProductService();
-const productStore = new ProductStore(productService);
+const productService = new ProductService()
+const productStore = new ProductStore(productService)
 
-export default productStore;
+const paginationProductService = new PaginationProductService()
+const paginationProductStore = new PaginationProductStore(
+   paginationProductService
+)
+
+export default { productStore, paginationProductStore }

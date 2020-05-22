@@ -1,9 +1,11 @@
 // import { CartStore } from "./CartStore";
 // export default CartStore;
-import productStore from "../../Botique/stores";
+import productStores from '../../Botique/stores'
 
-import CartStore from "./CartStore";
+import CartStore from './CartStore'
 
-const cartStore = new CartStore(productStore);
+const { paginationProductStore, productStore } = productStores
 
-export default cartStore;
+const cartStore = new CartStore(paginationProductStore)
+
+export default cartStore

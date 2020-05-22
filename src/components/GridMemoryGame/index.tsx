@@ -26,6 +26,13 @@ export type ThemeType = {
    hiddenCell: string
    cell: string
 }
+export const GameCompletedComponent = props => (
+   <GameCompletedComp>
+      <Level>{props.level}</Level>
+      <Message>Congratulations..! You have completed all the Levels.</Message>
+      <PlayAgainButton onClickPlayAgain={props.onClickPlayAgain} />
+   </GameCompletedComp>
+)
 
 export const PlayAgainButton = props => (
    <PlayAgainBtn onClick={props.onClickPlayAgain}>Play Again</PlayAgainBtn>
@@ -53,13 +60,10 @@ class GridMemoryGame extends React.Component<GridMemoryGameProps> {
 
       if (gameStore.isGameCompleted) {
          return (
-            <GameCompletedComp>
-               <Level>{level}</Level>
-               <Message>
-                  Congratulations..! You have completed all the Levels.
-               </Message>
-               <PlayAgainButton onClickPlayAgain={this.onClickPlayAgain} />
-            </GameCompletedComp>
+            <GameCompletedComponent
+               level={level}
+               onClickPlayAgain={this.onClickPlayAgain}
+            />
          )
       } else {
          return (

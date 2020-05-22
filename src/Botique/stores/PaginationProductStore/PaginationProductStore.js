@@ -4,7 +4,9 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import ProductModel from '../models/ProductModel'
 
-class ProductStore {
+const PAGINATION_LIMIT = 4
+
+class PaginationProductStore {
    @observable productList
    @observable getProductListAPIStatus
    @observable getProductListAPIError
@@ -12,6 +14,8 @@ class ProductStore {
    @observable sizeFilter
    @observable sortBy
    @observable searchText
+   presentPage = 1
+   @observable totalProducts = 16
 
    constructor(productsAPIService) {
       this.productsAPIService = productsAPIService
@@ -27,6 +31,19 @@ class ProductStore {
       this.searchText = ''
    }
 
+   @computed
+   get totalPages() {
+      return Math.ceil(this.totalProducts / PAGINATION_LIMIT)
+   }
+
+   navigateToNextPage = () => {
+      this.getProductList(PAGINATION_LIMIT, ++this.presentPage)
+   }
+
+   navigateToPreviousPage = () => {
+      this.getProductList(PAGINATION_LIMIT, --this.presentPage)
+   }
+
    @action.bound
    onChangeSortBy(selectedSortBy) {
       this.sortBy = selectedSortBy
@@ -34,7 +51,9 @@ class ProductStore {
 
    @action.bound
    setProductListResponse(data) {
-      data.forEach(eachProduct => {
+      // this.totalProducts = data.total
+      this.productList.clear()
+      data.products.forEach(eachProduct => {
          const productModel = new ProductModel(eachProduct)
          this.productList.set(productModel.productId, productModel)
       })
@@ -50,8 +69,13 @@ class ProductStore {
    }
 
    @action
-   getProductList = () => {
-      const productAPIPromise = this.productsAPIService.getProductsAPI()
+   getProductList = (limit, offSet) => {
+      limit = limit ?? PAGINATION_LIMIT
+      offSet = offSet ?? 0
+      const productAPIPromise = this.productsAPIService.getProductsAPI(
+         limit,
+         offSet
+      )
       return bindPromiseWithOnSuccess(productAPIPromise)
          .to(this.setGetProductListAPIStatus, this.setProductListResponse)
          .catch(this.setGetProductListAPIError)
@@ -132,8 +156,9 @@ class ProductStore {
    get totalNoOfProductsDisplayed() {
       return this.sortedAndFilteredProducts.length
    }
+
    clearStore = () => {
       this.init()
    }
 }
-export { ProductStore }
+export { PaginationProductStore }
