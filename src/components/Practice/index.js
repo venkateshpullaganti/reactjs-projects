@@ -22,3 +22,12 @@ class Practice extends Component {
 }
 
 export default withFormatCurrency(Practice)
+
+new Promise((res, rej) => {
+   res('success')
+})
+   .then(resp => {
+      console.log(resp)
+      return 1
+   })
+   .then(console.log)
