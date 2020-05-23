@@ -73,16 +73,6 @@ class EcommerceHomePageRoute extends Component {
 
       onClickAddToCart(productId)
    }
-   // renderSuccessUi = observer(() => {
-   //    const { products } = this.productStore;
-
-   //    return (
-   //       <ProductList
-   //          products={products}
-   //          onClickAddTOCart={this.onClickAddTOCart}
-   //       />
-   //    );
-   // });
 
    onClickSignOut = () => {
       const { history } = this.props

@@ -22,12 +22,11 @@ class EmojiGame extends React.Component {
       )
 
       if (this.state.emojis[index].isClicked) {
-         if (this.state.score === 12) this.setState({ gameState: 'WON' })
-         else this.setState({ gameState: 'LOSE' })
+         this.setState({ gameState: 'LOSE' })
       } else {
          let prevEmojis = [...this.state.emojis]
          prevEmojis[index].isClicked = true
-         this.incrementScore()
+         this.incrementScoreAndSetGameStatus()
          this.setState({ emojis: [...prevEmojis] })
          this.shuffleEmojis()
       }
@@ -43,10 +42,12 @@ class EmojiGame extends React.Component {
       }
       this.setState({ emojis: [...prevEmojis] })
    }
-   incrementScore = () => {
+   incrementScoreAndSetGameStatus = () => {
       let prevScore = this.state.score
       prevScore++
-      this.setState({ score: prevScore })
+      if (prevScore === 12) {
+         this.setState({ score: prevScore, gameState: 'WON' })
+      } else this.setState({ score: prevScore })
    }
    onPlayAgainClick = () => {
       this.setTopScore()

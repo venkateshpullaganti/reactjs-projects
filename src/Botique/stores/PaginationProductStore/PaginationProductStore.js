@@ -4,7 +4,7 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import ProductModel from '../models/ProductModel'
 
-const PAGINATION_LIMIT = 5
+const PAGINATION_LIMIT = 1
 
 class PaginationProductStore {
    @observable productList
@@ -15,6 +15,7 @@ class PaginationProductStore {
    @observable sortBy
    @observable searchText
    presentPage = 1
+   offset = 0
    @observable totalProducts = 0
 
    constructor(productsAPIService) {
@@ -37,11 +38,15 @@ class PaginationProductStore {
    }
 
    navigateToNextPage = () => {
-      this.getProductList(PAGINATION_LIMIT, ++this.presentPage)
+      this.presentPage++
+      this.offset = this.offset + PAGINATION_LIMIT
+      this.getProductList(PAGINATION_LIMIT, this.offset)
    }
 
    navigateToPreviousPage = () => {
-      this.getProductList(PAGINATION_LIMIT, --this.presentPage)
+      this.presentPage--
+      this.offset = this.offset - PAGINATION_LIMIT
+      this.getProductList(PAGINATION_LIMIT, this.offset)
    }
 
    @action.bound
