@@ -1,76 +1,69 @@
-import { observable, computed, action } from "mobx";
+import { observable, computed, action } from 'mobx'
 
-import CartItem from "../models/CartItem";
+import CartItem from '../models/CartItem'
 
 class CartStore {
-   productStore;
-   @observable cartProductList;
+   productStore
+   @observable cartProductList
 
    constructor(productStore) {
-      this.productStore = productStore;
-      this.init();
+      this.productStore = productStore
+      this.init()
    }
 
    init = () => {
-      this.cartProductList = new Map();
-   };
-
-   @action.bound
-   onClickAddToCart = (productId) => {
-      if (!this.cartProductList.has(productId)) {
-         const cartObj = {
-            cartItemId: productId,
-            productId,
-            quantity: 1,
-         };
-         const cartItem = new CartItem(cartObj);
-         this.cartProductList.set(cartItem.cartItemId, cartItem);
-      } else {
-         this.cartProductList.get(productId).incrementQuantity();
-      }
-   };
-
-   @action.bound
-   onRemoveCartItem(cartItemId) {
-      this.cartProductList.delete(cartItemId);
+      this.cartProductList = new Map()
    }
 
-   getProductDetailsById = (cartItemId) => {
-      const productId = this.cartProductList.get(cartItemId).productId;
-      const { productList } = this.productStore;
-      return productList.get(productId);
-   };
+   @action.bound
+   onClickAddToCart = productId => {
+      if (!this.cartProductList.has(productId)) {
+         const { productList } = this.productStore
+         const product = productList.get(productId)
+
+         const cartObj = {
+            ...product,
+            quantity: 1
+         }
+         const cartItem = new CartItem(cartObj)
+         this.cartProductList.set(productId, cartItem)
+      } else {
+         this.cartProductList.get(productId).incrementQuantity()
+      }
+   }
+
+   @action.bound
+   onRemoveCartItem(productId) {
+      this.cartProductList.delete(productId)
+   }
 
    @computed
    get totalCartAmount() {
-      let totalAmount = 0;
+      let totalAmount = 0
       this.cartProductList.forEach((cartItem, key) => {
-         totalAmount +=
-            this.getProductDetailsById(key).price * cartItem.quantity;
-      });
-      return parseFloat(totalAmount.toFixed(2));
+         totalAmount += cartItem.price * cartItem.quantity
+      })
+      return parseFloat(totalAmount.toFixed(2))
    }
 
    @computed
    get noOfProductsInCart() {
-      let productsCount = 0;
+      let productsCount = 0
       this.cartProductList.forEach(
          (cartItem, key, map) => (productsCount += cartItem.quantity)
-      );
-      return productsCount;
+      )
+      return productsCount
    }
 
    @computed
    get cartProductsData() {
-      let products = [];
-      this.cartProductList.forEach((product, key) =>
-         products.push(this.getProductDetailsById(key))
-      );
-      return products;
+      let products = []
+      this.cartProductList.forEach((product, key) => products.push(product))
+      return products
    }
 
    clearCart = () => {
-      this.init();
-   };
+      this.init()
+   }
 }
-export default CartStore;
+export default CartStore

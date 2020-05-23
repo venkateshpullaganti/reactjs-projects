@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 import {
    ProductContainer,
@@ -11,9 +11,9 @@ import {
    PriceContainer,
    RemoveBtn,
    Price,
-   CurrencyFormat,
-} from "./styledComponents";
-import { observer } from "mobx-react";
+   CurrencyFormat
+} from './styledComponents'
+import { observer } from 'mobx-react'
 
 @observer
 class CartItem extends Component {
@@ -21,23 +21,21 @@ class CartItem extends Component {
    //     super(props);
    // }
    onRemoveCartItem = () => {
-      const { onRemoveCartItem } = this.props;
-      const { cartItemId } = this.props.cartItem;
+      const { onRemoveCartItem } = this.props
+      const { productId } = this.props.cartItem
 
-      onRemoveCartItem(cartItemId);
-   };
+      onRemoveCartItem(productId)
+   }
 
    render() {
-      const { quantity, cartItemId } = this.props.cartItem;
-      const { getProductDetailsById } = this.props;
-      const productDetails = getProductDetailsById(cartItemId);
       const {
          imageURL,
          price,
          title,
          printStyle,
          currencyFormat,
-      } = productDetails;
+         quantity
+      } = this.props.cartItem
 
       return (
          <ProductContainer>
@@ -51,7 +49,7 @@ class CartItem extends Component {
             </Details>
             <PriceContainer>
                <RemoveBtn
-                  data-testid="remove-cart-item"
+                  data-testid='remove-cart-item'
                   onClick={this.onRemoveCartItem}
                >
                   x
@@ -62,8 +60,8 @@ class CartItem extends Component {
                </Price>
             </PriceContainer>
          </ProductContainer>
-      );
+      )
    }
 }
 
-export default CartItem;
+export default CartItem

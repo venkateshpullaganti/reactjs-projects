@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 
 import {
    Container,
-   LeftArrow,
+   ArrowBtn,
    PresentPage,
    Slash,
-   TotoalPages,
-   RightArrow
+   TotoalPages
 } from './styledComponents'
 
 class Pagination extends Component {
@@ -17,24 +16,24 @@ class Pagination extends Component {
          presentPage,
          totalPages
       } = this.props
-
+      // alert(`${presentPage}, ${totalPages}`)
       return (
          <Container>
-            <LeftArrow
+            <ArrowBtn
                onClick={navigateToPreviousPage}
                disabled={presentPage === 1}
             >
                {'<'}
-            </LeftArrow>
+            </ArrowBtn>
             <PresentPage>{presentPage}</PresentPage>
             <Slash>/</Slash>
             <TotoalPages>{totalPages}</TotoalPages>
-            <RightArrow
+            <ArrowBtn
                onClick={navigateToNextPage}
                disabled={totalPages === presentPage}
             >
                {'>'}
-            </RightArrow>
+            </ArrowBtn>
          </Container>
       )
    }

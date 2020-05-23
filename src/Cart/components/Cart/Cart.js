@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { FiShoppingCart } from "react-icons/fi";
-import { observer } from "mobx-react";
+import React, { Component } from 'react'
+import { FiShoppingCart } from 'react-icons/fi'
+import { observer } from 'mobx-react'
 
-import { CartList } from "../CartList";
-import { SubTotal } from "../SubTotal";
-import CheckOutButton from "../CheckOutButton";
+import { CartList } from '../CartList'
+import { SubTotal } from '../SubTotal'
+import CheckOutButton from '../CheckOutButton'
 
 import {
    CartContainer,
@@ -14,27 +14,26 @@ import {
    CartTxt,
    CartHeader,
    Footer,
-   CartSubHeader,
-} from "./styledComponents";
+   CartSubHeader
+} from './styledComponents'
 
 @observer
 class Cart extends Component {
    render() {
-      const { show, toggleCart } = this.props;
+      const { show, toggleCart } = this.props
       const {
          noOfProductsInCart,
          totalCartAmount,
-         getProductDetailsById,
          onRemoveCartItem,
          cartProductList,
-         clearCart,
-      } = this.props.cartStore;
+         clearCart
+      } = this.props.cartStore
 
       return (
          <CartContainer show={show}>
             <CartHeader>
                <CloseBtn
-                  data-testid="cart-close-button"
+                  data-testid='cart-close-button'
                   show={show}
                   onClick={toggleCart}
                >
@@ -42,7 +41,7 @@ class Cart extends Component {
                </CloseBtn>
                <CartSubHeader>
                   <CartIcon onClick={this.onClickCart}>
-                     <FiShoppingCart className="absolute" />
+                     <FiShoppingCart className='absolute' />
                      <Itemscount>{noOfProductsInCart}</Itemscount>
                   </CartIcon>
                   <CartTxt>Cart</CartTxt>
@@ -51,7 +50,6 @@ class Cart extends Component {
             <CartList
                productsInCart={cartProductList}
                onRemoveCartItem={onRemoveCartItem}
-               getProductDetailsById={getProductDetailsById}
             />
             <Footer>
                <SubTotal totalCartAmount={totalCartAmount} />
@@ -61,8 +59,8 @@ class Cart extends Component {
                />
             </Footer>
          </CartContainer>
-      );
+      )
    }
 }
 
-export default Cart;
+export default Cart
