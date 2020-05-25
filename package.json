@@ -89,6 +89,7 @@
    "jest": {
       "testEnvironment": "node",
       "collectCoverageFrom": [
+         "src/**/*.{ts,tsx,js,jsx}",
          "!src/components/**/*.{ts,tsx,js,jsx}",
          "!src/stores/**/*.{ts,tsx,js,jsx}",
          "!src/services/**/*.{ts,tsx,js,jsx}",

@@ -5,7 +5,7 @@ import {
    API_INITIAL
 } from '@ib/api-constants'
 
-import ProductService from '../../services/ProductService'
+import PaginationProductService from '../../services/PaginationProductService'
 import getProductsResponse from '../../../fixtures/getProductsResponse.json'
 import productsTestFixtures from '../../../fixtures/productsTestFixtures.json'
 
@@ -13,11 +13,11 @@ import { PaginationProductStore } from '.'
 
 describe('PaginationProductStore tests', () => {
    let productService
-   let productStore
+   let paginationProductStore
 
    beforeEach(() => {
-      productService = new ProductService()
-      productStore = new PaginationProductStore(productService)
+      productService = new PaginationProductService()
+      paginationProductStore = new PaginationProductStore(productService)
    })
 
    afterEach(() => {
@@ -25,8 +25,8 @@ describe('PaginationProductStore tests', () => {
    })
 
    it('Should test initializing product store', () => {
-      expect(productStore.getProductListAPIStatus).toBe(API_INITIAL)
-      expect(productStore.getProductListAPIError).toBe(null)
+      expect(paginationProductStore.getProductListAPIStatus).toBe(API_INITIAL)
+      expect(paginationProductStore.getProductListAPIError).toBe(null)
    })
    it('should test ProductListAPI fetching state', () => {
       let mockLoadingPromise = new Promise((resolve, reject) => {})
@@ -35,8 +35,8 @@ describe('PaginationProductStore tests', () => {
       mockProductsAPI.mockReturnValue(mockLoadingPromise)
       productService.getProductsAPI = mockProductsAPI
 
-      productStore.getProductList()
-      expect(productStore.getProductListAPIStatus).toBe(API_FETCHING)
+      paginationProductStore.getProductList()
+      expect(paginationProductStore.getProductListAPIStatus).toBe(API_FETCHING)
    })
    it('should test ProductListAPI success state', async () => {
       let mockSuccessPromise = Promise.resolve(getProductsResponse)
@@ -45,8 +45,8 @@ describe('PaginationProductStore tests', () => {
 
       productService.getProductsAPI = mockProductsAPI
 
-      await productStore.getProductList()
-      expect(productStore.getProductListAPIStatus).toBe(API_SUCCESS)
+      await paginationProductStore.getProductList()
+      expect(paginationProductStore.getProductListAPIStatus).toBe(API_SUCCESS)
    })
 
    it('should test ProductListAPI failure state', async () => {
@@ -62,8 +62,8 @@ describe('PaginationProductStore tests', () => {
       mockProductsAPI.mockReturnValue(mockFailurePromise)
       productService.getProductsAPI = mockProductsAPI
 
-      await productStore.getProductList()
-      expect(productStore.getProductListAPIStatus).toBe(API_FAILED)
+      await paginationProductStore.getProductList()
+      expect(paginationProductStore.getProductListAPIStatus).toBe(API_FAILED)
    })
 
    it('should test the sorting of the products', async () => {
@@ -73,11 +73,11 @@ describe('PaginationProductStore tests', () => {
       mockProductsAPI.mockReturnValue(mockSuccessPromise)
       productService.getProductsAPI = mockProductsAPI
 
-      await productStore.getProductList()
+      await paginationProductStore.getProductList()
 
-      productStore.onChangeSortBy(testOrder)
+      paginationProductStore.onChangeSortBy(testOrder)
 
-      let products = productStore.products
+      let products = paginationProductStore.products
 
       products.forEach((product, index) => {
          if (index < products.length - 1)
@@ -95,11 +95,11 @@ describe('PaginationProductStore tests', () => {
       mockProductsAPI.mockReturnValue(mockSuccessPromise)
       productService.getProductList = mockProductsAPI
 
-      await productStore.getProductList()
+      await paginationProductStore.getProductList()
 
-      productStore.onSelectSize(testSize)
+      paginationProductStore.onSelectSize(testSize)
 
-      productStore.products.forEach(product => {
+      paginationProductStore.products.forEach(product => {
          expect(product.availableSizes).toContain(testSize)
       })
    })
@@ -112,15 +112,15 @@ describe('PaginationProductStore tests', () => {
       mockProductsAPI.mockReturnValue(mockSuccessPromise)
       productService.getProductList = mockProductsAPI
 
-      await productStore.getProductList()
+      await paginationProductStore.getProductList()
 
-      productStore.onChangeSearchText(sampleText)
+      paginationProductStore.onChangeSearchText(sampleText)
 
-      productStore.products.forEach(product => {
+      paginationProductStore.products.forEach(product => {
          expect(product.title).toContain(sampleText)
       })
-      expect(productStore.totalNoOfProductsDisplayed).toBe(
-         productStore.products.length
+      expect(paginationProductStore.totalNoOfProductsDisplayed).toBe(
+         paginationProductStore.products.length
       )
    })
 
@@ -128,38 +128,38 @@ describe('PaginationProductStore tests', () => {
       let testOrder = 'DESCENDING'
       let sampleSearchText = 'shirt'
 
-      productStore.setProductListResponse(getProductsResponse)
+      paginationProductStore.setProductListResponse(getProductsResponse)
 
-      productStore.onChangeSearchText(sampleSearchText)
-      productStore.onSelectSize('S')
-      productStore.onSelectSize('XXL')
-      productStore.onChangeSortBy(testOrder)
+      paginationProductStore.onChangeSearchText(sampleSearchText)
+      paginationProductStore.onSelectSize('S')
+      paginationProductStore.onSelectSize('XXL')
+      paginationProductStore.onChangeSortBy(testOrder)
 
-      const products = productStore.products
+      const products = paginationProductStore.products
 
       expect(products.length).toBe(productsTestFixtures.length)
 
-      expect(productStore.products[5].title).toEqual(
+      expect(paginationProductStore.products[5].title).toEqual(
          productsTestFixtures[5].title
       )
-      expect(productStore.products[0].title).toEqual(
+      expect(paginationProductStore.products[0].title).toEqual(
          productsTestFixtures[0].title
       )
-      expect(productStore.products[1].price).toEqual(
+      expect(paginationProductStore.products[1].price).toEqual(
          productsTestFixtures[1].price
       )
-      expect(productStore.products[4].printStyle).toEqual(
+      expect(paginationProductStore.products[4].printStyle).toEqual(
          productsTestFixtures[4].printStyle
       )
-      expect(productStore.products[2].availableSizes).toEqual(
+      expect(paginationProductStore.products[2].availableSizes).toEqual(
          productsTestFixtures[2].availableSizes
       )
 
-      // productStore.products.forEach((product) => {
+      // paginationProductStore.products.forEach((product) => {
       //    expect(product.title).toContain(sampleSearchText);
       // });
 
-      // productStore.products.forEach((product) => {
+      // paginationProductStore.products.forEach((product) => {
       //    expect(product.availableSizes).toContain("S" || "XXL");
       //    // expect(product.availableSizes).toEqual(
       //    //     expect.arrayContaining(["S", "XL"])

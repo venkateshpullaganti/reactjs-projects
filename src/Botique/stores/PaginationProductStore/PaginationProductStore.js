@@ -4,7 +4,7 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import ProductModel from '../models/ProductModel'
 
-const PAGINATION_LIMIT = 3
+const PAGINATION_LIMIT = 16
 
 class PaginationProductStore {
    @observable productList
@@ -34,7 +34,8 @@ class PaginationProductStore {
 
    @computed
    get totalPages() {
-      return Math.ceil(this.totalProducts / PAGINATION_LIMIT)
+      const pages = Math.ceil(this.totalProducts / PAGINATION_LIMIT)
+      return pages ? pages : 1
    }
 
    @action
@@ -79,6 +80,7 @@ class PaginationProductStore {
    getProductList = (limit, offSet) => {
       limit = limit ?? PAGINATION_LIMIT
       offSet = offSet ?? 0
+
       const productAPIPromise = this.productsAPIService.getProductsAPI(
          limit,
          offSet
@@ -156,6 +158,7 @@ class PaginationProductStore {
    }
    @computed
    get products() {
+      console.log(this.sortedAndFilteredProducts)
       return this.sortedAndFilteredProducts
    }
 
@@ -169,3 +172,5 @@ class PaginationProductStore {
    }
 }
 export { PaginationProductStore }
+
+

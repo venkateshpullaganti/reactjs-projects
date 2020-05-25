@@ -13,8 +13,8 @@ import AuthService from '../../../Authentication/services/AuthService'
 import CartStore from '../../../Cart/stores/CartStore'
 import getProductsResponse from '../../../fixtures/getProductsResponse.json'
 
-import { ProductStore } from '../../stores/ProductStore'
-import ProductService from '../../services/ProductService'
+import { PaginationProductStore } from '../../stores/PaginationProductStore'
+import PaginationProductService from '../../services/PaginationProductService'
 
 import productsTestFixtures from '../../../fixtures/productsTestFixtures.json'
 
@@ -24,19 +24,23 @@ const LocationDisplay = withRouter(({ location }) => (
    <div data-testid='location-display'>{location.pathname}</div>
 ))
 
+//Note while Running test cases set PAGINATION_LIMIT to 16. Otherwise edit we have to edit the productsResponse, Testfixtures and the test cases.
+
 describe('Ecommerce home route tests', () => {
-   let productStore
-   let productService
+   let paginationProductStore
+   let paginationProductService
    let authStore
    let authService
    let cartStore
 
    beforeEach(() => {
-      productService = new ProductService()
-      productStore = new ProductStore(productService)
+      paginationProductService = new PaginationProductService()
+      paginationProductStore = new PaginationProductStore(
+         paginationProductService
+      )
       authService = new AuthService()
       authStore = new AuthStore(authService)
-      cartStore = new CartStore(productStore)
+      cartStore = new CartStore(paginationProductStore)
    })
    afterEach(() => {
       jest.resetAllMocks()
@@ -49,7 +53,7 @@ describe('Ecommerce home route tests', () => {
 
       const { getByTestId, getByRole, debug } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -82,11 +86,11 @@ describe('Ecommerce home route tests', () => {
 
       const mockProductsApi = jest.fn()
       mockProductsApi.mockReturnValue(mockProductFetchingPromise)
-      productService.getProductsAPI = mockProductsApi
+      paginationProductService.getProductsAPI = mockProductsApi
 
       const { getByLabelText, debug } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -109,11 +113,11 @@ describe('Ecommerce home route tests', () => {
 
       const mockProductsApi = jest.fn()
       mockProductsApi.mockReturnValue(mockProductSuccessPromise)
-      productService.getProductsAPI = mockProductsApi
+      paginationProductService.getProductsAPI = mockProductsApi
 
       const { debug, getAllByRole } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -124,10 +128,10 @@ describe('Ecommerce home route tests', () => {
       )
 
       await waitFor(() => {
-         expect(productStore.getProductListAPIStatus).toBe(200)
+         expect(paginationProductStore.getProductListAPIStatus).toBe(200)
 
          expect(getAllByRole('button', { name: 'Add to cart' }).length).toEqual(
-            getProductsResponse.length
+            16
          )
       })
    })
@@ -139,11 +143,11 @@ describe('Ecommerce home route tests', () => {
 
       const mockProductsApi = jest.fn()
       mockProductsApi.mockReturnValue(mockProductFailurePromise)
-      productService.getProductsAPI = mockProductsApi
+      paginationProductService.getProductsAPI = mockProductsApi
 
       const { getByRole, getByText, debug } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -168,7 +172,7 @@ describe('Ecommerce home route tests', () => {
          getByTestId
       } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -177,8 +181,8 @@ describe('Ecommerce home route tests', () => {
             </Router>
          </Provider>
       )
-      productStore.setGetProductListAPIStatus(200)
-      productStore.setProductListResponse(getProductsResponse)
+      paginationProductStore.setGetProductListAPIStatus(200)
+      paginationProductStore.setProductListResponse(getProductsResponse)
 
       const smallBtn = getByRole('button', { name: 'S' })
       const xxlBtn = getByRole('button', { name: 'XXL' })
@@ -197,7 +201,7 @@ describe('Ecommerce home route tests', () => {
       fireEvent.change(getByTestId('sort-by-dropdown'), {
          target: { value: 'DESCENDING' }
       })
-      let renderedproducts = productStore.products
+      let renderedproducts = paginationProductStore.products
 
       expect(renderedproducts.length).toEqual(productsTestFixtures.length)
 
@@ -214,7 +218,7 @@ describe('Ecommerce home route tests', () => {
    it('should render products in cart on click add to cart, empty cart on Checkout and close cart Button', () => {
       const { getByRole, getAllByRole, getAllByTestId, getByTestId } = render(
          <Provider
-            productStore={productStore}
+            paginationProductStore={paginationProductStore}
             authStore={authStore}
             cartStore={cartStore}
          >
@@ -223,8 +227,8 @@ describe('Ecommerce home route tests', () => {
             </Router>
          </Provider>
       )
-      productStore.setGetProductListAPIStatus(200)
-      productStore.setProductListResponse(getProductsResponse)
+      paginationProductStore.setGetProductListAPIStatus(200)
+      paginationProductStore.setProductListResponse(getProductsResponse)
 
       const xsBtn = getByRole('button', { name: 'XS' })
 
@@ -238,12 +242,12 @@ describe('Ecommerce home route tests', () => {
 
       fireEvent.click(addToCartBtns[0])
       fireEvent.click(addToCartBtns[0])
-      expect(cartStore.totalCartAmount).toEqual(3682.72)
+      expect(cartStore.totalCartAmount).toEqual(4286.24)
       expect(cartStore.noOfProductsInCart).toEqual(4)
 
       const removeItemBtns = getAllByTestId('remove-cart-item')
       fireEvent.click(removeItemBtns[1])
-      expect(cartStore.totalCartAmount).toEqual(2535.72)
+      expect(cartStore.totalCartAmount).toEqual(3441)
       expect(cartStore.noOfProductsInCart).toEqual(3)
 
       const checkOutBtn = getByRole('button', { name: 'CHECKOUT' })
