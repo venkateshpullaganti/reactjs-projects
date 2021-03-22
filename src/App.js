@@ -78,7 +78,7 @@ class App extends React.Component {
                         <TodoList />
                      </Route>
 
-                     <Route exact path='/covid19-dashboard'>
+                     <Route exact path='/countries-dashboard'>
                         <ThemeContext.Provider
                            value={{
                               selectedTheme: themeStore.getCurrentTheme(),
@@ -139,7 +139,10 @@ class App extends React.Component {
                         <DisableOrEnable />
                      </Route>
 
-                     <Route exact path='/covid19-dashboard/details/:countryId'>
+                     <Route
+                        exact
+                        path='/countries-dashboard/details/:countryId'
+                     >
                         <CountryDetails
                            selectedTheme={themeStore.getCurrentTheme()}
                            onChangeSelectedTheme={themeStore.setCurrentTheme}

@@ -48,39 +48,6 @@ class ThemeStore {
          shadow: ' 0px 5px 10px #3d3c3c',
          hiddenCell: '#319DC1',
          cell: '#2a4365'
-      },
-      monaki: {
-         id: 2,
-         name: 'monaki',
-         displayName: 'Monaki Mode',
-         color: ' #60e28b',
-         backgroundColor: '#474747 ',
-         secondaryBgColor: ' #939794',
-         shadow: ' 0px 5px 10px #939794',
-         hiddenCell: '#24946A',
-         cell: 'lightgrey'
-      },
-      green: {
-         id: 2,
-         name: 'green',
-         displayName: 'green Mode',
-         color: 'white',
-         backgroundColor: 'darkgreen',
-         secondaryBgColor: ' #0f4c75',
-         shadow: ' 0px 5px 10px #1b262c',
-         hiddenCell: '#24946A',
-         cell: 'lightgrey'
-      },
-      darkBlue: {
-         id: 3,
-         name: 'darkBlue',
-         displayName: 'Dark Blue Mode',
-         color: 'white',
-         backgroundColor: '#053f5e ',
-         secondaryBgColor: ' #115173',
-         shadow: ' 0px 5px 10px #053f5e',
-         hiddenCell: '#24946A',
-         cell: 'lightgrey'
       }
    }
 
