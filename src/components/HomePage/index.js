@@ -19,6 +19,9 @@ export default class HomePage extends React.Component {
             <ul className=' w-1/6 flex flex-col p-2 items-center'>
                <h1 className='heading'>Utility Apps : </h1>
                <li>
+                  <a href='https://lets-ride-15dbc.web.app/'>Let's Ride</a>
+               </li>
+               <li>
                   <Link to={COUNTRIES_PATH}>Countries Dashboard</Link>
                </li>
                <li>
