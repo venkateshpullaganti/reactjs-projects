@@ -18,7 +18,7 @@ const dynamicStyle = props =>
 const ResultDiv = styled.div`
    ${dynamicStyle};
    height: 77vh;
-   ${tw`flex flex-grow  flex-col items-center justify-center p-4 border-solid border-4 border-green-600`}
+   ${tw`flex flex-grow  flex-col items-center justify-center p-4 `}
 `
 
 const FinalScore = styled.p`

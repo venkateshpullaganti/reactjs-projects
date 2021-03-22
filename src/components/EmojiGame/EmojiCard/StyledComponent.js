@@ -15,11 +15,10 @@ const dynamicStyle = props =>
    `
 
 const EmojiInfo = styled.div`
-    ${dynamicStyle};
-    ${'' /* box-shadow:"0 3px 6px #999"; */}
-    ${tw`flex flex-col m-4 items-center h-64 w-64 p-2 border-solid border `} 
-background: ${props => (props.isClicked ? 'green' : 'initial')}
-     `
+   ${dynamicStyle};
+   ${'' /* box-shadow:"0 3px 6px #999"; */}
+   ${tw`flex flex-col m-4 items-center h-64 w-64 p-2 border-solid border `}
+`
 
 const ImgContainer = styled.div`
    ${tw`h-48 my-auto  w-4/5`}

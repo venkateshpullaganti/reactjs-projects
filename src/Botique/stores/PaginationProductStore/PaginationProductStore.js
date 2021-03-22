@@ -4,7 +4,7 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 import ProductModel from '../models/ProductModel'
 
-const PAGINATION_LIMIT = 16
+const PAGINATION_LIMIT = 8
 
 class PaginationProductStore {
    @observable productList
@@ -172,5 +172,3 @@ class PaginationProductStore {
    }
 }
 export { PaginationProductStore }
-
-
